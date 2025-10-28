@@ -5,27 +5,31 @@
 
         <div class="w-full h-[600px] px-40 py-72 flex flex-col relative justify-start items-start gap-2.5">
             <div style="background-image: url( '{{ asset('images/house-design.png') }}')"
-            class="absolute top-0 left-0 w-full h-full bg-center bg-no-repeat object-cover bg-fixed z-[-1]"></div>
+                class="absolute top-0 left-0 w-full h-full bg-center bg-no-repeat object-cover bg-fixed z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[600px] bg-black opacity-30 z-0"></div>
             <div class="w-full h-full flex flex-col justify-center items-start gap-10 z-1">
-                <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono">Bangun Dulu<br/>Baru Bayar</div>
-                <div class="px-8 py-4 bg-slate-400/40 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
-                    <button class="justify-start text-white text-2xl lg:text-4xl font-semibold font-sans">Hubungi Kami</button>
+                <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono">Bangun Dulu<br />Baru
+                    Bayar</div>
+                <div
+                    class="px-8 py-4 bg-slate-400/40 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
+                    <button class="justify-start text-white text-2xl lg:text-4xl font-semibold font-sans">Hubungi
+                        Kami</button>
                 </div>
             </div>
-            <a href="https://wa.me/+6282295444284" 
-                class="w-15 h-15 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1">
+            <a href="https://wa.me/+6282295444284" class="w-15 h-15 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1">
                 <img src="{{ asset('icons/ic-whatsapp.svg') }}" alt="Icon WhatsApp" />
             </a>
         </div>
 
         {{-- Section 2:Tentang Kami --}}
 
-        <div class="w-full flex items-center justify-center
+        <div
+            class="w-full flex items-center justify-center
             flex-col gap-12 px-6 py-8            
             lg:flex-row lg:gap-25 lg:px-40">
             <div class="flex flex-col justify-start items-center text-center lg:items-start lg:text-left gap-14">
-                <div class="px-4 py-2 bg-sky-700/30 rounded-[50px] shadow-[0px_6px_4px_0px_rgba(0,0,0,0.40)] inline-flex justify-center items-center gap-2.5">
+                <div
+                    class="px-4 py-2 bg-sky-700/30 rounded-[50px] shadow-[0px_6px_4px_0px_rgba(0,0,0,0.40)] inline-flex justify-center items-center gap-2.5">
                     <div class="justify-start text-blue-950 text-3xl">
                         <span class="font-bold font-mono">Di balik</span>
                         <span class="italic font-sans">Kilau</span>
@@ -33,70 +37,72 @@
                 </div>
                 <div class="self-stretch">
                     <div class="flex-1 justify-start text-blue-950 text-lg lg:text-xl font-medium font-sans">
-                        Setiap kilau menyimpan kisah, setiap kisah mengundang langkah. Ikuti kami, rasakan perjalanannya, dan wujudkan sinar baru bersama kami.
+                        Setiap kilau menyimpan kisah, setiap kisah mengundang langkah. Ikuti kami, rasakan
+                        perjalanannya, dan wujudkan sinar baru bersama kami.
                     </div>
                 </div>
             </div>
             <img class="
             size-[200px]
             lg:size-[300px]
-            rounded-[10px] shadow-[0px_15px_4px_0px_rgba(0,0,0,0.40)]" 
-            src="https://placehold.co/300x300" />
+            rounded-[10px] shadow-[0px_15px_4px_0px_rgba(0,0,0,0.40)]"
+                src="https://placehold.co/300x300" />
         </div>
 
         {{-- Section 3: Portofolio --}}
 
-        <div class="w-full flex items-center justify-center
+        <div
+            class="w-full flex items-center justify-center
             flex-col gap-12 px-6 py-8            
             lg:flex-row lg:gap-25 lg:px-40">
             <style>
-            .swiper {
-                width: 100%;
-                max-width: 700px;
-                height: 400px; 
-                padding-top: 50px;   
-                padding-bottom: 50px; 
-            }
+                .swiper {
+                    width: 100%;
+                    max-width: 700px;
+                    height: 400px;
+                    padding-top: 50px;
+                    padding-bottom: 50px;
+                }
 
-            .swiper-wrapper {
-                align-items: center;
-            }
+                .swiper-wrapper {
+                    align-items: center;
+                }
 
-            .swiper-slide {
-                background-position: center;
-                background-size: cover;
-                width: 300px;
-                height: 300px;
-            }
+                .swiper-slide {
+                    background-position: center;
+                    background-size: cover;
+                    width: 300px;
+                    height: 300px;
+                }
 
-            .swiper-slide img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 12px;
-            }
+                .swiper-slide img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 12px;
+                }
 
-            :root {
-                --swiper-navigation-color: #1e3a8a;
-                --swiper-pagination-color: #1e3a8a;
-            }
+                :root {
+                    --swiper-navigation-color: #1e3a8a;
+                    --swiper-pagination-color: #1e3a8a;
+                }
 
-            .swiper-button-prev,
-            .swiper-button-next {
-                color: black;
-                background: #5AB0EF;
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            }
+                .swiper-button-prev,
+                .swiper-button-next {
+                    color: black;
+                    background: #5AB0EF;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
 
-            .swiper-button-prev:after,
-            .swiper-button-next:after {
-                font-size: 18px;
-                font-weight: bold;
-            }
+                .swiper-button-prev:after,
+                .swiper-button-next:after {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
             </style>
 
             <div class="swiper card-portofolio">
@@ -123,7 +129,7 @@
                 <div class="swiper-button-next">
                     <flux:icon name="arrow-right" />
                 </div>
-                
+
                 <div class="swiper-pagination"></div>
             </div>
 
@@ -132,7 +138,8 @@
                     Portofolio kami
                 </div>
                 <div class="text-blue-950 text-lg font-medium font-sans leading-relaxed">
-                    Berbagai tantangan dalam pembangunan telah kami selesaikan. Kami bertekad untuk membantu dan menjadi solusi untuk #OwneRumah
+                    Berbagai tantangan dalam pembangunan telah kami selesaikan. Kami bertekad untuk membantu dan menjadi
+                    solusi untuk #OwneRumah
                 </div>
             </div>
         </div>
@@ -142,39 +149,44 @@
         {{-- <div>
             Buat Maps:P
         </div> --}}
-        <div class="w-full flex items-center justify-center
+        <div
+            class="w-full flex items-center justify-center
             flex-col gap-12 px-6 py-8            
             lg:flex-row lg:gap-25 lg:px-40">
             <div class="flex flex-col justify-center items-center gap-3">
                 <div class="justify-start text-blue-950 text-4xl font-bold font-mono">Project On-going</div>
-                <div class="self-stretch rounded-[50px] outline outline-black inline-flex justify-center items-center gap-2.5">
+                <div
+                    class="self-stretch rounded-[50px] outline outline-black inline-flex justify-center items-center gap-2.5">
                     <div class="flex-1 text-center justify-start text-blue-950 text-lg font-medium font-sans">100</div>
                 </div>
             </div>
             <div class="flex flex-col justify-center items-center gap-3">
                 <div class="justify-start text-blue-950 text-4xl font-bold font-mono">Project Completed</div>
-                <div class="self-stretch rounded-[50px] outline outline-black inline-flex justify-center items-center gap-2.5">
+                <div
+                    class="self-stretch rounded-[50px] outline outline-black inline-flex justify-center items-center gap-2.5">
                     <div class="flex-1 text-center justify-start text-blue-950 text-lg font-medium font-sans">100</div>
                 </div>
             </div>
         </div>
 
         {{-- Testimoni --}}
-        <div class="w-full flex items-center justify-center
+        <div
+            class="w-full flex items-center justify-center
             flex-col gap-12 px-6 py-8            
             lg:flex-row lg:gap-25 lg:px-40">
-            
+
             <div class="flex flex-col justify-start items-start gap-6 max-w-md">
                 <div class="text-blue-950 text-2xl font-bold font-mono border-b-4 border-blue-950 pb-2">
                     Testimoni Klien
                 </div>
                 <div class="text-blue-950 text-lg font-medium font-sans leading-relaxed">
-                    Kepercayaan klien adalah prioritas utama kami. Simak pengalaman mereka bekerja sama dengan Kilau Build.
+                    Kepercayaan klien adalah prioritas utama kami. Simak pengalaman mereka bekerja sama dengan Kilau
+                    Build.
                 </div>
             </div>
             <style>
                 .swiper.card-testimoni {
-                    width: 320px;  
+                    width: 320px;
                     height: 420px;
                     padding: 20px 0;
                 }
@@ -193,18 +205,32 @@
                     @if (isset($testimonis) && $testimonis->isNotEmpty())
                         @foreach ($testimonis as $t)
                             <div class="swiper-slide">
-                                <div class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
+                                <div
+                                    class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
                                     <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
                                     <p class="text-gray-700 text-base italic leading-relaxed">
                                         {{ $t->teks }}
                                     </p>
                                     <div>
                                         <div class="font-bold text-blue-950 text-xl">{{ $t->nama }}</div>
-                                        <div class="text-sm text-gray-500">{{ $t->kegseharihari}}</div>
+                                        <div class="text-sm text-gray-500">{{ $t->kegseharihari }}</div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                    @else
+                        <div class="swiper-slide">
+                            <div class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
+                                <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
+                                <p class="text-gray-700 text-base italic leading-relaxed">
+                                    Belum ada testimoni tersedia saat ini.
+                                </p>
+                                <div>
+                                    <div class="font-bold text-blue-950 text-xl">Admin</div>
+                                    <div class="text-sm text-gray-500">Kilau Build</div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -220,40 +246,60 @@
                 </div>
             </div>
             <div class="self-stretch flex flex-col justify-start items-center gap-14">
-                <div class="card w-full flex items-center justify-center
+                <div
+                    class="card w-full flex items-center justify-center
                     flex-col gap-12 px-6 py-8            
                     lg:flex-row lg:gap-25 lg:px-40">
-                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                    <div
+                        class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
                         <div class="self-stretch flex flex-col justify-start items-center gap-5">
-                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <img class="self-stretch h-64 rounded-[20px] object-cover"
+                                src="https://placehold.co/435x250" />
                             <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
-                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
-                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">
+                                    Judul Artikel</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">
+                                    Lorem ipsum dolor sit amet, consect...</div>
                             </div>
                         </div>
                     </div>
-                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                    <div
+                        class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
                         <div class="self-stretch flex flex-col justify-start items-center gap-5">
-                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <img class="self-stretch h-64 rounded-[20px] object-cover"
+                                src="https://placehold.co/435x250" />
                             <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
-                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
-                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">
+                                    Judul Artikel</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">
+                                    Lorem ipsum dolor sit amet, consect...</div>
                             </div>
                         </div>
                     </div>
-                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                    <div
+                        class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
                         <div class="self-stretch flex flex-col justify-start items-center gap-5">
-                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <img class="self-stretch h-64 rounded-[20px] object-cover"
+                                src="https://placehold.co/435x250" />
                             <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
-                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
-                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">
+                                    Judul Artikel</div>
+                                <div
+                                    class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">
+                                    Lorem ipsum dolor sit amet, consect...</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="px-4 py-2 bg-cyan-600/20 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-start items-center gap-4">
+                <button
+                    class="px-4 py-2 bg-cyan-600/20 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-start items-center gap-4">
                     <div class="justify-start text-black text-3xl font-light font-sans">See more </div>
-                    <flux:icon name="chevron-right" class="w-6 h-6 relative">
+                    <flux:icon name="chevron-right" class="w-6 h-6 relative"></flux:icon>
                 </button>
             </div>
         </div>
@@ -263,48 +309,42 @@
         {{-- Section 7: FAQ --}}
 
         <div class="flow-root">
-        <div class="-my-4 flex flex-col divide-y divide-gray-200">
-            <div x-data="{ open: false }" class="py-4">
-            <summary 
-                @click="open = !open" 
-                class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 class="text-lg font-medium">Ini Pertanyaan Pertama?</h2>
+            <div class="-my-4 flex flex-col divide-y divide-gray-200">
+                <div x-data="{ open: false }" class="py-4">
+                    <summary @click="open = !open"
+                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h2 class="text-lg font-medium">Ini Pertanyaan Pertama?</h2>
 
-                <svg :class="{ '-rotate-180': open }" class="size-5 shrink-0 transition-transform duration-300" ...>
-                <path ... d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </summary>
-            
-            <div x-show="open" 
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 max-h-0"
-                x-transition:enter-end="opacity-100 max-h-screen"
-                x-transition:leave="transition ease-in duration-200"
-                x-transition:leave-start="opacity-100 max-h-screen"
-                x-transition:leave-end="opacity-0 max-h-0"
-                class="overflow-hidden">
-                <p class="pt-4 text-gray-900">
-                Ini adalah jawaban untuk pertanyaan pertama. Animasinya akan terlihat halus.
-                </p>
-            </div>
-            </div>
+                        <svg :class="{ '-rotate-180': open }" class="size-5 shrink-0 transition-transform duration-300"
+                            ...>
+                            <path ... d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
 
-            {{-- ACCORDION ITEM 2 --}}
-            <div x-data="{ open: false }" class="py-4">
-            <summary @click="open = !open" ...>
-                <h2 class="text-lg font-medium">Ini Pertanyaan Kedua?</h2>
-                <svg :class="{ '-rotate-180': open }" ...> ... </svg>
-            </summary>
-            <div x-show="open" x-transition... class="overflow-hidden">
-                <p class="pt-4 text-gray-900">
-                Ini adalah jawaban untuk pertanyaan kedua.
-                </p>
-            </div>
-            </div>
+                    <div x-show="open" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
+                        class="overflow-hidden">
+                        <p class="pt-4 text-gray-900">
+                            Ini adalah jawaban untuk pertanyaan pertama. Animasinya akan terlihat halus.
+                        </p>
+                    </div>
+                </div>
 
+                {{-- ACCORDION ITEM 2 --}}
+                <div x-data="{ open: false }" class="py-4">
+                    <summary @click="open = !open" ...>
+                        <h2 class="text-lg font-medium">Ini Pertanyaan Kedua?</h2>
+                        <svg :class="{ '-rotate-180': open }" ...> ... </svg>
+                    </summary>
+                    <div x-show="open" x-transition... class="overflow-hidden">
+                        <p class="pt-4 text-gray-900">
+                            Ini adalah jawaban untuk pertanyaan kedua.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-
-
     </div>
 </x-layouts.app>
