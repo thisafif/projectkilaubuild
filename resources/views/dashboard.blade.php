@@ -4,15 +4,17 @@
         {{-- Section 1: Hero --}}
 
         <div class="w-full h-[600px] px-40 py-72 flex flex-col relative justify-start items-start gap-2.5">
-            <img src="{{ asset('images/dashboard/background.png') }}" alt="Background" class="absolute top-0 left-0 w-full h-full object-cover"/>
-            <div class="w-full h-full flex flex-col justify-center items-start gap-10">
-                <div class="justify-start text-white text-6xl font-bold font-mono">Bangun Dulu<br/>Baru Bayar</div>
+            <div style="background-image: url( '{{ asset('images/house-design.png') }}')"
+            class="absolute top-0 left-0 w-full h-full bg-center bg-no-repeat object-cover bg-fixed z-[-1]"></div>
+            <div class="absolute top-0 left-0 w-full h-[600px] bg-black opacity-30 z-0"></div>
+            <div class="w-full h-full flex flex-col justify-center items-start gap-10 z-1">
+                <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono">Bangun Dulu<br/>Baru Bayar</div>
                 <div class="px-8 py-4 bg-slate-400/40 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
-                    <div class="justify-start text-white text-4xl font-semibold font-sans">Hubungi Kami</div>
+                    <button class="justify-start text-white text-2xl lg:text-4xl font-semibold font-sans">Hubungi Kami</button>
                 </div>
             </div>
             <a href="https://wa.me/+6282295444284" 
-                class="w-15 h-15 p-2.5 flex absolute bottom-0 right-0 gap-2.5">
+                class="w-15 h-15 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1">
                 <img src="{{ asset('icons/ic-whatsapp.svg') }}" alt="Icon WhatsApp" />
             </a>
         </div>
@@ -246,6 +248,99 @@
         </div>
 
         {{-- Section 5: Artikel --}}
+
+        <div class="self-stretch inline-flex flex-col justify-start items-start gap-16">
+            <div class="self-stretch px-16 inline-flex justify-start items-start gap-2.5">
+                <div class="justify-start text-blue-950 text-2xl">
+                    <span class="italic font-normal font-sans">Kilau</span>
+                    <span class="font-bold font-mono">Journal</span>
+                </div>
+            </div>
+            <div class="self-stretch flex flex-col justify-start items-center gap-14">
+                <div class="card w-full flex items-center justify-center
+                    flex-col gap-12 px-6 py-8            
+                    lg:flex-row lg:gap-25 lg:px-40">
+                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                        <div class="self-stretch flex flex-col justify-start items-center gap-5">
+                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
+                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
+                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                        <div class="self-stretch flex flex-col justify-start items-center gap-5">
+                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
+                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
+                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-96 h-96 bg-white rounded-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-2.5">
+                        <div class="self-stretch flex flex-col justify-start items-center gap-5">
+                            <img class="self-stretch h-64 rounded-[20px] object-cover" src="https://placehold.co/435x250" />
+                            <div class="self-stretch px-5 flex flex-col justify-start items-start gap-1.5">
+                                <div class="self-stretch justify-start text-black text-xl lg:text-3xl font-bold font-mono">Judul Artikel</div>
+                                <div class="self-stretch justify-start text-black text-lg lg:text-2xl font-medium font-sans">Lorem ipsum dolor sit amet, consect...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="px-4 py-2 bg-cyan-600/20 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-start items-center gap-4">
+                    <div class="justify-start text-black text-3xl font-light font-sans">See more </div>
+                    <flux:icon name="chevron-right" class="w-6 h-6 relative">
+                </button>
+            </div>
+        </div>
+
+        {{-- Section 6: Lokasi Kantor --}}
+
+        {{-- Section 7: FAQ --}}
+
+        <div class="flow-root">
+        <div class="-my-4 flex flex-col divide-y divide-gray-200">
+            <div x-data="{ open: false }" class="py-4">
+            <summary 
+                @click="open = !open" 
+                class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                <h2 class="text-lg font-medium">Ini Pertanyaan Pertama?</h2>
+
+                <svg :class="{ '-rotate-180': open }" class="size-5 shrink-0 transition-transform duration-300" ...>
+                <path ... d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </summary>
+            
+            <div x-show="open" 
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 max-h-0"
+                x-transition:enter-end="opacity-100 max-h-screen"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100 max-h-screen"
+                x-transition:leave-end="opacity-0 max-h-0"
+                class="overflow-hidden">
+                <p class="pt-4 text-gray-900">
+                Ini adalah jawaban untuk pertanyaan pertama. Animasinya akan terlihat halus.
+                </p>
+            </div>
+            </div>
+
+            {{-- ACCORDION ITEM 2 --}}
+            <div x-data="{ open: false }" class="py-4">
+            <summary @click="open = !open" ...>
+                <h2 class="text-lg font-medium">Ini Pertanyaan Kedua?</h2>
+                <svg :class="{ '-rotate-180': open }" ...> ... </svg>
+            </summary>
+            <div x-show="open" x-transition... class="overflow-hidden">
+                <p class="pt-4 text-gray-900">
+                Ini adalah jawaban untuk pertanyaan kedua.
+                </p>
+            </div>
+            </div>
+
+        </div>
+        </div>
 
 
     </div>
