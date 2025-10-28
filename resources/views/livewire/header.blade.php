@@ -4,11 +4,11 @@
     lg:px-10 lg:py-0
     lg:h-28">
     <div class="flex justify-start items-center gap-3">
-        <div class="w-16 h-16 lg:w-24 lg:h-24 relative">
+        <div class="w-10 h-10 lg:w-18 lg:h-18 relative">
             <img class="w-full h-full rounded-[50px] shadow-lg bg-white" 
             src="{{ asset('images/logo-kilau-build(300x300).png') }}" alt="Logo Kilau Build" />
         </div>
-        <div class="justify-start text-white text-xl lg:text-3xl font-semibold font-sans tracking-[3.36px]">Kilau<br/>Build</div>
+        <div class="justify-start text-white text-base lg:text-2xl font-semibold font-sans tracking-[3.36px]">Kilau<br/>Build</div>
     </div>
     <div class="hidden
                 lg:flex lg:items-center lg:gap-12">
