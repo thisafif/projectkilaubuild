@@ -188,59 +188,22 @@
             </style>
             <div class="swiper card-testimoni">
                 <div class="swiper-wrapper">
-                    
-                    <div class="swiper-slide">
-                        <div class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
-                            <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
-                            <p class="text-gray-700 text-base italic leading-relaxed">
-                                Pekerjaan sangat rapi dan hasilnya melebihi ekspektasi. Tim Kilau Build benar-benar profesional.
-                            </p>
-                            <div>
-                                <div class="font-bold text-blue-950 text-xl">Zafira Ryani</div>
-                                <div class="text-sm text-gray-500">CEO, Proyek VB-01</div>
+                    @if (isset($testimonis) && $testimonis->isNotEmpty())
+                        @foreach ($testimonis as $t)
+                            <div class="swiper-slide">
+                                <div class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
+                                    <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
+                                    <p class="text-gray-700 text-base italic leading-relaxed">
+                                        {{ $t->teks }}
+                                    </p>
+                                    <div>
+                                        <div class="font-bold text-blue-950 text-xl">{{ $t->nama }}</div>
+                                        <div class="text-sm text-gray-500">{{ $t->kegseharihari}}</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="w-full h-full p-6 bg-white rounded-2xl shadow-xl flex flex-col justify-between">
-                            <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
-                            <p class="text-gray-700 text-base italic leading-relaxed">
-                                Komunikasi lancar dari awal sampai akhir. Saya sangat merekomendasikan jasa mereka untuk renovasi rumah.
-                            </p>
-                            <div>
-                                <div class="font-bold text-blue-950 text-xl">Budi Santoso</div>
-                                <div class="text-sm text-gray-500">Pemilik Rumah, Depok</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="w-full h-full p-6 bg-white rounded-2xl shadow-xl flex flex-col justify-between">
-                            <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
-                            <p class="text-gray-700 text-base italic leading-relaxed">
-                                Desainnya modern dan fungsional. Terima kasih Kilau Build!
-                            </p>
-                            <div>
-                                <div class="font-bold text-blue-950 text-xl">Citra Lestari</div>
-                                <div class="text-sm text-gray-500">Klien, Jakarta</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="w-full h-full p-6 bg-white rounded-2xl shadow-xl flex flex-col justify-between">
-                            <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
-                            <p class="text-gray-700 text-base italic leading-relaxed">
-                                Proyeknya selesai tepat waktu dan sesuai budget. Highly recommended!
-                            </p>
-                            <div>
-                                <div class="font-bold text-blue-950 text-xl">Ahmad Fauzi</div>
-                                <div class="text-sm text-gray-500">Developer, Bogor</div>
-                            </div>
-                        </div>
-                    </div>
-
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
