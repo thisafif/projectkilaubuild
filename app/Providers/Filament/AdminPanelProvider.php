@@ -27,15 +27,18 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->defaultThemeMode(ThemeMode::Light)
-            // ->brandLogo(asset('images/logo-kilau-build(300x300).png'))
+            ->brandLogo(asset('images/logo-kilau-build(300x300).png'))
             ->brandName('Kilau Build')
-            ->brandLogo(fn () => view('filament.admin.logo'))
             ->id('admin')
-            ->path( 'admin')
+            ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => Color::hex('#0B63A3'),
             ])
+            ->sidebarWidth('277px')
+            // ->viteTheme('resources/css/filament/admin/theme.css')
+            ->spa()
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -43,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
+                AccountWidget::class,   
                 FilamentInfoWidget::class,
             ])
             ->middleware([

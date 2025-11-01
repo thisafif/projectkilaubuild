@@ -13,7 +13,14 @@ class ListTestimonis extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Testimoni')
+                ->modalHeading('Tambah Testimoni')
+                ->modalSubmitActionLabel('Simpan')
+                ->modalCancelActionLabel('Batal')
+                ->extraModalFooterActions(fn (CreateAction $action) => [
+                    $action->getCreateAnotherAction()->label('Simpan & tambah lagi'),
+                ]),
         ];
     }
 }

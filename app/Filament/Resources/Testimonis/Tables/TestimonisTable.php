@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\Testimonis\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
 
 class TestimonisTable
 {
@@ -46,7 +47,16 @@ class TestimonisTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                ]),
-            ]);
+                ])
+            ])
+            ->emptyStateActions([
+                Action::make('create')
+                    ->label('Tambah Testimoni')
+                    ->url(\App\Filament\Resources\Testimonis\TestimoniResource::getUrl('create'))
+                    ->icon('heroicon-m-plus')
+                    ->button(),
+            ])
+            ->emptyStateHeading('Belum ada Testimoni')
+            ->emptyStateDescription('Ayo tambah testimoni untuk menambahkan kepercayaan customer!');
     }
 }
