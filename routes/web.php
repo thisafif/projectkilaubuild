@@ -20,10 +20,6 @@ Route::get('/artikel', function () {
     return view('artikel');
 })->name('artikel');
 
-Route::get('/testimoni', function () {
-    return view('testimoni');
-})->name('testimoni');
-
 Route::get('/proyek', function () {
     return view('proyek');
 })->name('proyek');
@@ -31,6 +27,10 @@ Route::get('/proyek', function () {
 Route::get('/tentang-kami', function () {
     return view('tentang-kami');
 })->name('tentang-kami');
+
+Route::get('/konsultasi', function () {
+    return view('konsultasi');
+})->name('konsultasi');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
