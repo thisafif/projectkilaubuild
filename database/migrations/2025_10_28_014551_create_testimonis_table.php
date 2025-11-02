@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('teks', 255);
             $table->string('rating', 5);
             $table->string('nama',50);
-            $table->string('kegseharihari', 50);
+            $table->string('kegiatan sehari hari', 50);
             $table->timestamps();
         });
     }

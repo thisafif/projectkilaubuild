@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Filament\Resources\Testimonis\Pages;
+
+use App\Filament\Resources\Testimonis\TestimoniResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditTestimoni extends EditRecord
+{
+    protected static string $resource = TestimoniResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            ViewAction::make(),
+            DeleteAction::make(),
+        ];
+    }
+
+protected function getRedirectUrl(): string
+{
+    return $this->getResource()::getUrl('index');
+}
+}
