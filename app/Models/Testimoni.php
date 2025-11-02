@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Testimoni extends Model
 {
-    //
     use HasFactory;
+
     protected $fillable = [
         'teks',
         'rating',
         'nama',
-        'kegseharihari'
+        'kegseharihari',
     ];
 }

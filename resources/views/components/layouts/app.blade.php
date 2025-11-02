@@ -13,7 +13,7 @@
 
     <livewire:header />
 
-    <main class="flex-1 relative z-0">
+    <main class="flex-1 relative z-0  overflow-x-hidden">
         {{ $slot }}
     </main>
 

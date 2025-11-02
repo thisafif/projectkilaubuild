@@ -1,8 +1,11 @@
 <nav x-data="{ open: false }"
-    class="bg-sky-900 flex justify-between items-center relative
+    class="bg-sky-900 flex justify-between items-center
     px-6 py-4
     lg:px-10 lg:py-0
-    lg:h-28">
+    lg:h-28
+    sticky
+    top-0
+    z-50">
     <div class="flex justify-start items-center gap-3">
         <div class="w-10 h-10 lg:w-18 lg:h-18 relative">
             <img class="w-full h-full rounded-[50px] shadow-lg bg-white" 
@@ -16,6 +19,11 @@
         class="justify-start text-lg font-semibold font-mono 
         {{ request()->routeIs('home') ? 'text-white' : 'text-gray-400' }}">
         Beranda
+        </a>
+        <a href="{{ route('konsultasi') }}" 
+        class="justify-start text-lg font-semibold font-mono 
+        {{ request()->routeIs('home') ? 'text-white' : (request()->routeIs('konsultasi') ? 'text-white' : 'text-gray-400') }}">
+        Konsultasi
         </a>
         <a href="{{ route('layanan') }}" 
         class="justify-start text-lg font-semibold font-mono 
@@ -31,11 +39,6 @@
         class="justify-start text-lg font-semibold font-mono 
         {{ request()->routeIs('home') ? 'text-white' : (request()->routeIs('artikel') ? 'text-white' : 'text-gray-400') }}">
         Artikel
-        </a>
-        <a href="{{ route('testimoni') }}" 
-        class="justify-start text-lg font-semibold font-mono 
-        {{ request()->routeIs('home') ? 'text-white' : (request()->routeIs('testimoni') ? 'text-white' : 'text-gray-400') }}">
-        Testimoni
         </a>
         <a href="{{ route('proyek') }}" 
         class="justify-start text-lg font-semibold font-mono 
@@ -71,6 +74,10 @@
         {{ request()->routeIs('home') ? 'text-white' : 'text-gray-400' }}">
         Beranda
         </a>
+        <a href="{{ route('konsultasi') }}" 
+        class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('konsultasi') ? 'text-white' : 'text-gray-400' }}">
+        Konsultasi
+        </a>
         <a href="{{ route('layanan') }}" 
         class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('layanan') ? 'text-white' : 'text-gray-400' }}">
         Layanan
@@ -82,10 +89,6 @@
         <a href="{{ route('artikel') }}" 
         class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('artikel') ? 'text-white' : 'text-gray-400' }}">
         Artikel
-        </a>
-        <a href="{{ route('testimoni') }}" 
-        class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('testimoni') ? 'text-white' : 'text-gray-400' }}">
-        Testimoni
         </a>
         <a href="{{ route('proyek') }}" 
         class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('proyek') ? 'text-white' : 'text-gray-400' }}">
