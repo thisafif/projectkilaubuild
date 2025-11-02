@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 Route::get('/layanan', function () {
     return view('layanan');
