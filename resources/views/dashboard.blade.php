@@ -176,7 +176,7 @@
             lg:flex-row lg:gap-25 lg:px-40">
 
             <div class="flex flex-col justify-start items-start gap-6 max-w-md">
-                <div class="text-blue-950 text-2xl font-bold font-mono border-b-4 border-blue-950 pb-2">
+                <div class="text-blue-950 text-3xl font-bold font-mono border-b-4 border-blue-950 pb-2">
                     Testimoni Klien
                 </div>
                 <div class="text-blue-950 text-lg font-medium font-sans leading-relaxed">
@@ -239,8 +239,8 @@
         {{-- Section 5: Artikel --}}
 
         <div class="self-stretch inline-flex flex-col justify-start items-start gap-16">
-            <div class="self-stretch px-16 inline-flex justify-start items-start gap-2.5">
-                <div class="justify-start text-blue-950 text-2xl">
+            <div class="self-stretch px-40 inline-flex justify-start items-start gap-2.5">
+                <div class="justify-start text-blue-950 text-3xl">
                     <span class="italic font-normal font-sans">Kilau</span>
                     <span class="font-bold font-mono">Journal</span>
                 </div>
@@ -306,6 +306,51 @@
 
         {{-- Section 6: Lokasi Kantor --}}
 
+        <div class="w-full flex items-center justify-center
+            flex-col gap-12 px-6 py-8            
+            lg:flex-row lg:gap-25 lg:px-40">
+            <div class="max-w-4xl mx-auto">     
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    <div class="relative">
+                        <div class="rounded-3xl overflow-hidden shadow-2xl">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.602838743073!2d106.80147407469862!3d-6.445011493546286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e92ce61a47ef%3A0x4a71e1bb8f782d09!2sKILAU%20BUILD%20%7C%20Jasa%20Konstruksi%2C%20Interior%2C%20dan%20Design%20Terpercaya!5e0!3m2!1sen!2sid!4v1761927489704!5m2!1sen!2sid" 
+                                    width="600" 
+                                    height="450" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="flex flex-col font-sans gap-6 item-start justify-start">
+                        <div class="justify-start text-blue-950 text-3xl">
+                            <span class="italic font-sans">Kilau</span>
+                            <span class="font-bold font-mono">Location</span>
+                        </div>
+                        <a href="https://maps.app.goo.gl/2522uqyte4YnvYNi6"
+                        class="text-blue-950 text-sm leading-relaxed flex flex-row items-start gap-2" target="_blank" rel="noopener noreferrer">
+                            <flux:icon name="map-pin" class="w-6 h-6 text-blue-950 flex-shrink-0" />
+                            Jl. Raya Citayam No.34,<br>
+                            RT.7/RW.001/004, Pd.<br>
+                            Jaya, Kec. Cipayung, Kota<br>
+                            Depok, Jawa Barat 16444
+                        </a>
+                        <div class="py-15">
+                            <a href="{{ route('konsultasi') }}" 
+                            class="px-4 py-2 bg-cyan-600/20 rounded-[50px] 
+                                    shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
+                                    w-fit flex flex-row items-left gap-6
+                                    text-black text-xl font-light font-sans">
+                                <span>Konsultasi</span>
+                                <flux:icon name="arrow-right" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Section 7: FAQ --}}
 
         <div class="flow-root">
@@ -332,19 +377,54 @@
                     </div>
                 </div>
 
-                {{-- ACCORDION ITEM 2 --}}
                 <div x-data="{ open: false }" class="py-4">
-                    <summary @click="open = !open" ...>
-                        <h2 class="text-lg font-medium">Ini Pertanyaan Kedua?</h2>
-                        <svg :class="{ '-rotate-180': open }" ...> ... </svg>
+                    <summary 
+                        x-on:click="open = !open" 
+                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h2 class="text-lg font-semibold font-sans">Pertanyaan Kedua...?</h2>
+                        <div x-bind:class="{ '-rotate-180': open }" class="size-5 shrink-0 transition-transform duration-300">
+                            <flux:icon name="chevron-down" />
+                        </div>
                     </summary>
-                    <div x-show="open" x-transition... class="overflow-hidden">
-                        <p class="pt-4 text-gray-900">
-                            Ini adalah jawaban untuk pertanyaan kedua.
+                    <div x-show="open" 
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 max-h-0"
+                        x-transition:enter-end="opacity-100 max-h-screen"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 max-h-screen"
+                        x-transition:leave-end="opacity-0 max-h-0"
+                        class="overflow-hidden">
+                        <p class="pt-4 text-gray-900 font-sans">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis...
                         </p>
                     </div>
                 </div>
+
+                <div x-data="{ open: false }" class="py-4">
+                    <summary 
+                        x-on:click="open = !open" 
+                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                        <h2 class="text-lg font-semibold font-sans">Pertanyaan Ketiga...?</h2>
+                        <div x-bind:class="{ '-rotate-180': open }" class="size-5 shrink-0 transition-transform duration-300">
+                            <flux:icon name="chevron-down" />
+                        </div>
+                    </summary>
+                    <div x-show="open" 
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 max-h-0"
+                        x-transition:enter-end="opacity-100 max-h-screen"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 max-h-screen"
+                        x-transition:leave-end="opacity-0 max-h-0"
+                        class="overflow-hidden">
+                        <p class="pt-4 text-gray-900 font-sans">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis...
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
+
     </div>
 </x-layouts.app>

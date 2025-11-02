@@ -1,3 +1,5 @@
 <x-layouts.app :title="__('Portofolio')">
-    <div></div>
+    <div>
+        <livewire:searching-porto />
+    </div>
 </x-layouts.app>
