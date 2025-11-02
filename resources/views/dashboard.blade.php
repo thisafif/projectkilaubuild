@@ -325,7 +325,7 @@
                         </div>
                         <a href="https://maps.app.goo.gl/2522uqyte4YnvYNi6"
                         class="text-blue-950 text-sm leading-relaxed flex flex-row items-start gap-2" target="_blank" rel="noopener noreferrer">
-                            <flux:icon name="map-pin" class="w-6 h-6 text-blue-950 flex-shrink-0" />
+                            <flux:icon name="map-pin" class="w-6 h-6 text-blue-950 shrink-0" />
                             Jl. Raya Citayam No.34,<br>
                             RT.7/RW.001/004, Pd.<br>
                             Jaya, Kec. Cipayung, Kota<br>
@@ -351,7 +351,7 @@
         <div class="w-full items-center justify-center
                     flex flex-col gap-12 px-6 py-8            
                     lg:flex-col lg:gap-25 lg:px-40">
-            <div class="w-fit mx-auto px-8 py-4 rounded-[50px] outline outline-2 outline-offset-[-2px] outline-black inline-flex justify-center items-center gap-2.5">
+            <div class="w-fit mx-auto px-8 py-4 rounded-[50px] outline-2 -outline-offset-2 outline-black inline-flex justify-center items-center gap-2.5">
                 <div class=" text-black text-lg lg:text-xl font-bold font-mono">FAQ</div>
             </div>
             <div class="w-full -my-4 flex flex-col divide-y divide-black">

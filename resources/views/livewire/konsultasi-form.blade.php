@@ -126,7 +126,7 @@
                         </div>
                         <a href="https://maps.app.goo.gl/2522uqyte4YnvYNi6"
                         class="text-blue-950 text-sm leading-relaxed flex flex-row items-start gap-2" target="_blank" rel="noopener noreferrer">
-                            <flux:icon name="map-pin" class="w-6 h-6 text-blue-950 flex-shrink-0" />
+                            <flux:icon name="map-pin" class="w-6 h-6 text-blue-950 shrink-0" />
                             Jl. Raya Citayam No.34,<br>
                             RT.7/RW.001/004, Pd.<br>
                             Jaya, Kec. Cipayung, Kota<br>
