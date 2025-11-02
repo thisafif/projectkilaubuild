@@ -3,7 +3,10 @@
     "name": "laravel/livewire-starter-kit",
     "type": "project",
     "description": "The official Laravel starter kit for Livewire.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -61,7 +64,8 @@
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan migrate --force --no-interaction"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -73,6 +77,12 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ],
+        "post-install-cmd": [
+            "@php artisan key:generate --ansi || exit 0",
+            "@php -r \"if(!file_exists('database/database.sqlite')){ @mkdir('database'); @touch('database/database.sqlite'); }\"",
+            "@php artisan migrate --force --no-interaction",
+            "@php artisan laravolt:indonesia:seed --no-interaction || exit 0"
         ]
     },
     "extra": {

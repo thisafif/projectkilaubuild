@@ -17,10 +17,7 @@ class ListTestimonis extends ListRecords
                 ->label('Tambah Testimoni')
                 ->modalHeading('Tambah Testimoni')
                 ->modalSubmitActionLabel('Simpan')
-                ->modalCancelActionLabel('Batal')
-                ->extraModalFooterActions(fn (CreateAction $action) => [
-                    $action->getCreateAnotherAction()->label('Simpan & tambah lagi'),
-                ]),
+                ->modalCancelActionLabel('Batal'),
         ];
     }
 }

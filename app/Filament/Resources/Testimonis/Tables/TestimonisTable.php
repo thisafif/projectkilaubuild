@@ -18,15 +18,15 @@ class TestimonisTable
             ->columns([
                 TextColumn::make('nama')
                     ->searchable()
-                    ->label('Nama Lengkap'),
+                    ->label('Nama Lengkap')
+                    ->sortable(),
                 TextColumn::make('teks')
-                    ->searchable()
                     ->label('Testimoni'),
                 TextColumn::make('rating')
                     ->searchable()
-                    ->label('Rating (1-5)'),
+                    ->label('Rating (1-5)')
+                    ->sortable(),
                 TextColumn::make('kegseharihari')
-                    ->searchable()
                     ->label('Pekerjaan Client'),
                 TextColumn::make('created_at')
                     ->dateTime()
