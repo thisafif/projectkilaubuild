@@ -143,13 +143,6 @@ class KonsultasiForm extends Component
         $this->regenerateSlots();
     }
 
-    public function updatedJenisKonsultasi(): void
-    {
-        // Regenerate slots when consultation type changes
-        $this->regenerateSlots();
-        $this->selectedTime = null;
-    }
-
     public function simpanKonsultasi(): void
     {
         $data = $this->validate([

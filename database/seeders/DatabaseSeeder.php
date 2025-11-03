@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Portofolio;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -22,9 +23,15 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+            ]
+        );
+
+        // Create sample portfolios
+        Portofolio::factory(9)->create();
     }
 }

@@ -55,7 +55,7 @@ class JadwalKonsultasi extends Model
             ->whereBetween('tanggal', [$awal->toDateString(), $akhir->toDateString()])
             ->whereNotIn('status', [self::STATUS_CANCELLED])
             ->pluck('tanggal')
-            ->map(fn ($date) => \Illuminate\Support\Carbon::parse($date)->format('Y-m-d'))
+            ->map(fn ($date) => Carbon::parse($date)->format('Y-m-d'))
             ->unique()
             ->values()
             ->all();

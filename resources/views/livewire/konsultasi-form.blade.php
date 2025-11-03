@@ -10,9 +10,13 @@
     <!-- Loading Toast -->
     <div wire:loading.delay class="fixed bottom-6 right-6 z-50">
         <div class="bg-white rounded-lg shadow-lg p-4 flex items-center gap-3 border border-blue-100">
-            <svg class="animate-spin h-5 w-5 text-[#73ABD3]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            <svg class="animate-spin h-5 w-5 text-[#73ABD3]" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
             </svg>
             <span class="text-gray-700 font-medium">Sedang memproses...</span>
         </div>
@@ -22,8 +26,10 @@
     @if (session('sukses'))
         <div class="fixed bottom-6 right-6 z-50">
             <div class="bg-green-50 rounded-lg shadow-lg p-4 flex items-center gap-3 border border-green-200 max-w-md">
-                <svg class="h-5 w-5 text-green-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg class="h-5 w-5 text-green-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="text-green-800 font-medium">{{ session('sukses') }}</span>
             </div>
@@ -58,28 +64,6 @@
                         @error('noWhatsapp')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-blue-900 mb-3">Tipe Konsultasi</label>
-                        <div class="grid grid-cols-2 gap-3">
-                            <button type="button"
-                                wire:click="$set('tipeKonsultasi', 'visit')"
-                                class="py-3 px-4 rounded-xl font-medium transition-all border-2
-                                    {{ $tipeKonsultasi === 'visit'
-                                        ? 'bg-blue-900 text-white border-blue-900 shadow-md'
-                                        : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
-                                📍 Kunjungan Lokasi
-                            </button>
-                            <button type="button"
-                                wire:click="$set('tipeKonsultasi', 'online')"
-                                class="py-3 px-4 rounded-xl font-medium transition-all border-2
-                                    {{ $tipeKonsultasi === 'online'
-                                        ? 'bg-blue-900 text-white border-blue-900 shadow-md'
-                                        : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
-                                💻 Konsultasi Online
-                            </button>
-                        </div>
                     </div>
 
                     <div>
@@ -149,6 +133,28 @@
                     </div>
 
                     <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-blue-900 mb-3">Tipe Konsultasi</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" wire:click="$set('tipeKonsultasi', 'visit')"
+                                class="py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center gap-2
+                                    {{ $tipeKonsultasi === 'visit'
+                                        ? 'bg-blue-900 text-white border-blue-900 shadow-md'
+                                        : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
+                                <flux:icon name="map-pin" class="w-5 h-5 {{ $tipeKonsultasi === 'visit' ? 'text-white' : 'text-blue-900' }}" />
+                                Kunjungan ke Lokasi
+                            </button>
+                            <button type="button" wire:click="$set('tipeKonsultasi', 'online')"
+                                class="py-3 px-4 rounded-xl font-medium transition-all border-2 flex items-center gap-2
+                                    {{ $tipeKonsultasi === 'online'
+                                        ? 'bg-blue-900 text-white border-blue-900 shadow-md'
+                                        : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
+                                <flux:icon name="computer-desktop" class="w-5 h-5 {{ $tipeKonsultasi === 'online' ? 'text-white' : 'text-blue-900' }}" />
+                                Konsultasi secara Online
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
                         <label for="detailKonsultasi" class="block text-sm font-semibold text-blue-900">Detail
                             Konsultasi</label>
                         <textarea id="detailKonsultasi" rows="5" wire:model="detailKonsultasi"
@@ -165,7 +171,7 @@
             <div>
                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-blue-50 text-blue-950">
                     <h3 class="text-xl font-semibold text-blue-950 mb-6">Pilih Jadwal</h3>
-                    
+
                     <div class="flex items-center justify-between mb-6">
                         <button type="button" wire:click="pilihBulanSebelumnya"
                             class="px-3 py-1 text-xs font-medium uppercase tracking-wide border border-blue-200 text-blue-900 rounded-lg hover:bg-blue-50 transition"
@@ -198,17 +204,16 @@
                                         $isSelected = $selectedDate === $day['date'];
                                         $status = $day['status'] ?? null;
                                     @endphp
-                                    <button type="button" 
-                                        wire:click="pilihTanggal('{{ $day['date'] }}')"
+                                    <button type="button" wire:click="pilihTanggal('{{ $day['date'] }}')"
                                         @disabled($day['isDisabled'])
                                         class="relative flex aspect-square items-center justify-center rounded-xl text-sm font-semibold transition-all border
                                             {{ $isSelected ? 'bg-blue-900 text-white border-blue-900 shadow-lg' : '' }}
-                                            {{ ! $isSelected && $day['isPast'] ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60' : '' }}
-                                            {{ ! $isSelected && $day['isSunday'] ? 'bg-red-50 text-red-400 border-red-100 cursor-not-allowed opacity-60' : '' }}
-                                            {{ ! $isSelected && ! $day['isPast'] && ! $day['isSunday'] && $day['isCurrentMonth'] ? 'bg-blue-50 text-blue-900 border-blue-100 hover:bg-blue-100' : '' }}
-                                            {{ ! $day['isCurrentMonth'] ? 'bg-white text-blue-300 border-blue-50 opacity-50' : '' }}">
+                                            {{ !$isSelected && $day['isPast'] ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60' : '' }}
+                                            {{ !$isSelected && $day['isSunday'] ? 'bg-red-50 text-red-400 border-red-100 cursor-not-allowed opacity-60' : '' }}
+                                            {{ !$isSelected && !$day['isPast'] && !$day['isSunday'] && $day['isCurrentMonth'] ? 'bg-blue-50 text-blue-900 border-blue-100 hover:bg-blue-100' : '' }}
+                                            {{ !$day['isCurrentMonth'] ? 'bg-white text-blue-300 border-blue-50 opacity-50' : '' }}">
                                         <span>{{ $day['label'] }}</span>
-                                        @if ($status && ! $isSelected)
+                                        @if ($status && !$isSelected)
                                             <span
                                                 class="absolute -bottom-1 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full
                                             {{ $status === \App\Models\JadwalKonsultasi::STATUS_CONFIRMED
@@ -224,8 +229,6 @@
                         @endforeach
                     </div>
 
-
-
                     <div class="mt-6 rounded-xl bg-blue-50 px-4 py-3 text-sm">
                         <p class="font-semibold text-blue-900">Tanggal dipilih</p>
                         <p class="text-blue-700">
@@ -234,54 +237,57 @@
                     </div>
 
                     @if ($selectedDate && $tipeKonsultasi && count($availableSlots) > 0)
-                        <div class="mt-6 rounded-xl bg-emerald-50 px-4 py-4 border border-emerald-200">
-                            <p class="font-semibold text-emerald-900 mb-3">Pilih Sesi</p>
+                        <div class="mt-6 rounded-xl bg-blue-50 px-4 py-3 border border-blue-200">
+                            <p class="font-semibold text-blue-900 mb-3">Pilih Sesi</p>
                             <div class="grid grid-cols-3 gap-2">
                                 @foreach ($availableSlots as $slot)
-                                    <button type="button" 
-                                        wire:key="slot-{{ $slot }}"
+                                    <button type="button" wire:key="slot-{{ $slot }}"
                                         wire:click.throttle.500ms="$set('selectedTime', '{{ $slot }}')"
                                         wire:loading.attr="disabled"
                                         wire:loading.class="opacity-50 cursor-not-allowed"
                                         class="py-2 px-3 text-sm rounded-lg font-medium transition-all
                                             {{ $selectedTime === $slot
-                                                ? 'bg-emerald-600 text-white shadow-md'
-                                                : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50' }}">
+                                                ? 'bg-blue-600 text-white shadow-md'
+                                                : 'bg-white text-blue-900 border border-blue-200 hover:bg-blue-50' }}">
                                         {{ $slot }}
                                     </button>
                                 @endforeach
                             </div>
                         </div>
                     @elseif ($selectedDate && $tipeKonsultasi && count($availableSlots) === 0)
-                        <div class="mt-6 rounded-xl bg-amber-50 px-4 py-3 border border-amber-200 text-sm text-amber-800">
+                        <div
+                            class="mt-6 rounded-xl bg-amber-50 px-4 py-3 border border-amber-200 text-sm text-amber-800">
                             ⚠️ Semua sesi pada tanggal ini sudah penuh. Silakan pilih tanggal lain.
                         </div>
-                    @elseif ($selectedDate && ! $tipeKonsultasi)
+                    @elseif ($selectedDate && !$tipeKonsultasi)
                         <div class="mt-6 rounded-xl bg-blue-50 px-4 py-3 border border-blue-200 text-sm text-blue-800">
                             ℹ️ Silakan pilih tipe konsultasi terlebih dahulu untuk melihat jadwal tersedia.
                         </div>
                     @endif
 
-                    @error('selectedTime')
+                    {{-- @error('selectedTime')
                         <span class="mt-3 block text-xs text-red-500">{{ $message }}</span>
                     @enderror
 
                     @error('selectedDate')
                         <span class="mt-3 block text-xs text-red-500">{{ $message }}</span>
-                    @enderror
+                    @enderror --}}
                 </div>
             </div>
 
             <div class="lg:col-span-2 flex justify-center">
-                <button type="submit"
-                    wire:loading.attr="disabled"
+                <button type="submit" wire:loading.attr="disabled"
                     wire:loading.class="opacity-50 cursor-not-allowed"
                     class="mt-4 w-full max-w-xs px-8 py-4 bg-[#73ABD3] hover:bg-blue-600 disabled:bg-blue-400 transition-colors rounded-full shadow-[0px_6px_4px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-3">
                     <!-- Loading Spinner -->
                     <div wire:loading class="flex items-center gap-3">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
                         </svg>
                     </div>
 
