@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('testimonis', function (Blueprint $table) {
-            //
+        Schema::table('jadwal_konsultasis', function (Blueprint $table) {
+            $table->dropUnique(['tanggal']);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('testimonis', function (Blueprint $table) {
-            //
+        Schema::table('jadwal_konsultasis', function (Blueprint $table) {
+            $table->unique('tanggal');
         });
     }
 };

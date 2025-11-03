@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Testimonis\Pages;
+namespace App\Filament\Resources\TestimoniResource\Pages;
 
-use App\Filament\Resources\Testimonis\TestimoniResource;
+use App\Filament\Resources\TestimoniResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTestimoni extends CreateRecord

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KonsultasiController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -28,9 +28,8 @@ Route::get('/tentang-kami', function () {
     return view('tentang-kami');
 })->name('tentang-kami');
 
-Route::get('/konsultasi', function () {
-    return view('konsultasi');
-})->name('konsultasi');
+Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
+Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
