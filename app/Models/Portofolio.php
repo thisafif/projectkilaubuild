@@ -15,7 +15,7 @@ class Portofolio extends Model
         'deskripsi_lengkap',
         'tipe',
         'tanggal_proyek',
-        'url_gambar',
+        'attachmentportofolio',
     ];
 
     protected function casts(): array
