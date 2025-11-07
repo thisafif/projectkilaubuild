@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Artikel')">
-    <div style="background: linear-gradient(to bottom, #EAF4FF, #CDE3F9); min-height: 100vh; padding: 40px 20px; font-family: 'Poppins', sans-serif;">
+    <div style="min-height: 100vh; padding: 40px 20px; font-family: 'Poppins', sans-serif;">
     <div style="max-width: 1200px; margin: 0 auto;">
         <!-- Judul & Search -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
