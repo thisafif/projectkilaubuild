@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KonsultasiController;
+use App\Livewire\Ongoing;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -30,6 +31,7 @@ Route::get('/tentang-kami', function () {
 
 Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
+Route::get('/proyek', Ongoing::class)->name('proyek');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])

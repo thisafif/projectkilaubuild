@@ -1,3 +1,3 @@
-<x-layouts.app :title="__('Proyek')">
-    <div></div>
+<x-layouts.app :title="__('Proyek On-Going')">
+    <livewire:ongoing />
 </x-layouts.app>
