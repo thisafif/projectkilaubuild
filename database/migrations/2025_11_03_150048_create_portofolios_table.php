@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('deskripsi_lengkap')->nullable();
             $table->enum('tipe', ['bangun_baru', 'renovasi', 'interior']);
             $table->date('tanggal_proyek');
-            $table->string('url_gambar')->nullable();
+            $table->string('attachmentportofolio', 250)->nullable();
             $table->timestamps();
         });
     }
