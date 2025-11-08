@@ -11,7 +11,7 @@
                 <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono">Bangun Dulu<br />Baru
                     Bayar</div>
                 <div
-                    class="px-8 py-4 bg-slate-400/40 rounded-[50px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
+                    class="px-8 py-4 bg-slate-400/40 rounded-[50px] transition-colors delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:bg-[#1C274C] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
                     <button class="justify-start text-white text-2xl lg:text-4xl font-semibold font-sans">Hubungi
                         Kami</button>
                 </div>
@@ -35,10 +35,15 @@
                         <span class="italic font-sans">Kilau</span>
                     </div>
                 </div>
-                <div class="self-stretch">
-                    <div class="flex-1 justify-start text-blue-950 text-lg lg:text-xl font-medium font-sans">
+                <div class=" justify-start text-blue-950 text-lg lg:text-xl font-medium font-sans self-stretch">
+                    <div class="flex-1">
                         Setiap kilau menyimpan kisah, setiap kisah mengundang langkah. Ikuti kami, rasakan
                         perjalanannya, dan wujudkan sinar baru bersama kami.
+                    </div>
+                    <div class="pt-5 hover:underline hover:text-sky-700">
+                        <a href="{{ route('tentang-kami') }}" >
+                            Selengkapnya...
+                        </a>
                     </div>
                 </div>
             </div>
@@ -90,12 +95,21 @@
 
                 .swiper-button-prev,
                 .swiper-button-next {
-                    color: black;
+                    color: #1C274C;
                     background: #5AB0EF;
                     width: 44px;
                     height: 44px;
                     border-radius: 50%;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .swiper-button-next:hover,
+                .swiper-button-prev:hover {
+                    background: #1C274C;
+                    color: white;
+                    transition: ease-in-out;
+                    duration: 300ms;
+                    transition-delay: 150ms;
                 }
 
                 .swiper-button-prev:after,
@@ -123,7 +137,7 @@
                         <img src="https://placehold.co/300x300/7c2d12/white?text=Slide+5" alt="Property 5">
                     </div>
                 </div>
-                <div class="swiper-button-prev">
+                <div class="swiper-button-prev ">
                     <flux:icon name="arrow-left" />
                 </div>
                 <div class="swiper-button-next">
@@ -281,7 +295,9 @@
                 class="px-4 py-2 bg-cyan-600/20 rounded-[50px] 
                         shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
                         inline-flex flex-row items-center gap-2
-                        text-black text-xl font-light font-sans">
+                        text-black text-xl font-light font-sans
+                        hover:bg-[#1C274C] hover:text-white
+                        transition-colors delay-150 duration-300 ease-in-out hover:-translate-y-1">
                     <span>See more</span>
                     <flux:icon name="chevron-right" class="w-6 h-6" />
                 </a>
@@ -325,8 +341,10 @@
                             class="px-4 py-2 bg-cyan-600/20 rounded-[50px] 
                                     shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]
                                     w-fit flex flex-row items-left gap-6
-                                    text-black text-xl font-light font-sans">
-                                <span>Konsultasi</span>
+                                    text-black text-xl font-light font-sans
+                                    hover:bg-[#1C274C] hover:text-white
+                                    transition-colors delay-150 duration-300 ease-in-out hover:-translate-y-1">
+                                    <span>Konsultasi</span>
                                 <flux:icon name="arrow-right" />
                             </a>
                         </div>
