@@ -9,6 +9,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@tailwind utilities;
+
+@keyframes breathe {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
 @theme {
     --font-sans: 'DM_Sans', sans-serif;
     --font-mono: 'Poppins', monospace;

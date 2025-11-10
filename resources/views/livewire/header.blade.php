@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }"
-    class="bg-sky-900 flex justify-between items-center
+    class="bg-[#1C274C] flex justify-between items-center
     px-6 py-4
     lg:px-10 lg:py-0
     lg:h-28
@@ -66,7 +66,7 @@
          @click.outside="open = false" 
          class="
             lg:hidden 
-            absolute top-full left-0 w-full bg-sky-900 shadow-lg z-50
+            absolute top-full left-0 w-full bg-[#1C274C] shadow-lg z-50
             flex flex-col p-4">
 
         <a href="{{ route('home') }}" 

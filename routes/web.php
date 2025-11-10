@@ -31,7 +31,7 @@ Route::get('/tentang-kami', function () {
 
 Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
-Route::get('/proyek', Ongoing::class)->name('proyek');
+
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
