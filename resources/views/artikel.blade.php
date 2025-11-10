@@ -1,6 +1,7 @@
 <x-layouts.app :title="__('Artikel')">
-    <div style="min-height: 100vh; padding: 40px 20px; font-family: 'Poppins', sans-serif;">
-    <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="font-family: 'Poppins', sans-serif;"
+        class="lg:flex-row flex-col lg:px-40 px-15 lg:py-20 py-8">
+    <div style="margin: 0 auto;">
         <!-- Judul & Search -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
             <h1 style="font-size: 2rem; font-weight: 700; color: #000;">Artikel</h1>

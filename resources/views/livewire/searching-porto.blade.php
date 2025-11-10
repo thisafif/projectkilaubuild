@@ -1,6 +1,5 @@
 <div class="w-full lg:px-40 px-6 py-8">
 
-    <!-- 🔹 Judul dan Filter sejajar -->
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4">
         <div>
             <h2 class="text-2xl font-bold text-blue-950">Portofolio Kami</h2>
@@ -13,7 +12,7 @@
                     Tipe Proyek
                 </label>
                 <select id="jenisKonsultasi" wire:model="jenisKonsultasi"
-                    class="mt-1 w-full bg-white rounded-xl border-2 border-blue-200 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
+                    class="mt-1 w-full bg-white rounded-xl border-2 border-blue-200 px-2 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
                     <option value="">Tipe Proyek</option>
                     <option value="bgnrumah_renovasi">Bangun Rumah</option>
                     <option value="maintenance">Renovasi Rumah</option>
@@ -38,7 +37,6 @@
         </div>
     </div>
 
-    <!-- 🔹 Semua card di bawah judul & filter -->
     <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
