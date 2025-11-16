@@ -2,23 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use BackedEnum;
 use Dom\Text;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Artikel;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Date;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use App\Filament\Resources\ArtikelResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ArtikelResource\RelationManagers;
@@ -26,32 +28,36 @@ use App\Filament\Resources\ArtikelResource\Pages\EditArtikel;
 use App\Filament\Resources\ArtikelResource\Pages\ListArtikels;
 use App\Filament\Resources\ArtikelResource\Pages\CreateArtikel;
 
+
+
 class ArtikelResource extends Resource
 {
     protected static ?string $model = Artikel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                TextInput::make('judul')->required(),
-                TextInput::make('isi')->required(),
-                TextInput::make('penulis')->required(),
-                DatePicker::make('tanggal_publikasi')->required()->native(false),
-                FileUpload::make('attachmentartikel')
-                    ->label('Foto Artikel')
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                        '3:4',
-                        '9:16',
-                        null])
-                    ->image(),
-            ]);
+        return $schema->schema([
+            TextInput::make('judul')->required(),
+            TextInput::make('isi')->required(),
+            TextInput::make('penulis')->required(),
+            DatePicker::make('tanggal_publikasi')
+                ->required()
+                ->native(false),
+            FileUpload::make('attachmentartikel')
+                ->label('Foto Artikel')
+                ->imageEditor()
+                ->imageEditorAspectRatios([
+                    '16:9',
+                    '4:3',
+                    '1:1',
+                    '3:4',
+                    '9:16',
+                    null,
+                ])
+                ->image(),
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -64,18 +70,18 @@ class ArtikelResource extends Resource
                 TextColumn::make('tanggal_publikasi')
                     ->date(),
                 ImageColumn::make('attachmentartikel')
-                ->label('Foto Artikel'),
+                    ->label('Foto Artikel'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -90,9 +96,9 @@ class ArtikelResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListArtikels::route('/'),
+            'index'  => Pages\ListArtikels::route('/'),
             'create' => Pages\CreateArtikel::route('/create'),
-            'edit' => Pages\EditArtikel::route('/{record}/edit'),
+            'edit'   => Pages\EditArtikel::route('/{record}/edit'),
         ];
     }
 }

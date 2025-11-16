@@ -4,40 +4,47 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TestimoniResource\Pages;
 use App\Models\Testimoni;
+use BackedEnum;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\BulkActionGroup;
 
 class TestimoniResource extends Resource
 {
     protected static ?string $model = Testimoni::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-star';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-star';
 
     protected static ?string $navigationLabel = 'Kelola Testimoni';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('nama')
-                    ->label('Nama')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('kegseharihari')
-                    ->label('Kegiatan/Pekerjaan Client')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('teks')
-                    ->label('Testimoni')
-                    ->required(),
-                Forms\Components\TextInput::make('rating')
-                    ->label('Rating')
-                    ->numeric()
-                    ->minValue(1)
-                    ->maxValue(5),
-            ]);
+        return $schema->schema([
+            Forms\Components\TextInput::make('nama')
+                ->label('Nama')
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\TextInput::make('kegseharihari')
+                ->label('Kegiatan/Pekerjaan Client')
+                ->maxLength(255),
+
+            Forms\Components\Textarea::make('teks')
+                ->label('Testimoni')
+                ->required(),
+
+            Forms\Components\TextInput::make('rating')
+                ->label('Rating')
+                ->numeric()
+                ->minValue(1)
+                ->maxValue(5),
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -48,47 +55,49 @@ class TestimoniResource extends Resource
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('teks')
                     ->label('Testimoni')
                     ->limit(50)
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('rating')
                     ->label('Rating')
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime()
                     ->sortable(),
             ])
-            ->filters([
-                //
+
+            ->filters([])
+
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
+
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTestimonis::route('/'),
+            'index'  => Pages\ListTestimonis::route('/'),
             'create' => Pages\CreateTestimoni::route('/create'),
-            'view' => Pages\ViewTestimoni::route('/{record}'),
-            'edit' => Pages\EditTestimoni::route('/{record}/edit'),
+            'view'   => Pages\ViewTestimoni::route('/{record}'),
+            'edit'   => Pages\EditTestimoni::route('/{record}/edit'),
         ];
     }
 }
