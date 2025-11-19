@@ -2,24 +2,27 @@
 
 namespace App\Filament\Resources;
 
-use BackedEnum;
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Konsultasi;
-use Filament\Tables\Table;
-use Filament\Actions\Action;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Carbon;
+use App\Filament\Resources\KonsultasiResource\Pages;
 use App\Models\JadwalKonsultasi;
+use App\Models\Konsultasi;
+use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\DB;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 // use Filament\Forms\Components\Group;
 // use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
-use App\Filament\Resources\KonsultasiResource\Pages;
-
+use Filament\Schemas\Schema;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class KonsultasiResource extends Resource
 {
@@ -32,28 +35,28 @@ class KonsultasiResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([
-            Forms\Components\TextInput::make('nama')
+            TextInput::make('nama')
                 ->label('Nama Lengkap')
                 ->required(),
 
-            Forms\Components\TextInput::make('no_wa')
+            TextInput::make('no_wa')
                 ->label('Nomor WhatsApp')
                 ->required()
                 ->prefix('62')
                 ->tel(),
 
-            Forms\Components\Select::make('provinsi')
+            Select::make('provinsi')
                 ->label('Provinsi')
                 ->required()
                 ->options(
-                    fn() => DB::table('indonesia_provinces')
+                    fn () => DB::table('indonesia_provinces')
                         ->pluck('name', 'name')
                         ->toArray()
                 )
                 ->searchable()
                 ->live(),
 
-            Forms\Components\Select::make('kabupatenkota')
+            Select::make('kabupatenkota')
                 ->label('Kabupaten/Kota')
                 ->required()
                 ->options(function ($get) {
@@ -72,7 +75,7 @@ class KonsultasiResource extends Resource
                 ->searchable()
                 ->live(),
 
-            Forms\Components\Select::make('kecamatan')
+            Select::make('kecamatan')
                 ->label('Kecamatan')
                 ->required()
                 ->options(function ($get) {
@@ -90,7 +93,7 @@ class KonsultasiResource extends Resource
                 })
                 ->searchable(),
 
-            Forms\Components\Select::make('jenis_konsultasi')
+            Select::make('jenis_konsultasi')
                 ->label('Jenis Konsultasi')
                 ->required()
                 ->options([
@@ -100,14 +103,14 @@ class KonsultasiResource extends Resource
                     'lainnya' => 'Lainnya',
                 ]),
 
-            Forms\Components\Textarea::make('detil_konsultasi')
+            Textarea::make('detil_konsultasi')
                 ->label('Detail Konsultasi')
                 ->required(),
 
             Section::make('Jadwal Konsultasi')
                 ->relationship('jadwal')
                 ->schema([
-                    Forms\Components\Select::make('tipe_konsultasi')
+                    Select::make('tipe_konsultasi')
                         ->label('Tipe Konsultasi')
                         ->required()
                         ->options([
@@ -115,19 +118,19 @@ class KonsultasiResource extends Resource
                             'online' => 'Konsultasi Online',
                         ]),
 
-                    Forms\Components\DatePicker::make('tanggal')
+                    DatePicker::make('tanggal')
                         ->label('Tanggal Konsultasi')
                         ->required()
                         ->minDate(now()->addDay()),
 
-                    Forms\Components\TextInput::make('jam')
+                    TextInput::make('jam')
                         ->label('Sesi')
                         ->placeholder('Contoh: Sesi 1')
                         ->required()
                         ->regex('/^Sesi \d+$/')
                         ->helperText('Format: Sesi X (contoh: Sesi 1, Sesi 2)'),
 
-                    Forms\Components\Select::make('status')
+                    Select::make('status')
                         ->label('Status')
                         ->required()
                         ->native(false)
@@ -137,7 +140,7 @@ class KonsultasiResource extends Resource
                             JadwalKonsultasi::STATUS_CANCELLED => 'Cancelled',
                         ]),
 
-                    Forms\Components\Textarea::make('catatan_admin')
+                    Textarea::make('catatan_admin')
                         ->label('Catatan Admin')
                         ->rows(3),
                 ])
@@ -149,62 +152,62 @@ class KonsultasiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')
+                TextColumn::make('nama')
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('no_wa')
+                TextColumn::make('no_wa')
                     ->label('No. WhatsApp')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('provinsi')
+                TextColumn::make('provinsi')
                     ->label('Provinsi')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('kabupatenkota')
+                TextColumn::make('kabupatenkota')
                     ->label('Kabupaten/Kota')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('jenis_konsultasi')
+                TextColumn::make('jenis_konsultasi')
                     ->label('Jenis')
                     ->badge()
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('jadwal.tanggal')
+                TextColumn::make('jadwal.tanggal')
                     ->label('Tanggal Konsultasi')
                     ->date()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('jadwal.tipe_konsultasi')
+                TextColumn::make('jadwal.tipe_konsultasi')
                     ->label('Tipe')
                     ->badge()
                     ->formatStateUsing(
-                        fn($state) => $state === 'visit'
+                        fn ($state) => $state === 'visit'
                             ? 'Kunjungan Lokasi'
                             : 'Konsultasi Online'
                     )
                     ->color(
-                        fn($state) => $state === 'visit' ? 'info' : 'primary'
+                        fn ($state) => $state === 'visit' ? 'info' : 'primary'
                     )
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('jadwal.jam')
+                TextColumn::make('jadwal.jam')
                     ->label('Sesi')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('jadwal.status')
+                TextColumn::make('jadwal.status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn(?string $state): string => match ($state) {
+                    ->color(fn (?string $state): string => match ($state) {
                         JadwalKonsultasi::STATUS_CONFIRMED => 'success',
                         JadwalKonsultasi::STATUS_CANCELLED => 'danger',
                         default => 'warning',
                     }),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->label('Tanggal')
                     ->dateTime()
                     ->sortable(),
@@ -235,13 +238,11 @@ class KonsultasiResource extends Resource
                     ->color('success')
                     ->button()
                     ->url(
-                        fn(Konsultasi $record) =>
-                        self::buatWhatsappUrl($record)
+                        fn (Konsultasi $record) => self::buatWhatsappUrl($record)
                     )
                     ->openUrlInNewTab()
                     ->visible(
-                        fn(Konsultasi $record) =>
-                        filled($record->no_wa)
+                        fn (Konsultasi $record) => filled($record->no_wa)
                     ),
 
                 EditAction::make(),
@@ -260,8 +261,8 @@ class KonsultasiResource extends Resource
     {
         return [
             'index' => Pages\ListKonsultasis::route('/'),
-            'create' => Pages\CreateKonsultasi::route('/create'),
-            'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
+            // 'create' => Pages\CreateKonsultasi::route('/create'),
+            // 'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
         ];
     }
 
@@ -278,16 +279,16 @@ class KonsultasiResource extends Resource
         $status = $jadwal?->status ?? JadwalKonsultasi::STATUS_PENDING;
 
         $pesan =
-            "Halo {$record->nama},\n\n" .
-            "Saya dari Kilau Build.\n" .
-            'Status konsultasi Anda: ' . ucfirst($status) . "\n" .
-            "Tanggal konsultasi: {$tanggalFormatted}\n" .
-            "Sesi: {$sesi}\n" .
-            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n" .
+            "Halo {$record->nama},\n\n".
+            "Saya dari Kilau Build.\n".
+            'Status konsultasi Anda: '.ucfirst($status)."\n".
+            "Tanggal konsultasi: {$tanggalFormatted}\n".
+            "Sesi: {$sesi}\n".
+            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n".
             'Silakan balas pesan ini jika ada penyesuaian. Terima kasih.';
 
         $nomor = preg_replace('/[^0-9]/', '', $record->no_wa);
 
-        return 'https://wa.me/' . $nomor . '?text=' . urlencode($pesan);
+        return 'https://wa.me/'.$nomor.'?text='.urlencode($pesan);
     }
 }
