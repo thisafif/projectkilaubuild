@@ -51,7 +51,7 @@
         Tentang Kami
         </a>
     </div>
-    <button @click="open = !open" class="
+    <button @click='open = !open' class="
         block                   
         lg:hidden">
         <svg x-show="!open" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -62,12 +62,11 @@
         </div>
     </button>
     <div x-show="open" 
-         x-transition 
-         @click.outside="open = false" 
-         class="
-            lg:hidden 
-            absolute top-full left-0 w-full bg-[#1C274C] shadow-lg z-50
-            flex flex-col p-4">
+    x-transition @click.outside="open = false" 
+    class="
+    lg:hidden 
+    absolute top-full left-0 w-full bg-[#1C274C] shadow-lg z-50
+    flex flex-col p-4">
 
         <a href="{{ route('home') }}" 
         class="block p-4 text-lg font-semibold font-mono text-right 
@@ -96,7 +95,6 @@
         </a>
         <a href="{{ route('tentang-kami') }}" 
         class="block p-4 text-lg font-semibold font-mono text-right {{ request()->routeIs('tentang-kami') ? 'text-white' : 'text-gray-400' }}">
-        Tentang Kami
-        </a>
+        Tentang Kami</a>
     </div>
 </nav>

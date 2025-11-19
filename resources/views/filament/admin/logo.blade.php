@@ -1,7 +1,4 @@
 <div class="flex items-center gap-2">
-    <img src="{{ asset('img/logo-kilaubuild.svg') }}" alt="Kilau Build" class="h-8 w-8 rounded-full">
-    <div class="leading-tight">
-        <div class="font-semibold tracking-wide text-white">Kilau</div>
-        <div class="text-white/90 -mt-1 text-xs">Build</div>
-    </div>
+    <img src="{{ asset('images/logo-kilau-build(80x80).png') }}" alt="Kilau Build" class="h-12 w-12 rounded-full">
+    Kilau Build
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -24,13 +25,19 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->id('admin')
             ->path('admin')
             ->login()
+            ->darkMode(false)
+            ->defaultThemeMode(ThemeMode::Light)
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => Color::hex('#0066AE'),
+                'gray' => Color::Slate,
             ])
             ->font('Poppins')
+            ->brandLogo(fn () => view('filament.admin.logo'))
+            ->brandLogoHeight('3rem')
             ->profile(isSimple: false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

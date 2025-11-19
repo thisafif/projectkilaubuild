@@ -1,4 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
 
-~
+@source "../../../../vendor/filament/filament/resources/**/*.blade.php";
+@source "../../../../app/Filament/**/*.php";
+@source "../../../../resources/views/filament/**/*.blade.php";
+
+@theme {
+    --font-sans: "DM Sans", sans-serif;
+    --font-mono: "Poppins", "montserrat";
+}
+
+.fi-topbar {
+    background-color: #0066AE !important;
+}
+
+.fi-topbar .fi-logo, 
+.fi-topbar-start a, .fi-logo{
+    color: #ffffff !important;
+}
+
+.fi-topbar svg {
+    color: #ffffff !important;
+}
+
+.fi-dropdown-list-item svg{
+    color: #000000 !important;
+}
+
+.fi-sidebar {
+    background-color: #267DBA !important; 
+}
+
+.fi-sidebar, .fi-topbar, .fi-topbar nav { 
+    border: none !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    ring-width: 0 !important;
+}
+
+.fi-sidebar-item-label,
+.fi-sidebar-item-icon {
+    color: #ffffff !important; 
+}
+
+li.fi-sidebar-item > a,
+li.fi-sidebar-item > button {
+    background-color: transparent !important;
+}
+
+li.fi-sidebar-item:hover > a,
+li.fi-sidebar-item:hover > button {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+li.fi-sidebar-item.fi-active > a,
+li.fi-sidebar-item.fi-active > button {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+
+.fi-simple-layout {
+    background-image: url('../../../../public/images/house-design.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+}
+
+.fi-simple-main {
+    background-color: rgba(255, 255, 255, 0.9) !important; 
+    backdrop-filter: blur(10px);
+}
+
+.fi-simple-layout .fi-logo {
+    color: #1f2937 !important; 
+}
+
+.fi-btn.fi-color-primary {
+    background-color: #0066ae !important; 
+    color: #ffffff !important; 
+    border: none !important;
+}
+
+.fi-btn.fi-color-primary:hover {
+    background-color: #004d85 !important; 
+}
+
+.fi-btn.fi-color-primary:active {
+    background-color: #003359 !important; 
+}
