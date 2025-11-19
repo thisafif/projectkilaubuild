@@ -61,7 +61,7 @@ class OngoingResource extends Resource
                                 'done' => 'Selesai',
                             ])
                             ->required()
-                            ->helperText('Gunakan status yang paling menggambarkan kondisi proyek saat ini.')
+                            ->helperText('Gunakan status yang mewakilkan kondisi proyek saat ini.')
                             ->columnSpan(1),
 
                         TextInput::make('progress_percentage')
@@ -71,8 +71,8 @@ class OngoingResource extends Resource
                             ->maxValue(100)
                             ->suffix('%')
                             ->default(1)
-                            ->required()
-                            ->helperText('Diisi manual antara 1–100% berdasarkan estimasi tim.')
+                            // ->required()
+                            ->helperText('Estimasikan antara 1-100%.')
                             ->columnSpan(1),
 
                         FileUpload::make('images')
@@ -85,10 +85,10 @@ class OngoingResource extends Resource
                             ->helperText('Upload beberapa gambar yang mewakili kondisi atau progres proyek.')
                             ->columnSpanFull(),
                     ])
-                    ->columns(2)
+                    ->columns(3)
                     ->columnSpanFull()
-                    // ->collapsible()
-                    ,
+                // ->collapsible()
+                ,
 
                 // 2. LOKASI PROYEK
                 Section::make('Lokasi Proyek (Peta)')
@@ -108,7 +108,8 @@ class OngoingResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull()
-                    ->collapsible(),
+                // ->collapsible()
+                ,
 
                 // 2. DESKRIPSI PROYEK
                 Section::make('Deskripsi Proyek')
@@ -131,20 +132,20 @@ class OngoingResource extends Resource
                     ->collapsible(),
 
                 // 3. TIMELINE & ANGGARAN
-                Section::make('Timeline & Anggaran')
+                Section::make('[OPSIONAL] Timeline & Anggaran')
                     ->description('Atur jadwal pelaksanaan dan estimasi anggaran proyek.')
                     ->schema([
                         DatePicker::make('start_date')
                             ->label('Tanggal Mulai')
                             ->native(false)
-                            ->required()
+                            // ->required()
                             ->helperText('Tanggal mulai pekerjaan atau awal perencanaan teknis.')
                             ->columnSpan(1),
 
                         DatePicker::make('expected_end_date')
                             ->label('Target Selesai')
                             ->native(false)
-                            ->required()
+                            // ->required()
                             ->helperText('Tanggal target penyelesaian proyek secara keseluruhan.')
                             ->columnSpan(1),
 
@@ -157,16 +158,16 @@ class OngoingResource extends Resource
                     ])
                     ->columns(2)
                     ->columnSpanFull()
-                    ->collapsible(),
+                    ->collapsible()
+                    ->collapsed(),
 
                 // 4. KONTAK & KOLABORASI VENDOR
-                Section::make('Kontak & Kolaborasi Vendor')
+                Section::make('[OPSIONAL] Kontak & Kolaborasi Vendor')
                     ->description('Data PIC utama dan vendor / subkon yang terlibat.')
                     ->schema([
                         TextInput::make('pic_name')
                             ->label('Nama PIC')
                             ->placeholder('cth: Bapak Andi Pratama')
-                            ->required()
                             ->maxLength(255)
                             ->columnSpan(1),
 
@@ -187,7 +188,8 @@ class OngoingResource extends Resource
                     ])
                     ->columns(2)
                     ->columnSpanFull()
-                    ->collapsible(),
+                    ->collapsible()
+                    ->collapsed(),
             ]);
     }
 
