@@ -17,7 +17,9 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('konsultasis')
                 ->cascadeOnDelete();
-            $table->date('tanggal')->unique();
+            $table->date('tanggal');
+            $table->enum('tipe_konsultasi', ['visit', 'online'])->nullable()->after('tanggal')->comment('Tipe konsultasi: visit (kunjungan lokasi) atau online');
+            $table->string('jam', 5)->nullable()->after('tanggal')->comment('Time slot in HH:MM format (WIB)');
             $table->string('status', 30)->default('pending');
             $table->text('catatan_admin')->nullable();
             $table->timestamps();

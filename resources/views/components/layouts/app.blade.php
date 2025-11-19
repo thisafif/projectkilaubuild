@@ -19,5 +19,14 @@
 
     <livewire:footer />
 
+    <script>
+        document.addEventListener('livewire:init', function () {
+            Livewire.on('buka-wa', (data) => {
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

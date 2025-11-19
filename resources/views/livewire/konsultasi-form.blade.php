@@ -10,13 +10,15 @@
     <div class="w-full lg:px-40 px-6 pt-8">
         <h2 class="text-3xl font-bold text-blue-950">Formulir Konsultasi</h2>
     </div>
-    <form wire:submit="simpanKonsultasi" class="container mx-auto px-4 py-10" style="font-family: 'Poppins', sans-serif;">
+    <form wire:submit="bukaModalKonfirmasi" class="container mx-auto px-4 py-10"
+        style="font-family: 'Poppins', sans-serif;">
         <!-- Loading Toast -->
         <div wire:loading.delay class="fixed bottom-6 right-6 z-50">
             <div class="bg-white rounded-lg shadow-lg p-4 flex items-center gap-3 border border-blue-100">
                 <svg class="animate-spin h-5 w-5 text-[#73ABD3]" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                        stroke-width="4">
                     </circle>
                     <path class="opacity-75" fill="currentColor"
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
@@ -29,7 +31,8 @@
         <!-- Success Toast -->
         @if (session('sukses'))
             <div class="fixed bottom-6 right-6 z-50">
-                <div class="bg-green-50 rounded-lg shadow-lg p-4 flex items-center gap-3 border border-green-200 max-w-md">
+                <div
+                    class="bg-green-50 rounded-lg shadow-lg p-4 flex items-center gap-3 border border-green-200 max-w-md">
                     <svg class="h-5 w-5 text-green-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,7 +46,8 @@
         <div class="max-w-6xl mx-auto space-y-12">
             <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10">
                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-blue-50">
-                    <h2 class="text-2xl md:text-3xl font-semibold text-blue-950 mb-6 text-center">Formulir Konsultasi</h2>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-blue-950 mb-6 text-center">Formulir Konsultasi
+                    </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="md:col-span-2">
                             <label for="nama" class="block text-sm font-semibold text-blue-900">Nama</label>
@@ -101,7 +105,8 @@
                         </div>
 
                         <div>
-                            <label for="kabupaten" class="block text-sm font-semibold text-blue-900">Kabupaten/Kota</label>
+                            <label for="kabupaten"
+                                class="block text-sm font-semibold text-blue-900">Kabupaten/Kota</label>
                             <select id="kabupaten" wire:model.live="kabupaten"
                                 class="mt-1 w-full rounded-xl border-2 border-blue-200 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
                                 @if (count($daftarKabupaten) > 0)
@@ -144,7 +149,8 @@
                                         {{ $tipeKonsultasi === 'visit'
                                             ? 'bg-blue-900 text-white border-blue-900 shadow-md'
                                             : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
-                                    <flux:icon name="map-pin" class="w-5 h-5 {{ $tipeKonsultasi === 'visit' ? 'text-white' : 'text-blue-900' }}" />
+                                    <flux:icon name="map-pin"
+                                        class="w-5 h-5 {{ $tipeKonsultasi === 'visit' ? 'text-white' : 'text-blue-900' }}" />
                                     Kunjungan ke Lokasi
                                 </button>
                                 <button type="button" wire:click="$set('tipeKonsultasi', 'online')"
@@ -152,7 +158,8 @@
                                         {{ $tipeKonsultasi === 'online'
                                             ? 'bg-blue-900 text-white border-blue-900 shadow-md'
                                             : 'bg-white text-blue-900 border-blue-200 hover:border-blue-400' }}">
-                                    <flux:icon name="computer-desktop" class="w-5 h-5 {{ $tipeKonsultasi === 'online' ? 'text-white' : 'text-blue-900' }}" />
+                                    <flux:icon name="computer-desktop"
+                                        class="w-5 h-5 {{ $tipeKonsultasi === 'online' ? 'text-white' : 'text-blue-900' }}" />
                                     Konsultasi secara Online
                                 </button>
                             </div>
@@ -208,7 +215,7 @@
                                             $isSelected = $selectedDate === $day['date'];
                                             $status = $day['status'] ?? null;
                                         @endphp
-                                        <button type="button" wire:click="pilihTanggal('{{ $day['date'] }}')"
+                                        <button type="button" wire:key="day-{{ $day['date'] }}" wire:click="pilihTanggal('{{ $day['date'] }}')"
                                             @disabled($day['isDisabled'])
                                             class="relative flex aspect-square items-center justify-center rounded-xl text-sm font-semibold transition-all border
                                                 {{ $isSelected ? 'bg-blue-900 text-white border-blue-900 shadow-lg' : '' }}
@@ -217,7 +224,7 @@
                                                 {{ !$isSelected && !$day['isPast'] && !$day['isSunday'] && $day['isCurrentMonth'] ? 'bg-blue-50 text-blue-900 border-blue-100 hover:bg-blue-100' : '' }}
                                                 {{ !$day['isCurrentMonth'] ? 'bg-white text-blue-300 border-blue-50 opacity-50' : '' }}">
                                             <span>{{ $day['label'] }}</span>
-                                            @if ($status && !$isSelected)
+                                            {{-- @if ($status && !$isSelected)
                                                 <span
                                                     class="absolute -bottom-1 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full
                                                 {{ $status === \App\Models\JadwalKonsultasi::STATUS_CONFIRMED
@@ -226,7 +233,7 @@
                                                         ? 'bg-red-400'
                                                         : 'bg-yellow-400') }}">
                                                 </span>
-                                            @endif
+                                            @endif --}}
                                         </button>
                                     @endforeach
                                 </div>
@@ -251,7 +258,7 @@
                                             wire:loading.class="opacity-50 cursor-not-allowed"
                                             class="py-2 px-3 text-sm rounded-lg font-medium transition-all
                                                 {{ $selectedTime === $slot
-                                                    ? 'bg-blue-600 text-white shadow-md'
+                                                    ? 'bg-blue-900 text-white shadow-md'
                                                     : 'bg-white text-blue-900 border border-blue-200 hover:bg-blue-50' }}">
                                             {{ $slot }}
                                         </button>
@@ -261,10 +268,11 @@
                         @elseif ($selectedDate && $tipeKonsultasi && count($availableSlots) === 0)
                             <div
                                 class="mt-6 rounded-xl bg-amber-50 px-4 py-3 border border-amber-200 text-sm text-amber-800">
-                                ⚠️ Semua sesi pada tanggal ini sudah penuh. Silakan pilih tanggal lain.
+                                ⚠️ Kuota konsultasi pada tanggal {{ $selectedDate ? \Illuminate\Support\Carbon::parse($selectedDate)->translatedFormat('d F') : '-' }} sudah penuh. Silakan pilih tanggal/tipe konsultasi lain.
                             </div>
                         @elseif ($selectedDate && !$tipeKonsultasi)
-                            <div class="mt-6 rounded-xl bg-blue-50 px-4 py-3 border border-blue-200 text-sm text-blue-800">
+                            <div
+                                class="mt-6 rounded-xl bg-blue-50 px-4 py-3 border border-blue-200 text-sm text-blue-800">
                                 ℹ️ Silakan pilih tipe konsultasi terlebih dahulu untuk melihat jadwal tersedia.
                             </div>
                         @endif
@@ -288,8 +296,8 @@
                         <div wire:loading class="flex items-center gap-3">
                             <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor"
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
@@ -298,7 +306,8 @@
 
                         <!-- Default State -->
                         <div wire:loading.remove class="flex items-center gap-3">
-                            <img class="w-10 h-10 rounded-full" src="{{ asset('images/logo-kilau-build(80x80).png') }}"
+                            <img class="w-10 h-10 rounded-full"
+                                src="{{ asset('images/logo-kilau-build(80x80).png') }}"
                                 alt="logo-kilau-build-button" />
                             <span class="text-white text-xl font-semibold ">Hubungi Kami</span>
                         </div>
@@ -337,4 +346,120 @@
             </div>
         </div>
     </form>
+
+    <!-- Modal Konfirmasi -->
+    @if ($showModalKonfirmasi && $dataKonfirmasi && isset($dataKonfirmasi['nama']))
+        <div class="fixed inset-0 flex items-center justify-center z-50 p-4 mt-6"
+            style="font-family: 'Poppins', sans-serif; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+                <!-- Header -->
+                <div
+                    class="
+                    {{-- bg-linear-to-r from-blue-900 to-blue-800 --}}
+                    px-6 py-5 pt-5 flex justify-between sticky top-0">
+                    <h2 class="text-xl font-bold text-blue-900 px-4 pt-5">Konfirmasi Data Konsultasi</h2>
+                    <button type="button" wire:click="tutupModalKonfirmasi"
+                        class="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="px-6 py-6 space-y-4">
+                    <!-- Alert Info -->
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-lg">
+                        <p class="text-blue-900 text-xs">
+                            <span class="font-semibold">ℹ️ Informasi:</span> Setelah Anda mengklik "Kirim ke WhatsApp",
+                            Anda akan dialihkan ke aplikasi WhatsApp untuk mengirimkan data konsultasi ini kepada tim
+                            kami.
+                        </p>
+                    </div>
+
+                    <!-- Data Display -->
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-4 rounded-xl space-y-2">
+                            <div class="grid grid-cols-1 gap-3">
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Nama</p>
+                                    <p class="text-base text-blue-950 font-semibold">{{ $dataKonfirmasi['nama'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">No. WhatsApp
+                                    </p>
+                                    <p class="text-base text-blue-950 font-semibold">
+                                        +{{ $dataKonfirmasi['noWhatsappFormatted'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Jenis
+                                        Konsultasi</p>
+                                    <p class="text-base text-blue-950 font-semibold">
+                                        {{ $dataKonfirmasi['jenisKonsultasi'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Tipe
+                                        Konsultasi</p>
+                                    <p class="text-base text-blue-950 font-semibold">
+                                        {{ $dataKonfirmasi['tipeKonsultasi'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Lokasi</p>
+                                    <p class="text-base text-blue-950 font-semibold">{{ $dataKonfirmasi['lokasi'] }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Tanggal</p>
+                                    <p class="text-base text-blue-950 font-semibold">
+                                        {{ $dataKonfirmasi['tanggalFormatted'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Sesi</p>
+                                    <p class="text-base text-blue-950 font-semibold">{{ $dataKonfirmasi['jam'] }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">Detail
+                                        Konsultasi</p>
+                                    <p class="text-sm text-blue-950 break-all">
+                                        {{ $dataKonfirmasi['detailKonsultasi'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-gray-50 px-6 py-3 flex gap-2 justify-end sticky bottom-0 border-t border-gray-200">
+                    <button type="button" wire:click="tutupModalKonfirmasi"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold text-blue-950 bg-white border-2 border-blue-200 hover:bg-blue-50 transition">
+                        Batal
+                    </button>
+                    <button type="button" wire:click="kirimKonsultasi" wire:loading.attr="disabled"
+                        wire:loading.class="opacity-50 cursor-not-allowed"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 transition flex items-center gap-2">
+                        <div wire:loading class="flex items-center gap-2">
+                            <svg class="animate-spin h-5 w-5 text-[#73ABD3]" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4">
+                                </circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            <span class="text-gray-700 font-medium">Sedang memproses...</span>
+                        </div>
+                        <div wire:loading.remove class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2 1m2-1L12 3m2 1v2.5M12 14l-2 1m2-1l-2-1m2 1v2.5" />
+                            </svg>
+                            <span>Kirim ke WhatsApp</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

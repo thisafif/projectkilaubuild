@@ -5,15 +5,15 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TestimoniResource\Pages;
 use App\Models\Testimoni;
 use BackedEnum;
-use Filament\Forms;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\BulkActionGroup;
+use Filament\Actions\EditAction;
+use Filament\Forms;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class TestimoniResource extends Resource
 {
@@ -94,10 +94,10 @@ class TestimoniResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListTestimonis::route('/'),
-            'create' => Pages\CreateTestimoni::route('/create'),
-            'view'   => Pages\ViewTestimoni::route('/{record}'),
-            'edit'   => Pages\EditTestimoni::route('/{record}/edit'),
+            'index' => Pages\ListTestimonis::route('/'),
+            // 'create' => Pages\CreateTestimoni::route('/create'),
+            // 'view'   => Pages\ViewTestimoni::route('/{record}'),
+            // 'edit'   => Pages\EditTestimoni::route('/{record}/edit'),
         ];
     }
 }
