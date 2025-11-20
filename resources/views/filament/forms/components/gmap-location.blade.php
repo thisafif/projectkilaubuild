@@ -13,7 +13,7 @@
         x-init="init()"
         class="space-y-3"
     >
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-end border-b pb-2">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-end pb-2">
             <div class="flex-1">
                 <input
                     x-ref="searchInput"
@@ -37,7 +37,7 @@
 
         <br>
 
-                    <div class="sm:w-auto w-full border-b pb-2">
+                    <div class="sm:w-auto w-full     pb-2">
                 <x-filament::button
                     type="button"
                     color="gray"
