@@ -36,6 +36,7 @@ class KonsultasiResource extends Resource
     {
         return $schema->schema([
             Section::make('Informasi Pemohon')
+                ->description('Informasi singkat pemohon konsultasi.')
                 ->schema([
                     TextInput::make('nama')
                         ->label('Nama Lengkap')

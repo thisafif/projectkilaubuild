@@ -11,12 +11,14 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentView;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -65,6 +67,138 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->spa(hasPrefetching: true)
             ->profile(isSimple: false);
+    }
 
+    public function boot(): void
+    {
+        FilamentView::registerRenderHook(
+            'panels::body.end',
+            fn (): string => Blade::render(<<<'BLADE'
+                @once
+                <script>
+                    (function() {
+                        const GOOGLE_MAPS_API_KEY = '{{ config("services.google.maps.key") }}';
+
+                        // Load Google Maps API
+                        function loadGoogleMaps() {
+                            return new Promise((resolve, reject) => {
+                                if (window.google?.maps) {
+                                    resolve();
+                                    return;
+                                }
+
+                                if (window.googleMapsLoading) {
+                                    const check = setInterval(() => {
+                                        if (window.google?.maps) {
+                                            clearInterval(check);
+                                            resolve();
+                                        }
+                                    }, 100);
+                                    return;
+                                }
+
+                                window.googleMapsLoading = true;
+                                const script = document.createElement('script');
+                                script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&loading=async`;
+                                script.async = true;
+                                script.defer = true;
+                                script.onload = () => {
+                                    window.googleMapsLoading = false;
+                                    resolve();
+                                };
+                                script.onerror = () => {
+                                    window.googleMapsLoading = false;
+                                    reject(new Error('Failed to load Google Maps'));
+                                };
+                                document.head.appendChild(script);
+                            });
+                        }
+
+                        // Initialize maps
+                        function initOngoingMaps() {
+                            document.querySelectorAll('[id^="ongoing-map-"]').forEach(container => {
+                                if (container.dataset.mapInitialized === 'true') return;
+
+                                const pointsData = container.dataset.mapPoints;
+                                if (!pointsData) return;
+
+                                let points = [];
+                                try {
+                                    points = JSON.parse(pointsData);
+                                } catch (e) {
+                                    console.error('Parse error:', e);
+                                    return;
+                                }
+
+                                if (points.length === 0 || !window.google?.maps) return;
+
+                                const map = new google.maps.Map(container, {
+                                    zoom: 11,
+                                    center: { lat: points[0].lat, lng: points[0].lng },
+                                    mapTypeControl: true,
+                                    streetViewControl: false,
+                                });
+
+                                const bounds = new google.maps.LatLngBounds();
+
+                                points.forEach(point => {
+                                    const position = { lat: parseFloat(point.lat), lng: parseFloat(point.lng) };
+                                    const marker = new google.maps.Marker({
+                                        position,
+                                        map,
+                                        title: point.name,
+                                    });
+
+                                    bounds.extend(position);
+
+                                    const infoWindow = new google.maps.InfoWindow({
+                                        content: `
+                                            <div style="padding:8px;max-width:250px;">
+                                                <h4 style="margin:0 0 4px;font-weight:600;font-size:14px;">${point.name}</h4>
+                                                ${point.address ? `<p style="margin:0;font-size:12px;color:#666;">${point.address}</p>` : ''}
+                                            </div>
+                                        `,
+                                    });
+
+                                    marker.addListener('click', () => infoWindow.open(map, marker));
+                                });
+
+                                if (points.length > 1) map.fitBounds(bounds);
+                                container.dataset.mapInitialized = 'true';
+                            });
+                        }
+
+                        // Initialize when maps are needed
+                        function initMaps() {
+                            if (document.querySelector('[id^="ongoing-map-"]')) {
+                                loadGoogleMaps()
+                                    .then(() => initOngoingMaps())
+                                    .catch(err => console.error('Maps error:', err));
+                            }
+                        }
+
+                        // Run on page load
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', initMaps);
+                        } else {
+                            initMaps();
+                        }
+
+                        // Re-run after Livewire navigation (SPA mode)
+                        document.addEventListener('livewire:navigated', () => {
+                            setTimeout(initMaps, 100);
+                        });
+
+                        // Re-run after Livewire updates (if Livewire is available)
+                        if (typeof Livewire !== 'undefined') {
+                            Livewire.hook('morph.updated', () => {
+                                setTimeout(initMaps, 150);
+                            });
+                        }
+                    })();
+                </script>
+                @endonce
+            BLADE)
+        );
     }
 }

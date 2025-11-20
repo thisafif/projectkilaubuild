@@ -60,6 +60,7 @@ class OngoingResource extends Resource
                                 'in_progress' => 'Dalam Progres',
                                 'done' => 'Selesai',
                             ])
+                            ->native(false)
                             ->required()
                             ->helperText('Gunakan status yang mewakilkan kondisi proyek saat ini.')
                             ->columnSpan(1),
@@ -157,7 +158,7 @@ class OngoingResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(2)
-                    ->columnSpanFull()
+                    // ->columnSpanFull()
                     ->collapsible()
                     ->collapsed(),
 
@@ -187,7 +188,7 @@ class OngoingResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(2)
-                    ->columnSpanFull()
+                    // ->columnSpanFull()
                     ->collapsible()
                     ->collapsed(),
             ]);
@@ -255,8 +256,8 @@ class OngoingResource extends Resource
     {
         return [
             'index' => Pages\ListOngoings::route('/'),
-            // 'create' => Pages\CreateOngoing::route('/create'),
-            // 'edit' => Pages\EditOngoing::route('/{record}/edit'),
+            'create' => Pages\CreateOngoing::route('/create'),
+            'edit' => Pages\EditOngoing::route('/{record}/edit'),
         ];
     }
 }
