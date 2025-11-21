@@ -2,6 +2,14 @@ import Alpine from 'alpinejs'
 
 window.Alpine = Alpine
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init({
+    once: true,
+    duration: 800,
+});
+
 Alpine.start()
 
 import Swiper from 'swiper';
@@ -55,4 +63,26 @@ const swiper2 = new Swiper('.card-testimoni', {
       rotate: true,
       slideShadows: true,
     },
+});
+
+document.addEventListener("alpine:init", () => {
+    const btn = document.getElementById("scrollDown");
+    const target = document.getElementById("about");
+    const navbar = document.querySelector("nav"); 
+    
+    if (btn && target && navbar) {
+        btn.addEventListener("click", () => {
+            const navHeight = navbar.offsetHeight; 
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset;
+
+            window.scrollTo({
+                top: targetPos - navHeight,
+                behavior: "smooth"
+            });
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("hero").classList.add("show");
 });
