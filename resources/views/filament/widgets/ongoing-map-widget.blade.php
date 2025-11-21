@@ -2,7 +2,7 @@
     <x-filament::card>
         <div class="space-y-4">
             <h3 class="text-lg font-semibold">
-                Peta Proyek Ongoing
+                Peta Proyek yang Sedang Berjalan
             </h3>
 
             @if($points->count() > 0)

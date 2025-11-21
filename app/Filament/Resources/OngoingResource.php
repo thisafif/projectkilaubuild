@@ -28,7 +28,9 @@ class OngoingResource extends Resource
 
     protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-briefcase';
 
-    protected static ?string $navigationLabel = 'Ongoing Projects';
+    protected static ?string $modelLabel = 'Proyek';
+    protected static ?string $pluralModelLabel = 'Kelola Proyek';
+    protected static ?string $navigationLabel = 'Kelola Proyek';
 
     public static function form(Schema $schema): Schema
     {
@@ -82,6 +84,7 @@ class OngoingResource extends Resource
                             ->multiple()
                             ->reorderable()
                             ->imageEditor()
+                            ->disk('public')
                             ->directory('ongoing-projects')
                             ->helperText('Upload beberapa gambar yang mewakili kondisi atau progres proyek.')
                             ->columnSpanFull(),
@@ -206,7 +209,7 @@ class OngoingResource extends Resource
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
+                    ->formatStateUsing(fn($state) => match ($state) {
                         'consultation' => 'Konsultasi',
                         'planning' => 'Perencanaan',
                         'in_progress' => 'Dalam Progres',
