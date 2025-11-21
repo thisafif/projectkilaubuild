@@ -78,6 +78,68 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+@layer utilities {
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); } 
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(10px); } 
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-down {
+        animation: slideDown 0.6s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.6s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    .animate-slide-up-delay {
+        animation: slideUp 0.6s ease-out 0.6s forwards;
+        opacity: 0;
+    }
+
+    .animate-scale-in {
+        animation: scaleIn 0.6s ease-out 0.8s forwards;
+        opacity: 0;
+    }
+
+    .animate-fade-in-delay {
+        animation: fadeIn 0.8s ease-out 0.6s forwards;
+        opacity: 0;
+    }
+}
+
+body {
+  overflow-y: hidden !important;
+  scroll-behavior: none !important;
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

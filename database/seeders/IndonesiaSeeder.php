@@ -12,18 +12,18 @@ class IndonesiaSeeder extends Seeder
      */
     public function run(): void
     {
-        // Kode provinsi yang diizinkan:
-        // 36 = Jawa Timur
-        // 35 = Jawa Tengah
+        // Kode provinsi yang diizinkan (Jakarta, Banten, Jawa Barat, Jawa Tengah, DI Yogyakarta, Jawa Timur, Bali):
+        // 31 = DKI Jakarta
+        // 36 = Banten
+        // 32 = Jawa Barat
+        // 33 = Jawa Tengah
         // 34 = DI Yogyakarta
-        // 33 = Jawa Barat
-        // 32 = Jawa Tengah (duplikat? akan cek)
-        // 31 = Banten
+        // 35 = Jawa Timur (termasuk Madura)
         // 51 = Bali
 
         $allowedProvinceCodes = ['31', '32', '33', '34', '35', '36', '51'];
 
-        // Hapus data dari tabel terkait di luar provinsi target
+        // cakupan target projek kilaubuild
         DB::statement("
             DELETE FROM indonesia_villages
             WHERE district_code IN (

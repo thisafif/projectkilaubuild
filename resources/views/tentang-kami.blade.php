@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Tentang Kami')">
-    <div>
+    <div class="animate-fade-in-delay">
         {{-- Hero --}}
         <div class="relative w-full h-70 flex items-center justify-center bg-center bg-cover"
             style="background-image: url('https://placehold.co/1200x400');">
