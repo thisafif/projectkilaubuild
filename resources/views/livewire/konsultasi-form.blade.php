@@ -6,7 +6,7 @@
     @endpush
 @endonce
 
-<div>
+<div class="animate-fade-in-delay">
     <div class="w-full lg:px-40 px-6 pt-8">
         <h2 class="text-3xl font-bold text-blue-950">Formulir Konsultasi</h2>
     </div>

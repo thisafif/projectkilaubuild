@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->viteTheme('resources/css/filament/admin/theme.css')
+            ->favicon(asset('images/logo-kilau-build(80x80).png'))
             ->id('admin')
             ->path('admin')
             ->login()

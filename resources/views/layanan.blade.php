@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Layanan')">
-    <div class="w-full flex flex-col items-center justify-center px-6 lg:px-40 py-20 gap-12 text-sans">
+    <div class="w-full flex flex-col items-center justify-center px-6 lg:px-40 py-20 gap-12 text-sans animate-fade-in-delay">
 
         {{-- Judul --}}
         <div class="w-full text-left">

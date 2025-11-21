@@ -1,4 +1,4 @@
-<div class="w-full lg:px-40 lg:py-20 px-6 py-8">
+<div class="w-full lg:px-40 lg:py-20 px-6 py-8 animate-fade-in-delay">
 
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4">
         <div>
@@ -38,7 +38,7 @@
             <div>
                 <label for="provinsi" class="block text-sm font-semibold text-blue-900">Provinsi</label>
                 <select id="provinsi_proyek" wire:model.live="provinsi"
-                    class="mt-1 w-full rounded-xl border-2 border-blue-200 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
+                    class="mt-1 w-full bg-white rounded-xl border-2 border-blue-200 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
                     <option value="">Pilih Provinsi</option>
                     @foreach ($daftarProvinsi as $prov)
                         <option value="{{ $prov->id }}">{{ $prov->name }}</option>
