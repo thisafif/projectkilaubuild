@@ -48,10 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -66,8 +63,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->spa(hasPrefetching: true)
-            ->profile(isSimple: false);
+            ->spa();
     }
 
     public function boot(): void
@@ -117,8 +113,11 @@ class AdminPanelProvider extends PanelProvider
 
                         // Initialize maps
                         function initOngoingMaps() {
-                            document.querySelectorAll('[id^="ongoing-map-"]').forEach(container => {
-                                if (container.dataset.mapInitialized === 'true') return;
+                            const containers = document.querySelectorAll('[id^="ongoing-map-"]');
+                            if (containers.length === 0) return;
+
+                            containers.forEach(container => {
+                                if (container.dataset.mapInitialized === 'true' || container.offsetParent === null) return;
 
                                 const pointsData = container.dataset.mapPoints;
                                 if (!pointsData) return;
@@ -133,43 +132,78 @@ class AdminPanelProvider extends PanelProvider
 
                                 if (points.length === 0 || !window.google?.maps) return;
 
-                                const map = new google.maps.Map(container, {
-                                    zoom: 11,
-                                    center: { lat: points[0].lat, lng: points[0].lng },
-                                    mapTypeControl: true,
-                                    streetViewControl: false,
-                                });
-
-                                const bounds = new google.maps.LatLngBounds();
-
-                                points.forEach(point => {
-                                    const position = { lat: parseFloat(point.lat), lng: parseFloat(point.lng) };
-                                    const marker = new google.maps.Marker({
-                                        position,
-                                        map,
-                                        title: point.name,
+                                setTimeout(() => {
+                                    const map = new google.maps.Map(container, {
+                                        zoom: 11,
+                                        center: { lat: points[0].lat, lng: points[0].lng },
+                                        mapTypeControl: true,
+                                        streetViewControl: true,
+                                        fullscreenControl: true,
                                     });
 
-                                    bounds.extend(position);
+                                    const bounds = new google.maps.LatLngBounds();
+                                    const statusColors = {
+                                        'consultation': '#f59e0b',
+                                        'planning': '#3b82f6',
+                                        'in_progress': '#8b5cf6',
+                                        'done': '#10b981',
+                                    };
+                                    const statusLabels = {
+                                        'consultation': 'Konsultasi',
+                                        'planning': 'Perencanaan',
+                                        'in_progress': 'Dalam Progres',
+                                        'done': 'Selesai',
+                                    };
 
-                                    const infoWindow = new google.maps.InfoWindow({
-                                        content: `
-                                            <div style="padding:8px;max-width:250px;">
-                                                <h4 style="margin:0 0 4px;font-weight:600;font-size:14px;">${point.name}</h4>
-                                                ${point.address ? `<p style="margin:0;font-size:12px;color:#666;">${point.address}</p>` : ''}
+                                    points.forEach(point => {
+                                        const position = { lat: parseFloat(point.lat), lng: parseFloat(point.lng) };
+                                        const color = statusColors[point.status] || '#6b7280';
+
+                                        const marker = new google.maps.Marker({
+                                            position,
+                                            map,
+                                            icon: {
+                                                path: google.maps.SymbolPath.CIRCLE,
+                                                scale: 10,
+                                                fillColor: color,
+                                                fillOpacity: 0.9,
+                                                strokeColor: '#ffffff',
+                                                strokeWeight: 2,
+                                            },
+                                        });
+
+                                        bounds.extend(position);
+
+                                        const infoContent = `
+                                            <div style="padding: 12px; max-width: 280px;">
+                                                <h4 style="margin: 0 0 8px; font-weight: 700; font-size: 16px; color: #111;">
+                                                    ${point.name}
+                                                </h4>
+                                                <div style="margin-bottom: 6px;">
+                                                    <span style="display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; color: white; background-color: ${color};">
+                                                        ${statusLabels[point.status] || point.status}
+                                                    </span>
+                                                </div>
+                                                ${point.progress ? `<p style="margin: 4px 0; font-size: 13px; color: #555;">Progress: <strong>${point.progress}%</strong></p>` : ''}
+                                                ${point.address ? `<p style="margin: 4px 0; font-size: 12px; color: #666;">📍 ${point.address}</p>` : ''}
                                             </div>
-                                        `,
+                                        `;
+
+                                        const infoWindow = new google.maps.InfoWindow({ content: infoContent });
+                                        marker.addListener('click', () => infoWindow.open(map, marker));
                                     });
 
-                                    marker.addListener('click', () => infoWindow.open(map, marker));
-                                });
+                                    if (points.length > 1) {
+                                        map.fitBounds(bounds);
+                                    } else if (points.length === 1) {
+                                        map.setZoom(14);
+                                    }
 
-                                if (points.length > 1) map.fitBounds(bounds);
-                                container.dataset.mapInitialized = 'true';
+                                    container.dataset.mapInitialized = 'true';
+                                }, 100);
                             });
                         }
 
-                        // Initialize when maps are needed
                         function initMaps() {
                             if (document.querySelector('[id^="ongoing-map-"]')) {
                                 loadGoogleMaps()
@@ -178,24 +212,39 @@ class AdminPanelProvider extends PanelProvider
                             }
                         }
 
-                        // Run on page load
                         if (document.readyState === 'loading') {
                             document.addEventListener('DOMContentLoaded', initMaps);
                         } else {
                             initMaps();
                         }
 
-                        // Re-run after Livewire navigation (SPA mode)
                         document.addEventListener('livewire:navigated', () => {
                             setTimeout(initMaps, 100);
                         });
 
-                        // Re-run after Livewire updates (if Livewire is available)
                         if (typeof Livewire !== 'undefined') {
                             Livewire.hook('morph.updated', () => {
                                 setTimeout(initMaps, 150);
                             });
                         }
+
+                        const observer = new MutationObserver((mutations) => {
+                            for (const mutation of mutations) {
+                                if (mutation.addedNodes.length) {
+                                    const hasMapContainer = Array.from(mutation.addedNodes).some(node => {
+                                        return node.nodeType === 1 && (
+                                            node.id?.startsWith('ongoing-map-') ||
+                                            node.querySelector?.('[id^="ongoing-map-"]')
+                                        );
+                                    });
+                                    if (hasMapContainer) {
+                                        setTimeout(initMaps, 200);
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                        observer.observe(document.body, { childList: true, subtree: true });
                     })();
                 </script>
                 @endonce

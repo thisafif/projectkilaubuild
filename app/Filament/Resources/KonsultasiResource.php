@@ -32,6 +32,10 @@ class KonsultasiResource extends Resource
 
     protected static ?string $navigationLabel = 'Kelola Konsultasi';
 
+    protected static ?string $modelLabel = 'Konsultasi';
+
+    protected static ?string $pluralModelLabel = 'Kelola Konsultasi';
+
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([
@@ -56,7 +60,7 @@ class KonsultasiResource extends Resource
                         ->label('Provinsi')
                         ->required()
                         ->options(
-                            fn () => DB::table('indonesia_provinces')
+                            fn() => DB::table('indonesia_provinces')
                                 ->pluck('name', 'name')
                                 ->toArray()
                         )
@@ -200,12 +204,12 @@ class KonsultasiResource extends Resource
                     ->label('Tipe')
                     ->badge()
                     ->formatStateUsing(
-                        fn ($state) => $state === 'visit'
+                        fn($state) => $state === 'visit'
                             ? 'Kunjungan Lokasi'
                             : 'Konsultasi Online'
                     )
                     ->color(
-                        fn ($state) => $state === 'visit' ? 'info' : 'primary'
+                        fn($state) => $state === 'visit' ? 'info' : 'primary'
                     )
                     ->sortable(),
 
@@ -216,7 +220,7 @@ class KonsultasiResource extends Resource
                 TextColumn::make('jadwal.status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn (?string $state): string => match ($state) {
+                    ->color(fn(?string $state): string => match ($state) {
                         JadwalKonsultasi::STATUS_CONFIRMED => 'success',
                         JadwalKonsultasi::STATUS_CANCELLED => 'danger',
                         default => 'warning',
@@ -253,11 +257,11 @@ class KonsultasiResource extends Resource
                     ->color('success')
                     ->button()
                     ->url(
-                        fn (Konsultasi $record) => self::buatWhatsappUrl($record)
+                        fn(Konsultasi $record) => self::buatWhatsappUrl($record)
                     )
                     ->openUrlInNewTab()
                     ->visible(
-                        fn (Konsultasi $record) => filled($record->no_wa)
+                        fn(Konsultasi $record) => filled($record->no_wa)
                     ),
 
                 EditAction::make(),
@@ -294,16 +298,16 @@ class KonsultasiResource extends Resource
         $status = $jadwal?->status ?? JadwalKonsultasi::STATUS_PENDING;
 
         $pesan =
-            "Halo {$record->nama},\n\n".
-            "Saya dari Kilau Build.\n".
-            'Status konsultasi Anda: '.ucfirst($status)."\n".
-            "Tanggal konsultasi: {$tanggalFormatted}\n".
-            "Sesi: {$sesi}\n".
-            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n".
+            "Halo {$record->nama},\n\n" .
+            "Saya dari Kilau Build.\n" .
+            'Status konsultasi Anda: ' . ucfirst($status) . "\n" .
+            "Tanggal konsultasi: {$tanggalFormatted}\n" .
+            "Sesi: {$sesi}\n" .
+            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n" .
             'Silakan balas pesan ini jika ada penyesuaian. Terima kasih.';
 
         $nomor = preg_replace('/[^0-9]/', '', $record->no_wa);
 
-        return 'https://wa.me/'.$nomor.'?text='.urlencode($pesan);
+        return 'https://wa.me/' . $nomor . '?text=' . urlencode($pesan);
     }
 }

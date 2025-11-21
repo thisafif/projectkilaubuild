@@ -11,12 +11,14 @@ class OngoingMapWidget extends Widget
 
     protected static ?int $sort = -1;
 
+    protected int|string|array $columnSpan = 'full';
+
     public function getViewData(): array
     {
         $locations = Ongoing::query()
             ->whereNotNull('location->lat')
             ->whereNotNull('location->lng')
-            ->get(['id', 'client_name', 'location']);
+            ->get(['id', 'client_name', 'location', 'status', 'progress']);
 
         $points = $locations->map(fn ($item) => [
             'id' => $item->id,
@@ -24,6 +26,8 @@ class OngoingMapWidget extends Widget
             'lat' => data_get($item->location, 'lat'),
             'lng' => data_get($item->location, 'lng'),
             'address' => data_get($item->location, 'formatted_address', ''),
+            'status' => $item->status,
+            'progress' => $item->progress,
         ])->filter(fn ($p) => $p['lat'] && $p['lng'])->values();
 
         return [

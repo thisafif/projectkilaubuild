@@ -1,7 +1,7 @@
 <div class="w-full lg:px-40 lg:py-20 px-6 py-8 animate-fade-in-delay">
 
     <div class="mb-8">
-        <h2 class="text-3xl font-bold text-blue-950 mb-2">Proyek On-Going Kami</h2>
+        <h2 class="text-3xl font-bold text-blue-950 mb-2">Proyek yang Sedang Berjalan</h2>
         <p class="text-gray-600">Lihat peta dan daftar proyek yang sedang kami kerjakan</p>
     </div>
 
@@ -119,64 +119,72 @@
 @push('scripts')
 <script>
     (function() {
-            const GOOGLE_MAPS_API_KEY = '{{ config("services.google.maps.key") }}';
+        const GOOGLE_MAPS_API_KEY = '{{ config("services.google.maps.key") }}';
+        let publicMapInstance = null;
+        let mapInstance = null;
 
-            function loadGoogleMaps() {
-                return new Promise((resolve, reject) => {
-                    if (window.google?.maps) {
-                        resolve();
-                        return;
-                    }
-                    if (window.googleMapsLoading) {
-                        const check = setInterval(() => {
-                            if (window.google?.maps) {
-                                clearInterval(check);
-                                resolve();
-                            }
-                        }, 100);
-                        return;
-                    }
-                    window.googleMapsLoading = true;
-                    const script = document.createElement('script');
-                    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&loading=async`;
-                    script.async = true;
-                    script.defer = true;
-                    script.onload = () => {
-                        window.googleMapsLoading = false;
-                        resolve();
-                    };
-                    script.onerror = () => {
-                        window.googleMapsLoading = false;
-                        reject(new Error('Failed to load Google Maps'));
-                    };
-                    document.head.appendChild(script);
-                });
-            }
-
-            function initPublicMap() {
-                const container = document.getElementById('public-ongoing-map');
-                if (!container || container.dataset.mapInitialized === 'true') return;
-
-                const pointsData = container.dataset.mapPoints;
-                if (!pointsData) return;
-
-                let points = [];
-                try {
-                    points = JSON.parse(pointsData);
-                } catch (e) {
-                    console.error('Parse error:', e);
+        function loadGoogleMaps() {
+            return new Promise((resolve, reject) => {
+                if (window.google?.maps) {
+                    resolve();
                     return;
                 }
+                if (window.googleMapsLoading) {
+                    const check = setInterval(() => {
+                        if (window.google?.maps) {
+                            clearInterval(check);
+                            resolve();
+                        }
+                    }, 100);
+                    return;
+                }
+                window.googleMapsLoading = true;
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&loading=async`;
+                script.async = true;
+                script.defer = true;
+                script.onload = () => {
+                    window.googleMapsLoading = false;
+                    resolve();
+                };
+                script.onerror = () => {
+                    window.googleMapsLoading = false;
+                    reject(new Error('Failed to load Google Maps'));
+                };
+                document.head.appendChild(script);
+            });
+        }        function initPublicMap() {
+            const container = document.getElementById('public-ongoing-map');
+            if (!container) return;
+            
+            if (container.dataset.mapInitialized === 'true') return;
+            
+            if (container.offsetParent === null || container.offsetWidth === 0) {
+                console.log('Container not visible yet, retrying...');
+                setTimeout(initPublicMap, 200);
+                return;
+            }
 
-                if (points.length === 0 || !window.google?.maps) return;
+            const pointsData = container.dataset.mapPoints;
+            if (!pointsData) return;
 
-                const map = new google.maps.Map(container, {
-                    zoom: 11,
-                    center: { lat: points[0].lat, lng: points[0].lng },
-                    mapTypeControl: true,
-                    streetViewControl: true,
-                    fullscreenControl: true,
-                });
+            let points = [];
+            try {
+                points = JSON.parse(pointsData);
+            } catch (e) {
+                console.error('Parse error:', e);
+                return;
+            }
+
+            if (points.length === 0 || !window.google?.maps) return;
+
+            publicMapInstance = new google.maps.Map(container, {
+                zoom: 11,
+                center: { lat: points[0].lat, lng: points[0].lng },
+                mapTypeControl: true,
+                streetViewControl: true,
+                fullscreenControl: true,
+            });
 
                 const bounds = new google.maps.LatLngBounds();
                 const statusColors = {
@@ -196,21 +204,19 @@
                     const position = { lat: parseFloat(point.lat), lng: parseFloat(point.lng) };
                     const color = statusColors[point.status] || '#6b7280';
 
-                    const marker = new google.maps.Marker({
-                        position,
-                        map,
-                        title: point.name,
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            scale: 10,
-                            fillColor: color,
-                            fillOpacity: 0.9,
-                            strokeColor: '#ffffff',
-                            strokeWeight: 2,
-                        },
-                    });
-
-                    bounds.extend(position);
+                const marker = new google.maps.Marker({
+                    position,
+                    map: publicMapInstance,
+                    title: point.name,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10,
+                        fillColor: color,
+                        fillOpacity: 0.9,
+                        strokeColor: '#ffffff',
+                        strokeWeight: 2,
+                    },
+                });                    bounds.extend(position);
 
                     const infoContent = `
                         <div style="padding: 12px; max-width: 280px;">
@@ -227,34 +233,44 @@
                         </div>
                     `;
 
-                    const infoWindow = new google.maps.InfoWindow({ content: infoContent });
-                    marker.addListener('click', () => infoWindow.open(map, marker));
+                const infoWindow = new google.maps.InfoWindow({ content: infoContent });
+                marker.addListener('click', () => infoWindow.open(publicMapInstance, marker));
                 });
 
-                if (points.length > 1) {
-                    map.fitBounds(bounds);
-                } else if (points.length === 1) {
-                    map.setZoom(14);
-                }
-
-                container.dataset.mapInitialized = 'true';
+            if (points.length > 1) {
+                publicMapInstance.fitBounds(bounds);
+            } else if (points.length === 1) {
+                publicMapInstance.setZoom(14);
             }
 
-            function initMaps() {
-                if (document.getElementById('public-ongoing-map')) {
+            container.dataset.mapInitialized = 'true';
+        }
+
+        let initTimeout = null;
+        function initMaps() {
+            clearTimeout(initTimeout);
+            initTimeout = setTimeout(() => {
+                const container = document.getElementById('public-ongoing-map');
+                if (container) {
                     loadGoogleMaps()
-                        .then(() => initPublicMap())
+                        .then(() => {
+                            setTimeout(initPublicMap, 150);
+                        })
                         .catch(err => console.error('Maps error:', err));
                 }
-            }
+            }, 100);
+        }
 
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initMaps);
-            } else {
-                initMaps();
-            }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMaps);
+        } else {
+            initMaps();
+        }
 
-            document.addEventListener('livewire:navigated', () => setTimeout(initMaps, 100));
-        })();
+        document.addEventListener('livewire:navigated', () => {
+            publicMapInstance = null;
+            setTimeout(initMaps, 150);
+        });
+    })();
     </script>
 @endpush
