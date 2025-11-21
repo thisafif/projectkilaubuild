@@ -22,7 +22,7 @@ class PortofolioFactory extends Factory
             'deskripsi_lengkap' => fake()->paragraphs(3, true),
             'tipe' => fake()->randomElement(['bangun_baru', 'renovasi', 'interior']),
             'tanggal_proyek' => fake()->dateTimeBetween('-2 years', 'now'),
-            'url_gambar' => fake()->imageUrl(400, 300, 'architecture', true),
+            'attachmentportofolio' => fake()->imageUrl(400, 300, 'architecture', true),
         ];
     }
 }

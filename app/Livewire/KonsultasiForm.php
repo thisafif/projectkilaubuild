@@ -44,19 +44,30 @@ class KonsultasiForm extends Component
 
     public array $daftarKecamatan = [];
 
+    public bool $showModalKonfirmasi = false;
+
+    public ?array $dataKonfirmasi = null;
+
     public function mount(): void
     {
-        $today = now()->addDay();
-        $this->calendarMonth = (int) $today->format('m');
-        $this->calendarYear = (int) $today->format('Y');
+        // mulai dari besok
+        $besok = now()->addDay();
+
+        // bulan & tahun kalender ikut tanggal besok
+        $this->calendarMonth = (int) $besok->format('m');
+        $this->calendarYear = (int) $besok->format('Y');
 
         $this->daftarProvinsi = DB::table('indonesia_provinces')->orderBy('name')->get()->all();
         $this->daftarKabupaten = [];
         $this->daftarKecamatan = [];
 
+        // load tanggal yang sudah kebooking di bulan tsb
         $this->muatTanggalTerbooking();
-        $this->selectedDate = $this->temukanTanggalTersedia($today->copy());
-        // Don't load slots initially - wait for user to select consultation type
+
+        // set selectedDate ke tanggal tersedia pertama, mulai dari besok
+        $this->selectedDate = $this->temukanTanggalTersedia($besok->copy());
+
+        // slot masih kosong karena tipe konsultasi belum dipilih
         $this->availableSlots = [];
     }
 
@@ -127,9 +138,11 @@ class KonsultasiForm extends Component
     public function pilihTanggal(string $tanggal): void
     {
         $pilihan = Carbon::parse($tanggal)->startOfDay();
-        $today = now()->startOfDay();
 
-        if ($pilihan <= $today) {
+        // minimal boleh pilih = besok (gunakan today() untuk consistency)
+        $minSelectableDate = today()->addDay()->startOfDay();
+
+        if ($pilihan->lt($minSelectableDate)) {
             $this->addError('selectedDate', 'Tanggal tidak boleh hari ini atau tanggal yang sudah lewat.');
 
             return;
@@ -139,11 +152,10 @@ class KonsultasiForm extends Component
         $this->selectedDate = $tanggal;
         $this->selectedTime = null;
 
-        // Regenerate slots
         $this->regenerateSlots();
     }
 
-    public function simpanKonsultasi(): void
+    public function bukaModalKonfirmasi(): void
     {
         $data = $this->validate([
             'nama' => ['required', 'string', 'max:100'],
@@ -161,47 +173,122 @@ class KonsultasiForm extends Component
         $namaProvinsi = DB::table('indonesia_provinces')->where('id', $data['provinsi'])->value('name');
         $namaKabupaten = DB::table('indonesia_cities')->where('id', $data['kabupaten'])->value('name');
         $namaKecamatan = DB::table('indonesia_districts')->where('id', $data['kecamatan'])->value('name');
+        $jenisLabel = $this->getLabelJenisKonsultasi($data['jenisKonsultasi']);
+        $tipeLabel = $data['tipeKonsultasi'] === 'visit' ? 'Kunjungan ke Lokasi' : 'Konsultasi Online';
+        $tanggalFormatted = Carbon::parse($data['selectedDate'])->translatedFormat('d F Y');
 
+        $this->dataKonfirmasi = [
+            'nama' => $data['nama'],
+            'noWhatsapp' => $data['noWhatsapp'],
+            'noWhatsappFormatted' => $this->formatNomorWhatsapp($data['noWhatsapp']),
+            'jenisKonsultasi' => $jenisLabel,
+            'tipeKonsultasi' => $tipeLabel,
+            'lokasi' => implode(', ', array_filter([$namaKecamatan, $namaKabupaten, $namaProvinsi])),
+            'tanggal' => $data['selectedDate'],
+            'tanggalFormatted' => $tanggalFormatted,
+            'jam' => $data['selectedTime'],
+            'detailKonsultasi' => $data['detailKonsultasi'] ?? '-',
+            'provinsi' => $data['provinsi'],
+            'kabupaten' => $data['kabupaten'],
+            'kecamatan' => $data['kecamatan'],
+            'namaProvinsi' => $namaProvinsi,
+            'namaKabupaten' => $namaKabupaten,
+            'namaKecamatan' => $namaKecamatan,
+        ];
+
+        $this->showModalKonfirmasi = true;
+    }
+
+    public function tutupModalKonfirmasi(): void
+    {
+        $this->showModalKonfirmasi = false;
+        $this->dataKonfirmasi = null;
+    }
+
+    public function kirimKonsultasi(): void
+    {
+        if (! $this->dataKonfirmasi) {
+            return;
+        }
+
+        $data = $this->dataKonfirmasi;
+
+        // Buat record di database
         $konsultasi = Konsultasi::create([
             'nama' => $data['nama'],
-            'no_wa' => $this->formatNomorWhatsapp($data['noWhatsapp']),
-            'provinsi' => $namaProvinsi,
-            'kabupatenkota' => $namaKabupaten,
-            'kecamatan' => $namaKecamatan,
-            'jenis_konsultasi' => $data['jenisKonsultasi'],
-            'detil_konsultasi' => $data['detailKonsultasi'] ?? '',
+            'no_wa' => $data['noWhatsappFormatted'],
+            'provinsi' => $data['namaProvinsi'],
+            'kabupatenkota' => $data['namaKabupaten'],
+            'kecamatan' => $data['namaKecamatan'],
+            'jenis_konsultasi' => $this->getJenisConsultationKey($data['jenisKonsultasi']),
+            'detil_konsultasi' => $data['detailKonsultasi'] !== '-' ? $data['detailKonsultasi'] : '',
         ]);
 
         JadwalKonsultasi::create([
             'konsultasi_id' => $konsultasi->id,
-            'tanggal' => $data['selectedDate'],
-            'tipe_konsultasi' => $data['tipeKonsultasi'],
-            'jam' => $data['selectedTime'],
+            'tanggal' => $data['tanggal'],
+            'tipe_konsultasi' => strtolower(str_starts_with($data['tipeKonsultasi'], 'Kunjungan') ? 'visit' : 'online'),
+            'jam' => $data['jam'],
             'status' => JadwalKonsultasi::STATUS_PENDING,
         ]);
 
-        $tipeLabel = $data['tipeKonsultasi'] === 'visit' ? 'Kunjungan Lokasi' : 'Konsultasi Online';
+        // Kirim ke WhatsApp user
+        $this->buatPesanDanKirimWhatsapp($data);
+    }
 
-        $this->kirimWhatsappKeAdmin(
-            nama: $data['nama'],
-            nomor: $this->formatNomorWhatsapp($data['noWhatsapp']),
-            tipe: $tipeLabel,
-            tanggal: $data['selectedDate'],
-            jam: $data['selectedTime'],
-            lokasi: [$namaKecamatan, $namaKabupaten, $namaProvinsi],
-            jenis: $data['jenisKonsultasi'],
-            detail: $data['detailKonsultasi']
-        );
+    private function buatPesanDanKirimWhatsapp(array $data): void
+    {
+        $pesan = "Halo, saya ingin membuat jadwal konsultasi dengan KILAU BUILD.\n\n";
+        $pesan .= "*Detail Konsultasi:*\n";
+        $pesan .= "Nama: {$data['nama']}\n";
+        $pesan .= "No. WhatsApp: +{$data['noWhatsappFormatted']}\n";
+        $pesan .= "Jenis Konsultasi: {$data['jenisKonsultasi']}\n";
+        $pesan .= "Tipe Konsultasi: {$data['tipeKonsultasi']}\n";
+        $pesan .= "Lokasi: {$data['lokasi']}\n";
+        $pesan .= "Tanggal: {$data['tanggalFormatted']}\n";
+        $pesan .= "Sesi: {$data['jam']}\n";
+        $pesan .= "Detail: {$data['detailKonsultasi']}\n\n";
+        $pesan .= 'Terima kasih, mohon segera dikonfirmasi.';
 
-        session()->flash('sukses', value: 'Request konsultasi berhasil dikirim. Kami akan menghubungi Anda setelah verifikasi.');
+        $nomorWhatsapp = '6285171062602'; // NO WHATSAPP PM MU, BUKAN KILAUBUILD. JGN LUPA UBAH KE NO WA KILAUBUILD SEBELUM PRODUCTION
 
+        session()->flash('sukses', 'Konsultasi berhasil dikirim. Anda akan dialihkan ke WhatsApp.');
+
+        // Reset form
         $this->reset(['nama', 'noWhatsapp', 'tipeKonsultasi', 'jenisKonsultasi', 'detailKonsultasi', 'provinsi', 'kabupaten', 'kecamatan', 'selectedDate', 'selectedTime']);
         $this->daftarKabupaten = [];
         $this->daftarKecamatan = [];
         $this->availableSlots = [];
+        $this->showModalKonfirmasi = false;
+        $this->dataKonfirmasi = null;
 
         $this->muatTanggalTerbooking();
         $this->selectedDate = $this->temukanTanggalTersedia(Carbon::now()->addDay());
+
+        // Dispatch event untuk membuka WhatsApp
+        $this->dispatch('buka-wa', url: 'https://wa.me/'.$nomorWhatsapp.'?text='.urlencode($pesan));
+    }
+
+    private function getLabelJenisKonsultasi(string $jenis): string
+    {
+        return match ($jenis) {
+            'bgnrumah_renovasi' => 'Bangun Rumah & Renovasi',
+            'maintenance' => 'Maintenance Rumah',
+            'desain_interior' => 'Desain Arsitektural & Interior',
+            'lainnya' => 'Lainnya',
+            default => $jenis,
+        };
+    }
+
+    private function getJenisConsultationKey(string $label): string
+    {
+        return match ($label) {
+            'Bangun Rumah & Renovasi' => 'bgnrumah_renovasi',
+            'Maintenance Rumah' => 'maintenance',
+            'Desain Arsitektural & Interior' => 'desain_interior',
+            'Lainnya' => 'lainnya',
+            default => 'lainnya',
+        };
     }
 
     public function render()
@@ -240,23 +327,27 @@ class KonsultasiForm extends Component
         $akhirBulan = $awalBulan->copy()->endOfMonth();
         $akhirKalender = $akhirBulan->copy()->endOfWeek();
 
+        // minimal tanggal yg boleh diklik: besok (gunakan today() untuk consistency)
+        $minSelectableDate = today()->addDay()->startOfDay();
+
         $hari = [];
         $tanggal = $awalKalender->copy();
 
         while ($tanggal->lte($akhirKalender)) {
             $dateString = $tanggal->format('Y-m-d');
             $dayOfWeek = (int) $tanggal->format('w');
-            $isPast = $tanggal->lt(now()->startOfDay());
+
             $isSunday = $dayOfWeek === 0;
+            $isBeforeMin = $tanggal->lt($minSelectableDate); // < besok = gak boleh
 
             $hari[] = [
                 'date' => $dateString,
                 'label' => $tanggal->format('j'),
                 'isCurrentMonth' => $tanggal->month === $awalBulan->month,
-                'isPast' => $isPast,
+                'isPast' => $isBeforeMin,
                 'isBooked' => array_key_exists($dateString, $this->bookedDates),
                 'isSunday' => $isSunday,
-                'isDisabled' => $isPast || $isSunday,
+                'isDisabled' => $isBeforeMin || $isSunday || $tanggal->month !== $awalBulan->month,
                 'status' => $this->bookedDates[$dateString] ?? null,
             ];
 
@@ -294,15 +385,15 @@ class KonsultasiForm extends Component
         $date = Carbon::parse($tanggal);
         $dayOfWeek = (int) $date->format('w');
 
-        // Sunday is closed
+        // minggu (tdk menerima)
         if ($dayOfWeek === 0) {
             return [];
         }
 
-        // Determine capacity limit based on consultation type
+        // cek limit
         $capacityLimit = $this->getCapacityLimit();
 
-        // Generate session slots based on capacity
+        // slot sesi
         $slots = [];
         for ($session = 1; $session <= $capacityLimit; $session++) {
             $sesiLabel = "Sesi {$session}";
@@ -322,14 +413,11 @@ class KonsultasiForm extends Component
 
     private function isSlotAvailable(string $tanggal, string $sesi): bool
     {
-        // If no consultation type is selected yet, return true
-        // (This shouldn't happen in normal flow as slots are only loaded after type selection)
         if (! $this->tipeKonsultasi) {
             return true;
         }
 
-        // Each session (Sesi 1, Sesi 2, etc.) can only have 1 booking
-        // Check if this specific session on this date is already booked
+        // Cek available ato nggak
         $bookingCount = JadwalKonsultasi::query()
             ->whereDate('tanggal', $tanggal)
             ->where('jam', $sesi)
@@ -337,7 +425,7 @@ class KonsultasiForm extends Component
             ->whereNotIn('status', [JadwalKonsultasi::STATUS_CANCELLED])
             ->count();
 
-        // Each session can only accommodate 1 person
+        // Maksimum 1 org per sesi
         return $bookingCount < 1;
     }
 
@@ -345,29 +433,12 @@ class KonsultasiForm extends Component
     {
         // Basis kapasitas pada tipe konsultasi
         if ($this->tipeKonsultasi === 'visit') {
-            return 2; // Visit lokasi: max 2 sesi per hari
+            return 2; // Visit lokasi (2 sesi/hari)
         } elseif ($this->tipeKonsultasi === 'online') {
-            return 10; // Online: max 10 sesi per hari
+            return 10; // Online (10 sesi/hari)
         }
 
         // Default ke visit lokasi jika tipe belum dipilih
         return 2;
-    }
-
-    private function kirimWhatsappKeAdmin(string $nama, string $nomor, string $tipe, string $tanggal, string $jam, array $lokasi, string $jenis, ?string $detail): void
-    {
-        $nomorTujuan = config('app.wa_admin', '6282295444284');
-
-        $pesan = "Halo, ada permintaan konsultasi baru.\n\n";
-        $pesan .= "Nama: {$nama}\n";
-        $pesan .= "Kontak: {$nomor}\n";
-        $pesan .= "Tipe: {$tipe}\n";
-        $pesan .= 'Lokasi: '.implode(', ', array_filter($lokasi))."\n";
-        $pesan .= "Jenis: {$jenis}\n";
-        $pesan .= "Tanggal: {$tanggal}\n";
-        $pesan .= "Sesi: {$jam}\n\n";
-        $pesan .= 'Detail: '.($detail ?: '-')."\n";
-
-        $this->dispatch('buka-wa', url: 'https://wa.me/'.$nomorTujuan.'?text='.urlencode($pesan));
     }
 }

@@ -1,6 +1,7 @@
 <x-layouts.app :title="__('Artikel')">
     <div style="font-family: 'Poppins', sans-serif;"
-        class="lg:flex-row flex-col lg:px-40 px-15 lg:py-20 py-8">
+        class="lg:flex-row flex-col lg:px-40 px-15 lg:py-20 py-8
+        animate-fade-in-delay">
     <div style="margin: 0 auto;">
         <!-- Judul & Search -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
