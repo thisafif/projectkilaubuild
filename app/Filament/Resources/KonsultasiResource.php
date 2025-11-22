@@ -280,8 +280,8 @@ class KonsultasiResource extends Resource
     {
         return [
             'index' => Pages\ListKonsultasis::route('/'),
-            // 'create' => Pages\CreateKonsultasi::route('/create'),
-            // 'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
+            'create' => Pages\CreateKonsultasi::route('/create'),
+            'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
         ];
     }
 
