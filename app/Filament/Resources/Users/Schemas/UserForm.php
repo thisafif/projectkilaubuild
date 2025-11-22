@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use Dom\Text;
-use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 class UserForm
 {
@@ -25,6 +26,11 @@ class UserForm
                     ->password()
                     ->unique()
                     ->required(),
+                Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 }

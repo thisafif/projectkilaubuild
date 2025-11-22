@@ -145,7 +145,7 @@ return [
     */
 
     'localization' => [
-        'enabled' => true,
+        'enabled' => false,
         'key' => 'filament-shield::filament-shield',
     ],
 

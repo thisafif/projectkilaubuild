@@ -268,7 +268,7 @@
                         @elseif ($selectedDate && $tipeKonsultasi && count($availableSlots) === 0)
                             <div
                                 class="mt-6 rounded-xl bg-amber-50 px-4 py-3 border border-amber-200 text-sm text-amber-800">
-                                ⚠️ Kuota konsultasi pada tanggal {{ $selectedDate ? \Illuminate\Support\Carbon::parse($selectedDate)->translatedFormat('d F') : '-' }} sudah penuh. Silakan pilih tanggal/tipe konsultasi lain.
+                                ⚠️ Kuota konsultasi pada tanggal {{ $selectedDate ? \Illuminate\Support\Carbon::parse($selectedDate)->translatedFormat('d F') : '-' }} <b>tidak tersedia.</b><br> Silakan pilih tanggal/tipe konsultasi lain.
                             </div>
                         @elseif ($selectedDate && !$tipeKonsultasi)
                             <div

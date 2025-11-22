@@ -10,7 +10,7 @@
             <div class="w-full h-full flex flex-col text-center justify-center items-center gap-5 z-1">
                 <div class="mb-6 inline-flex items-center gap-2 backdrop-blur-md px-4 py-2 rounded-full w-fit border border-white/20 animate-slide-down">
                     <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-                    <span class="text-white/90 text-sm font-medium">Trusted by 100+ Happy Families</span>
+                    <span class="text-white/90 text-sm font-medium">Dipercaya oleh 100+ Keluarga Bahagia</span>
                 </div>
                 <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono animate-slide-up">Bangun Dulu<br />Baru
                     Bayar</div>
