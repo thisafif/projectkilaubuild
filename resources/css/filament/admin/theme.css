@@ -42,7 +42,10 @@
 }
 
 .fi-sidebar-item-label,
-.fi-sidebar-item-icon {
+.fi-sidebar-item-icon,
+.fi-sidebar-group-label,
+.fi-icon-btn,
+.fi-sidebar-group-collapse-btn {
     color: #ffffff !important; 
 }
 

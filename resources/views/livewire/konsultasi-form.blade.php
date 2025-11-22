@@ -349,7 +349,7 @@
 
     <!-- Modal Konfirmasi -->
     @if ($showModalKonfirmasi && $dataKonfirmasi && isset($dataKonfirmasi['nama']))
-        <div class="fixed inset-0 flex items-center justify-center z-50 p-4 mt-6"
+        <div class="fixed inset-0 flex items-center justify-center z-50 p-4"
             style="font-family: 'Poppins', sans-serif; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);">
             <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 <!-- Header -->
