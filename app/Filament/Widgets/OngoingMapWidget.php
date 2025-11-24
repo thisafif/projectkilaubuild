@@ -18,7 +18,7 @@ class OngoingMapWidget extends Widget
         $locations = Ongoing::query()
             ->whereNotNull('location->lat')
             ->whereNotNull('location->lng')
-            ->get(['id', 'client_name', 'location', 'status', 'progress']);
+            ->get(['id', 'client_name', 'location', 'status', 'progress_percentage']);
 
         $points = $locations->map(fn ($item) => [
             'id' => $item->id,

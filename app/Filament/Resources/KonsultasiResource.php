@@ -2,39 +2,59 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KonsultasiResource\Pages;
-use App\Models\JadwalKonsultasi;
-use App\Models\Konsultasi;
+use UnitEnum;
 use BackedEnum;
+use Filament\Tables;
+use App\Models\Konsultasi;
+use Filament\Tables\Table;
 use Filament\Actions\Action;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Carbon;
+use App\Models\JadwalKonsultasi;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
 // use Filament\Forms\Components\Group;
 // use Filament\Actions\BulkActionGroup;
-use Filament\Resources\Resource;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use Illuminate\Support\Carbon;
+use Filament\Actions\DeleteAction;
 use Illuminate\Support\Facades\DB;
+use Filament\Support\Icons\Heroicon;
+use Filament\Forms\Components\Select;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\SelectFilter;
+use App\Filament\Resources\KonsultasiResource\Pages;
 
 class KonsultasiResource extends Resource
 {
     protected static ?string $model = Konsultasi::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-chat-bubble-left';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftEllipsis;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::ChatBubbleLeftEllipsis;
 
     protected static ?string $navigationLabel = 'Kelola Konsultasi';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pelanggan';
 
     protected static ?string $modelLabel = 'Konsultasi';
 
     protected static ?string $pluralModelLabel = 'Kelola Konsultasi';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('jadwal', function ($query) {
+            $query->where('status', JadwalKonsultasi::STATUS_PENDING);
+        })->count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Konsultasi Pending';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -137,7 +157,7 @@ class KonsultasiResource extends Resource
                     DatePicker::make('tanggal')
                         ->label('Tanggal Konsultasi')
                         ->required()
-                        ->minDate(now()->addDay())
+                        // ->minDate(now()->addDay())
                         ->native(false),
 
                     TextInput::make('jam')
@@ -174,43 +194,43 @@ class KonsultasiResource extends Resource
                 TextColumn::make('nama')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('no_wa')
-                    ->label('No. WhatsApp')
-                    ->searchable(),
-
-                TextColumn::make('provinsi')
-                    ->label('Provinsi')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('kabupatenkota')
-                    ->label('Kabupaten/Kota')
-                    ->searchable(),
+                    ->sortable()
+                    ->description(fn(Konsultasi $record) => $record->no_wa),
 
                 TextColumn::make('jenis_konsultasi')
                     ->label('Jenis')
                     ->badge()
+                    ->formatStateUsing(fn($state) => match($state) {
+                        'bgnrumah_renovasi' => 'Bangun & Renovasi',
+                        'maintenance' => 'Maintenance',
+                        'desain_interior' => 'Interior',
+                        default => 'Lainnya'
+                    })
+                    ->color(fn($state) => match($state) {
+                        'bgnrumah_renovasi' => 'info',
+                        'maintenance' => 'warning',
+                        'desain_interior' => 'success',
+                        default => 'gray'
+                    })
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('jadwal.tanggal')
-                    ->label('Tanggal Konsultasi')
-                    ->date()
-                    ->sortable(),
-
                 TextColumn::make('jadwal.tipe_konsultasi')
-                    ->label('Tipe')
+                    ->label('Tipe Konsultasi')
                     ->badge()
                     ->formatStateUsing(
                         fn($state) => $state === 'visit'
                             ? 'Kunjungan Lokasi'
-                            : 'Konsultasi Online'
+                            : 'Online'
                     )
                     ->color(
-                        fn($state) => $state === 'visit' ? 'info' : 'primary'
+                        fn($state) => $state === 'visit' ? 'info' : 'success'
                     )
+                    ->sortable(),
+
+                TextColumn::make('jadwal.tanggal')
+                    ->label('Tanggal')
+                    ->date()
                     ->sortable(),
 
                 TextColumn::make('jadwal.jam')
@@ -222,17 +242,22 @@ class KonsultasiResource extends Resource
                     ->badge()
                     ->color(fn(?string $state): string => match ($state) {
                         JadwalKonsultasi::STATUS_CONFIRMED => 'success',
-                        JadwalKonsultasi::STATUS_CANCELLED => 'danger',
-                        default => 'warning',
-                    }),
+                        JadwalKonsultasi::STATUS_CANCELLED => 'warning',
+                        default => 'danger',
+                    })
+                    ->sortable(),
+
+                TextColumn::make('kabupatenkota')
+                    ->label('Lokasi')
+                    ->searchable(),
 
                 TextColumn::make('created_at')
-                    ->label('Tanggal')
-                    ->dateTime()
+                    ->label('Pengajuan')
+                    ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('jenis_konsultasi')
+                SelectFilter::make('jenis_konsultasi')
                     ->label('Jenis Konsultasi')
                     ->options([
                         'bgnrumah_renovasi' => 'Bangun Rumah & Renovasi',
@@ -241,7 +266,7 @@ class KonsultasiResource extends Resource
                         'lainnya' => 'Lainnya',
                     ]),
 
-                Tables\Filters\SelectFilter::make('jadwal_status')
+                SelectFilter::make('jadwal_status')
                     ->label('Status Jadwal')
                     ->relationship('jadwal', 'status')
                     ->options([
@@ -250,10 +275,11 @@ class KonsultasiResource extends Resource
                         JadwalKonsultasi::STATUS_CANCELLED => 'Cancelled',
                     ]),
             ])
+            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 Action::make('whatsapp')
                     ->label('WhatsApp')
-                    ->icon('heroicon-m-chat-bubble-left-ellipsis')
+                    ->icon('heroicon-m-chat-bubble-oval-left-ellipsis')
                     ->color('success')
                     ->button()
                     ->url(
@@ -265,6 +291,7 @@ class KonsultasiResource extends Resource
                     ),
 
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
@@ -280,8 +307,8 @@ class KonsultasiResource extends Resource
     {
         return [
             'index' => Pages\ListKonsultasis::route('/'),
-            // 'create' => Pages\CreateKonsultasi::route('/create'),
-            // 'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
+            'create' => Pages\CreateKonsultasi::route('/create'),
+            'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
         ];
     }
 

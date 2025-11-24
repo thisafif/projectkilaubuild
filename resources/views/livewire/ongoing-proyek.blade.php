@@ -89,15 +89,32 @@
 
             @forelse($ongoingproyeks as $ongoingproyek)
                 <div class="w-full bg-white rounded-[20px] shadow-lg overflow-hidden">
-                    <img class="w-full h-48 object-cover"
-                        src="{{ $ongoingproyek->attachmentproyek }}"
-                        alt="{{ $ongoingproyek->judul }}" />
+                    @if ($ongoingproyek->images && is_array($ongoingproyek->images) && count($ongoingproyek->images) > 0)
+                        <img class="w-full h-48 object-cover"
+                            src="{{ asset('storage/' . $ongoingproyek->images[0]) }}"
+                            alt="{{ $ongoingproyek->client_name }}" />
+                    @else
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-400">No image</span>
+                        </div>
+                    @endif
                     <div class="p-6">
                         <h3 class="text-xl font-semibold font-mono text-black">
-                            {{ $ongoingproyek->judul }}
+                            {{ $ongoingproyek->client_name }}
                         </h3>
+                        <p class="text-sm text-gray-500 mb-2">
+                            Status: <span class="font-semibold text-blue-600">{{ ucfirst($ongoingproyek->status) }}</span>
+                        </p>
+                        <p class="text-sm text-gray-500 mb-2">
+                            Progress: <span class="font-semibold">{{ $ongoingproyek->progress_percentage ?? 0 }}%</span>
+                        </p>
+                        @if (isset($ongoingproyek->location['formatted_address']) && $ongoingproyek->location['formatted_address'])
+                            <p class="text-sm text-gray-500 mb-3">
+                                📍 {{ $ongoingproyek->location['formatted_address'] }}
+                            </p>
+                        @endif
                         <p class="mt-2 text-base font-medium font-sans text-gray-600 line-clamp-3">
-                            {{ $ongoingproyek->deskripsi_singkat }}
+                            {{ $ongoingproyek->description }}
                         </p>
                         <div class="mt-4">
                             <a href="#"

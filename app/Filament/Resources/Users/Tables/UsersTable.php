@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
-use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -19,9 +18,9 @@ class UsersTable
                     ->label('Name'),
                 TextColumn::make('email')
                     ->label('Email'),
-                TextColumn::make('email_verified_at')
-                    ->label('Email Verified At')
-                    ->dateTime(),
+                // TextColumn::make('email_verified_at')
+                //     ->label('Email Verified At')
+                //     ->dateTime(),
             ])
             ->filters([
                 //

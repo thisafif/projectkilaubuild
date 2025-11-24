@@ -2,37 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ongoing;
 use App\Models\Testimoni;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $testimonis = Testimoni::all();
-        // $testimonials = [
-        //     [
-        //         'message' => 'Pekerjaan sangat rapi dan hasilnya melebihi ekspektasi. Tim Kilau Build benar-benar profesional.',
-        //         'author' => 'Zafira Ryani',
-        //         'meta' => 'CEO, Proyek VB-01',
-        //     ],
-        //     [
-        //         'message' => 'Komunikasi lancar dari awal sampai akhir. Saya sangat merekomendasikan jasa mereka untuk renovasi rumah.',
-        //         'author' => 'Budi Santoso',
-        //         'meta' => 'Pemilik Rumah, Depok',
-        //     ],
-        //     [
-        //         'message' => 'Desainnya modern dan fungsional. Terima kasih Kilau Build!',
-        //         'author' => 'Citra Lestari',
-        //         'meta' => 'Klien, Jakarta',
-        //     ],
-        //     [
-        //         'message' => 'Proyeknya selesai tepat waktu dan sesuai budget. Highly recommended!',
-        //         'author' => 'Ahmad Fauzi',
-        //         'meta' => 'Developer, Bogor',
-        //     ],
-        // ];
 
-        return view('dashboard', compact('testimonis'));
+        // Get count of projects by status
+        $ongoingCount = Ongoing::whereIn('status', ['consultation', 'planning', 'in_progress'])->count();
+        $completedCount = Ongoing::where('status', 'done')->count();
+
+        // Get ongoing projects with location data for map
+        $points = collect();
+        try {
+            $points = Ongoing::whereNotNull('location')
+                ->select('id', 'client_name', 'status', 'progress_percentage', 'location')
+                ->get()
+                ->filter(function ($project) {
+                    return is_array($project->location) && ! empty($project->location);
+                })
+                ->map(function ($project) {
+                    $location = $project->location;
+
+                    return [
+                        'id' => $project->id,
+                        'name' => $project->client_name,
+                        'status' => $project->status,
+                        'progress' => $project->progress_percentage,
+                        'lat' => floatval($location['lat'] ?? -6.2088),
+                        'lng' => floatval($location['lng'] ?? 106.8456),
+                        'address' => $location['formatted_address'] ?? 'Lokasi tidak tersedia',
+                    ];
+                });
+        } catch (\Exception $e) {
+            Log::error('Error loading ongoing projects for map: '.$e->getMessage());
+        }
+
+        return view('dashboard', compact('testimonis', 'points', 'ongoingCount', 'completedCount'));
     }
 }
