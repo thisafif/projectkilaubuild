@@ -13,8 +13,8 @@ class ArtikelStatsWidget extends StatsOverviewWidget
     protected function getStats(): array
     {
         $totalArtikel = Artikel::count();
-        $recentMonth = Artikel::where('tanggal_publikasi', '>=', now()->subMonth())->count();
-        $recentYear = Artikel::where('tanggal_publikasi', '>=', now()->subYear())->count();
+        $recentMonth = Artikel::whereDate('tanggal_publikasi', '>=', now()->subDays(30))->count();
+        $recentYear = Artikel::whereDate('tanggal_publikasi', '>=', now()->subDays(365))->count();
 
         return [
             Stat::make('Total Artikel', $totalArtikel)
