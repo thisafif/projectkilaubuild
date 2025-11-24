@@ -34,6 +34,8 @@ Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsul
 Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
 Volt::route('artikel', 'artikel')->name('artikel');
 
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
