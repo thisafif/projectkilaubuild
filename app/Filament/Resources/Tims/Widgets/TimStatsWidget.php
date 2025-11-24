@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Tims\Widgets;
+namespace App\Filament\Widgets;
 
 use App\Models\Tim;
 use Filament\Widgets\StatsOverviewWidget;
@@ -9,6 +9,11 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class TimStatsWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = null;
+
+    public static function isVisible(): bool
+    {
+        return false;
+    }
 
     protected function getStats(): array
     {
@@ -23,9 +28,9 @@ class TimStatsWidget extends StatsOverviewWidget
                 ->chart([7, 3, 4, 5, 6, 3, 5, 3])
                 ->color('primary'),
 
-            // Stat::make('Jumlah Posisi', $timByRole)
-            //     ->description('Unique roles dalam tim')
-            //     ->color('info'),
+            Stat::make('Jumlah Posisi', $timByRole)
+                ->description('Unique roles dalam tim')
+                ->color('info'),
         ];
     }
 }

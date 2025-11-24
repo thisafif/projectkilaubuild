@@ -58,7 +58,7 @@ new class extends Component {
 
                 <div class="lg:col-span-1">
                     <div class="sticky top-10">
-                        <h3 class="text-xl font-bold text-black mb-6 border-l-4 border-blue-600 pl-3">
+                        <h3 class="text-xl font-bold text-black mb-6 border-l-4 border-blue-900 pl-3">
                             Portofolio Lainnya
                         </h3>
                         <div class="space-y-6">
@@ -73,7 +73,7 @@ new class extends Component {
                                     @endif
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-sm text-gray-800 group-hover:text-blue-600 line-clamp-2">
+                                    <h4 class="font-bold text-sm text-gray-800 group-hover:text-blue-800 line-clamp-2">
                                         {{ $other->judul }}
                                     </h4>
                                     <p class="text-xs text-gray-500 mt-1">

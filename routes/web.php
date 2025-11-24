@@ -31,7 +31,7 @@ Route::get('/tentang-kami', function () {
 
 Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
-Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
+Volt::route('artikel/{id}', 'artikel.detail')->name('artikel.detail');
 Volt::route('artikel', 'artikel')->name('artikel');
 Volt::route('portofolio/{id}', 'portofolio.detail')->name('portofolio.detail');
 
