@@ -2,8 +2,8 @@
     <div class="animate-fade-in-delay">
         {{-- Hero --}}
         <div class="relative w-full h-70 flex items-center justify-center bg-center bg-cover"
-            style="background-image: url('https://placehold.co/1200x400');">
-        <div class="absolute inset-0 bg-sky-700/80"></div>
+            style="background-image: url('{{ asset('images/design.png') }}')">
+        <div class="absolute inset-0 bg-sky-950/70"></div>
 
         <div class="relative text-white text-4xl lg:text-6xl font-bold font-mono text-center">
             Tentang Kami
@@ -14,7 +14,7 @@
         <div class="w-full flex flex-col lg:flex-row items-center justify-center px-3 gap-20 lg:pl-30 lg:pr-10 py-16">
             <div class="relative w-80 h-80">
                 <div class="absolute top-4 left-4 w-full h-full bg-sky-700/80 rounded-2xl"></div>
-                <img src="/storage/foto-rumah.jpg" alt="Rumah"
+                <img src="{{ asset('images/design.png') }}" alt="Tentang Kilau Build"
                     class="relative w-full h-full object-cover rounded-2xl shadow-lg">
                 </div>
 
@@ -28,7 +28,7 @@
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                     </p>
                     <button
-                    class="px-6 py-3 text-white text-2xl bg-[#73ABD3] font-semibold font-mono rounded-full shadow hover:bg-sky-800 transition">
+                    class="px-6 py-3 text-white text-2xl bg-[#73ABD3] font-semibold font-mono rounded-full shadow hover:bg-sky-800 transition delay-150 duration-300 ease-in-out hover:-translate-y-1">
                     <a href="{{ route('konsultasi') }}">
                     Hubungi Kami
                     </button>

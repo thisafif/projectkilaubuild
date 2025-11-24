@@ -41,9 +41,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @forelse($portofolios as $portofolio)
-                <div class="w-full bg-white rounded-[20px] shadow-lg overflow-hidden">
+                <div class="w-full bg-white rounded-[20px] shadow-lg">
                     @if ($portofolio->attachmentportofolio)
-                        <img class="w-full h-48 object-cover"
+                        <img class="w-full h-48 object-cover rounded-t-[20px]"
                             src="{{ asset('storage/' . $portofolio->attachmentportofolio) }}"
                             alt="{{ $portofolio->judul }}" />
                     @else
@@ -60,7 +60,7 @@
                         </p>
                         <div class="mt-4">
                             <a href="#"
-                                class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-900 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
+                                class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-950 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
                                 rounded-[20px] text-white text-sm font-normal font-sans">
                                 See more...
                             </a>

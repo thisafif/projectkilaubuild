@@ -12,12 +12,12 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased overflow-x-hidden">
+<body class="min-h-screen flex flex-col antialiased">
     <div class="fixed inset-0 w-full h-screen bg-blue-300/80 blur-[750px] -z-10 scale-125 pointer-events-none"></div>
-    <div class="relative w-full overflow-x-hidden">
+    <div class="relative w-full">
         <livewire:header />
 
-        <main class="flex-1 relative z-0  overflow-x-hidden">
+        <main class="flex-1 relative z-0">
             {{ $slot }}
         </main>
 

@@ -1,12 +1,13 @@
-{{-- HAPUS bg-gradient..., biarin transparan biar bg layout kelihatan --}}
 <div class="min-h-screen px-6 py-10 font-sans">
     <div class="max-w-6xl mx-auto">
-        {{-- Judul & Search --}}
+
+        <!-- Title & Search -->
         <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
             <h1 class="text-3xl font-bold text-black">Artikel</h1>
+
             <div class="flex items-center bg-white rounded-full px-4 py-2 shadow-md w-64">
                 <input wire:model="search" type="text" placeholder="Search"
-                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-gray-700 placeholder-gray-400" />
+                    class="flex-1 bg-transparent border-none focus:outline-none focus:ring-0 text-sm text-gray-700 placeholder-gray-400" />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-600">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -15,24 +16,33 @@
             </div>
         </div>
 
-        {{-- Grid Artikel --}}
+        <!-- Grid Artikel -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($artikels as $artikel)
                 <div class="bg-[#f5faff] rounded-xl shadow-lg p-4 hover:scale-[1.02] transition-transform duration-300">
+                    
                     @if ($artikel->attachmentartikel)
-                        <img src="{{ asset('storage/' . $artikel->attachmentartikel) }}" alt="{{ $artikel->judul }}" class="rounded-xl w-full h-48 object-cover mb-3">
+                        <img src="{{ asset('storage/' . $artikel->attachmentartikel) }}"
+                            alt="{{ $artikel->judul }}"
+                            class="rounded-xl w-full h-48 object-cover mb-3">
                     @else
-                        <div class="rounded-xl w-full h-48 bg-gray-200 mb-3 flex items-center justify-center">
+                        <div class="rounded-[15px] w-full h-48 bg-gray-200 mb-3 flex items-center justify-center">
                             <span class="text-gray-400">No image</span>
                         </div>
                     @endif
+
                     <h2 class="text-xl font-bold mb-2">{{ $artikel->judul }}</h2>
-                    <p class="text-gray-700 text-sm mb-2">{{ Str::limit($artikel->isi, 100) }}</p>
-                    <p class="text-gray-500 text-xs mb-3">{{ $artikel->tanggal_publikasi->format('d M Y') }}</p>
-                    
-                    {{-- Link --}}
-                    <a href="#" 
-                       class="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 text-sm font-medium transition inline-block text-center w-full">
+
+                    <p class="text-gray-700 text-sm mb-2">
+                        {{ Str::limit($artikel->isi, 100) }}
+                    </p>
+
+                    <p class="text-gray-500 text-xs mb-3">
+                        {{ $artikel->tanggal_publikasi->format('d M Y') }}
+                    </p>
+
+                    <a href="#"
+                        class="bg-cyan-600 hover:bg-cyan-950 text-white rounded-full px-4 py-2 text-sm font-medium transition inline-block text-center w-full">
                         See more...
                     </a>
                 </div>

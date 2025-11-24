@@ -1,13 +1,7 @@
 <div>
-    {{-- HAPUS bg-gradient... jadikan transparan --}}
     <div class="min-h-screen font-sans text-[#333]">
-        
-        {{-- CONTAINER PUSAT --}}
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-                {{-- KOLOM KIRI --}}
                 <div class="lg:col-span-2">
                     <h1 class="text-3xl md:text-4xl font-bold text-black mb-3 leading-tight">
                         {{ $this->artikel->judul }}
@@ -37,7 +31,6 @@
                     </div>
                 </div>
 
-                {{-- KOLOM KANAN (SIDEBAR) --}}
                 <div class="lg:col-span-1">
                     <div class="sticky top-10">
                         <h3 class="text-xl font-bold text-black mb-6 border-l-4 border-blue-600 pl-3">
