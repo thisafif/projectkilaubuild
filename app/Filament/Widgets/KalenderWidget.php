@@ -12,6 +12,8 @@ class KalenderWidget extends FullCalendarWidget
     public Model | string | int | null $record = null;
     public Model | string | null $model = JadwalKonsultasi::class;
 
+    protected int|string|array $columnSpan = ['sm' => 'full', 'lg' => 6];
+
     protected static ?int $sort = 5;
 
     public function fetchEvents(array $fetchInfo): array
