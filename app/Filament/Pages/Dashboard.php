@@ -19,7 +19,7 @@ class Dashboard extends BaseDashboard
             StatsOverview::class,
             ContentStatsWidget::class,
             RecentConsultations::class,
-            ProyekWidget::class,
+            // ProyekWidget::class,
             KalenderKonsultasiWidget::class,
         ];
     }

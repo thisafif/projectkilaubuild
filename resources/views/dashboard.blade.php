@@ -173,7 +173,7 @@
 
         <div
             class="w-full flex items-center justify-center
-            flex-col gap-16 px-6 py-12            
+            flex-col gap-16 px-6 py-12
             lg:flex-row lg:gap-16 lg:px-40 lg:py-20">
             <style>
                 .swiper {
@@ -361,7 +361,7 @@
 
                 <div data-aos="zoom-in-up"
                     class="w-full flex items-center justify-center
-            flex-col gap-12 px-6            
+            flex-col gap-12 px-6
             lg:flex-row lg:gap-25 lg:px-40">
                     <div class="w-full max-w-5xl mx-auto py-10">
 
@@ -418,7 +418,7 @@
             <div class="container mx-auto px-6 py-16 lg:px-16 relative z-10">
                 <div
                     class="w-full flex items-center justify-center
-                flex-col gap-12           
+                flex-col gap-12
                 lg:flex-row lg:gap-16">
 
         {{-- Section 4: Testimoni --}}
@@ -722,7 +722,7 @@
         {{-- Section 7: FAQ --}}
 
         <div class="w-full items-center justify-center
-                    flex flex-col gap-12 px-6 py-8            
+                    flex flex-col gap-12 px-6 py-8
                     lg:flex-col lg:gap-25 lg:px-40"
             data-aos="fade-up" data-aos-duration="1500">
             <div>
@@ -741,10 +741,11 @@
                 </div>
             </div>
             <div class="w-full -my-4 flex flex-col divide-y divide-black">
+                @foreach ($faqs as $faq)
                 <div x-data="{ open: false }" class="py-4">
                     <summary x-on:click="open = !open"
                         class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                        <h2 class="text-lg font-semibold font-sans">Pertanyaan Pertama...?</h2>
+                        <h2 class="text-lg font-semibold font-sans">{{ $faq->pertanyaan }}</h2>
                         <div x-bind:class="{ '-rotate-180': open }"
                             class="size-5 shrink-0 transition-transform duration-300">
                             <flux:icon name="chevron-down" />
@@ -756,51 +757,11 @@
                         x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
                         class="overflow-hidden">
                         <p class="pt-4 text-gray-900 font-sans">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis...
+                            {{ $faq->jawaban }}
                         </p>
                     </div>
                 </div>
-
-                <div x-data="{ open: false }" class="py-4">
-                    <summary x-on:click="open = !open"
-                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                        <h2 class="text-lg font-semibold font-sans">Pertanyaan Kedua...?</h2>
-                        <div x-bind:class="{ '-rotate-180': open }"
-                            class="size-5 shrink-0 transition-transform duration-300">
-                            <flux:icon name="chevron-down" />
-                        </div>
-                    </summary>
-                    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
-                        class="overflow-hidden">
-                        <p class="pt-4 text-gray-900 font-sans">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis...
-                        </p>
-                    </div>
-                </div>
-
-                <div x-data="{ open: false }" class="py-4">
-                    <summary x-on:click="open = !open"
-                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                        <h2 class="text-lg font-semibold font-sans">Pertanyaan Ketiga...?</h2>
-                        <div x-bind:class="{ '-rotate-180': open }"
-                            class="size-5 shrink-0 transition-transform duration-300">
-                            <flux:icon name="chevron-down" />
-                        </div>
-                    </summary>
-                    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
-                        class="overflow-hidden">
-                        <p class="pt-4 text-gray-900 font-sans">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis...
-                        </p>
-                    </div>
-                </div>
-
+        @endforeach
             </div>
         </div>
 

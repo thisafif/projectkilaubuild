@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ArtikelResource\Widgets;
+namespace App\Filament\Widgets;
 
 use App\Models\Artikel;
 use Filament\Widgets\StatsOverviewWidget;
@@ -9,6 +9,11 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class ArtikelStatsWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = null;
+
+    public static function isVisible(): bool
+    {
+        return false;
+    }
 
     protected function getStats(): array
     {
