@@ -3,11 +3,11 @@
         {{-- Hero --}}
         <div class="relative w-full h-70 flex items-center justify-center bg-center bg-cover"
             style="background-image: url('{{ asset('images/design.png') }}')">
-        <div class="absolute inset-0 bg-sky-950/70"></div>
+            <div class="absolute inset-0 bg-sky-950/70"></div>
 
-        <div class="relative text-white text-4xl lg:text-6xl font-bold font-mono text-center">
-            Tentang Kami
-        </div>
+            <div class="relative text-white text-4xl lg:text-6xl font-bold font-mono text-center">
+                Tentang Kami
+            </div>
         </div>
 
         {{-- Tentang Kilau Build --}}
@@ -16,27 +16,42 @@
                 <div class="absolute top-4 left-4 w-full h-full bg-sky-700/80 rounded-2xl"></div>
                 <img src="{{ asset('images/design.png') }}" alt="Tentang Kilau Build"
                     class="relative w-full h-full object-cover rounded-2xl shadow-lg">
-                </div>
+            </div>
 
-                <div class="flex flex-col justify-start items-start gap-6 max-w-2xl">
-                    <h2 class="text-4xl lg:text-6xl font-semibold font-mono text-black">
-                    Lorem Ipsum
-                    </h2>
-                    <p class="text-gray-800 text-lg leading-relaxed font-sans">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </p>
-                    <button
+            <div class="flex flex-col justify-start items-start gap-6 max-w-2xl">
+                <div class="text-xl">
+                    <span class="font-bold text-slate-800 tracking-tight text-4xl">Kenali</span>
+                    <span class="font-serif-display italic text-sky-700 ml-1 relative text-4xl">
+                        Kilau Build
+                        <svg class="absolute -bottom-1 left-0 w-full h-1 text-white" viewBox="0 0 100 10"
+                            preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </span>
+                </div>
+                <p class="text-gray-800 text-lg leading-relaxed font-sans text-justify">
+                    Setelah <strong class="text-slate-900">lebih dari dua dekade </strong> di industri konstruksi,
+                    KilauBuild kini memfokuskan keahlian kami untuk sektor residensial. Baik itu <strong
+                        class="text-slate-900">bangun baru, renovasi,
+                        atau interior</strong>, kami paham bahwa <span
+                        class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full">rumah bukan sekadar
+                        bangunan,</span> tapi aset masa depan. Rasakan <strong class="text-slate-900">nyamannya bekerja
+                        sama </strong>dengan partner yang berani
+                        memberikan garansi <span
+                            class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full">Bangun
+                            Dulu, Baru Bayar.</span>
+                </p>
+                <button
                     class="px-6 py-3 text-white text-2xl bg-[#73ABD3] font-semibold font-mono rounded-full shadow hover:bg-sky-800 transition delay-150 duration-300 ease-in-out hover:-translate-y-1">
                     <a href="{{ route('konsultasi') }}">
-                    Hubungi Kami
-                    </button>
-                </div>
+                        Hubungi Kami
+                    </a>
+                </button>
             </div>
         </div>
+    </div>
 
-        {{-- Tim --}}
-        <livewire:tim />
+    {{-- Tim --}}
+    <livewire:tim />
     </div>
 </x-layouts.app>
