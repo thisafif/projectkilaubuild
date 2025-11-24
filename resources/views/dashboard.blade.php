@@ -3,26 +3,24 @@
 
         {{-- Section 1: Hero --}}
 
-        <div class="w-full h-[583px] px-40 py-50 flex flex-col relative justify-start items-start gap-2.5">
+        <div class="w-full h-[583px] px-20 py-15 lg:px-40 lg:py-50 flex flex-col relative justify-start items-start gap-2.5">
             <div style="background-image: url( '{{ asset('images/house-design.png') }}')"
                 class="absolute top-0 left-0 w-full h-full object-cover bg-cover bg-center bg-scroll z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[583px] bg-black opacity-60 z-0"></div>
             <div class="w-full h-full flex flex-col text-center justify-center items-center gap-5 z-1">
-                <div
-                    class="mb-6 inline-flex items-center gap-2 backdrop-blur-md px-4 py-2 rounded-full w-fit border border-white/20 animate-slide-down">
+                <div class="inline-flex items-center gap-2 backdrop-blur-md px-4 py-2 rounded-full w-fit border border-white/20 animate-slide-down">
                     <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
                     <span class="text-white/90 text-sm font-medium">Dipercaya oleh 100+ Customer</span>
                 </div>
-                <div class="justify-start text-white text-3xl lg:text-6xl font-bold font-mono animate-slide-up">Bangun
-                    Dulu<br />Baru
+                <div class="justify-start text-white text-xl lg:text-6xl font-bold font-mono animate-slide-up">Bangun Dulu<br />Baru
                     Bayar</div>
-                <p
-                    class="text-base font-sans sm:text-lg text-white/80 mb-10 max-w-3xl leading-relaxed animate-slide-up-delay">
-                    Wujudkan rumah impian Anda dengan konsultasi gratis. Mulai dari desain hingga konstruksi, kami siap
-                    membantu setiap langkah perjalanan Anda.
+                <p class="text-base font-sans lg:text-lg text-white/80 max-w-3xl leading-relaxed animate-slide-up-delay">
+                    Wujudkan rumah impian Anda dengan konsultasi gratis. Mulai dari desain hingga konstruksi, kami siap membantu setiap langkah perjalanan Anda.
                 </p>
-                <a href="{{ route('konsultasi') }}"
-                    class="group px-8 py-4 bg-white text-gray-900 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 animate-scale-in">
+                <a 
+                    href="{{ route('konsultasi') }}" 
+                    class="group px-4 py-2 lg:px-8 lg:py-4 bg-white text-gray-900 rounded-full font-semibold text-base lg:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 animate-scale-in"
+                >
                     <span>Hubungi Kami</span>
                     <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -31,15 +29,14 @@
                     </svg>
                 </a>
                 <div id="scrollDown"
-                    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer animate-bounce">
+                    class="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer animate-bounce">
                     <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
                 </div>
             </div>
-            <a href="https://wa.me/+6282295444284"
-                class="w-15 h-15 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1 animate-fade-in-delay">
+            <a href="https://wa.me/+6282295444284" class="lg:w-15 lg:h-15 w-13 h-13 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1 animate-fade-in-delay">
                 <img src="{{ asset('icons/ic-whatsapp.svg') }}" alt="Icon WhatsApp" />
             </a>
         </div>
