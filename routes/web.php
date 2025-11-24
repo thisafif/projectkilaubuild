@@ -33,6 +33,7 @@ Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsult
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
 Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
 Volt::route('artikel', 'artikel')->name('artikel');
+Volt::route('portofolio/{id}', 'portofolio.detail')->name('portofolio.detail');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
