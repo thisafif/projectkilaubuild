@@ -23,7 +23,6 @@ class QuestionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Manajemen Konten';
 
-
     public static function form(Schema $schema): Schema
     {
         return QuestionForm::configure($schema);
