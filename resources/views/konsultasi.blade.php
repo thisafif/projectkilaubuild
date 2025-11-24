@@ -1,7 +1,3 @@
 <x-layouts.app :title="__('Konsultasi')">
-    <div>
-
-        <livewire:konsultasi-form />
-
-    </div>
+    <livewire:konsultasi-form />
 </x-layouts.app>

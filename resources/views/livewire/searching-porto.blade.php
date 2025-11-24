@@ -11,7 +11,7 @@
                 <label for="jenisKonsultasi" class="block text-sm font-semibold text-blue-900">
                     Tipe Proyek
                 </label>
-                <select id="jenisKonsultasi" wire:model="jenisKonsultasi"
+                <select id="jenisKonsultasi" wire:model.live="jenisKonsultasi"
                     class="mt-1 w-full bg-white rounded-xl border-2 border-blue-200 px-2 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
                     <option value="">Tipe Proyek</option>
                     <option value="bgnrumah_renovasi">Bangun Rumah</option>
@@ -26,7 +26,7 @@
             <div>
                 <label for="tahun" class="block text-sm font-semibold text-blue-900">Tahun</label>
                 <div class="mt-1 flex items-center rounded-xl border-2 border-blue-200 bg-white shadow-sm focus-within:border-blue-500">
-                    <input id="tahun" type="integer" wire:model="tahun"
+                    <input id="tahun" type="number" wire:model.live="tahun"
                         class="flex-1 rounded-xl rounded-l-none border-none px-3 py-2 focus:outline-none focus:ring-0"
                         placeholder="Masukkan Tahun">
                 </div>
@@ -38,37 +38,40 @@
     </div>
 
     <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-left">
 
             @forelse($portofolios as $portofolio)
                 <div class="w-full bg-white rounded-[20px] shadow-lg">
-                    @if ($portofolio->attachmentportofolio)
-                        <img class="w-full h-48 object-cover rounded-t-[20px]"
-                            src="{{ asset('storage/' . $portofolio->attachmentportofolio) }}"
-                            alt="{{ $portofolio->judul }}" />
+                    
+                    @if ($portofolio->attachmentporto)
+                        <img src="{{ asset('storage/' . $portofolio->attachmentporto) }}"
+                            alt="{{ $portofolio->judul }}"
+                            class="rounded-xl w-full h-auto object-cover mb-6 shadow-md">
                     @else
-                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                            <span class="text-gray-400">No image</span>
+                        <div class="rounded-xl w-full h-64 bg-gray-200 mb-6 flex items-center justify-center">
+                            <span class="text-gray-400 font-medium">No image available</span>
                         </div>
                     @endif
+
                     <div class="p-6">
                         <h3 class="text-xl font-semibold font-mono text-black">
                             {{ $portofolio->judul }}
                         </h3>
                         <p class="mt-2 text-base font-medium font-sans text-gray-600 line-clamp-3">
-                            {{ $portofolio->deskripsi_singkat }}
+                            {{ $portofolio->deskripsi_singkat ?? strip_tags($portofolio->isi) }}
                         </p>
                         <div class="mt-4">
-                            <a href="#"
-                                class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-950 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
-                                rounded-[20px] text-white text-sm font-normal font-sans">
-                                See more...
+                            <a href="{{ route('portofolio.detail', ['id' => $portofolio->id]) }}" 
+                               wire:navigate
+                               class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-950 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
+                               rounded-[20px] text-white text-sm font-normal font-sans">
+                               See more...
                             </a>
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="col-span-3 text-gray-500">Tidak ada portofolio yang cocok.</p>
+                <p class="col-span-3 text-gray-500 text-center">Tidak ada portofolio yang cocok.</p>
             @endforelse
 
         </div>
