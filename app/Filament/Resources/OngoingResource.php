@@ -23,6 +23,10 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
+use Filament\Tables\Columns\Layout\Stack;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Support\Enums\FontWeight;
+// use Filament\Tables\Columns\TextColumn\TextColumnSize;
 
 class OngoingResource extends Resource
 {
@@ -95,7 +99,8 @@ class OngoingResource extends Resource
                             ->disk('public')
                             ->directory('ongoing-projects')
                             ->helperText('Upload beberapa gambar yang mewakili kondisi atau progres proyek.')
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->maxSize(50000),
                     ])
                     ->columns(3)
                     ->columnSpanFull()
@@ -206,57 +211,79 @@ class OngoingResource extends Resource
     }
 
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                TextColumn::make('client_name')
-                    ->label('Nama Klien')
-                    ->searchable()
-                    ->sortable(),
+{
+    return $table
+        // 1. Aktifkan Mode Grid
+        ->contentGrid([
+            'md' => 2, // 2 kolom di tablet
+            'xl' => 3, // 3 kolom di desktop besar
+        ])
+        
+        // 2. Gunakan Stack untuk menumpuk konten vertikal
+        ->columns([
+            Stack::make([
+                // A. Bagian Gambar (Thumbnail)
+                ImageColumn::make('images')
+                    ->height('200px')
+                    ->width('100%')
+                    // Karena di form ->multiple(), kita batasi tampil 1 saja sbg cover
+                    ->limit(1) 
+                    ->extraImgAttributes(['class' => 'object-cover w-full h-[200px] rounded-t-xl']),
 
-                TextColumn::make('status')
-                    ->label('Status')
-                    ->badge()
-                    ->formatStateUsing(fn ($state) => match ($state) {
-                        'consultation' => 'Konsultasi',
-                        'planning' => 'Perencanaan',
-                        'in_progress' => 'Dalam Progres',
-                        'done' => 'Selesai',
-                        default => $state,
-                    })
-                    ->sortable(),
+                // B. Bagian Informasi Text
+                Stack::make([
+                    TextColumn::make('client_name')
+                        ->weight(FontWeight::Bold)
+                        ->size('lg')
+                        ->searchable(),
 
-                TextColumn::make('progress_percentage')
-                    ->label('Progress')
-                    ->suffix('%')
-                    ->sortable(),
+                    // TextColumn::make('summary_location')
+                    //     ->icon('heroicon-m-map-pin')
+                    //     ->color('gray')
+                    //     ->limit(30), // Batasi panjang teks lokasi agar rapi
 
-                TextColumn::make('summary_location')
-                    ->label('Lokasi')
-                    ->searchable(),
+                    // Grouping Status & Progress
+                    Stack::make([
+                        TextColumn::make('status')
+                            ->badge()
+                            ->formatStateUsing(fn ($state) => match ($state) {
+                                'consultation' => 'Konsultasi',
+                                'planning' => 'Perencanaan',
+                                'in_progress' => 'Dalam Progres',
+                                'done' => 'Selesai',
+                                default => $state,
+                            }),
+                        
+                        TextColumn::make('progress_percentage')
+                            ->formatStateUsing(fn ($state) => " Progress: {$state}%")
+                            ->color('success')
+                            ->icon('heroicon-m-chart-bar'),
+                    ])->visibleFrom('md'), // Opsi tampilan
+                    
+                    // TextColumn::make('start_date')
+                    //     ->date('d M Y')
+                    //     ->prefix('Mulai: ')
+                    //     ->size('lg')
+                    //     ->color('gray'),
 
-                TextColumn::make('start_date')
-                    ->label('Mulai')
-                    ->date('d M Y')
-                    ->sortable(),
-
-                TextColumn::make('expected_end_date')
-                    ->label('Target Selesai')
-                    ->date('d M Y')
-                    ->sortable(),
-            ])
-            ->filters([])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ])
-            ->defaultSort('start_date', 'desc');
-    }
+                ])->space(2)->extraAttributes(['class' => 'p-5']), // Padding agar teks tidak mepet pinggir
+                
+            ])->space(0) // Jarak antar elemen stack utama dinolkan agar gambar nempel
+        ])
+        
+        ->filters([
+            //
+        ])
+        ->actions([
+            EditAction::make(),
+            DeleteAction::make(),
+        ])
+        ->bulkActions([
+            BulkActionGroup::make([
+                DeleteBulkAction::make(),
+            ]),
+        ]);
+}
 
     public static function getRelations(): array
     {
