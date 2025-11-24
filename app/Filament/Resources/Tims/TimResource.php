@@ -48,8 +48,8 @@ class TimResource extends Resource
     {
         return [
             'index' => ListTims::route('/'),
-            'create' => CreateTim::route('/create'),
-            'edit' => EditTim::route('/{record}/edit'),
+            // 'create' => CreateTim::route('/create'),
+            // 'edit' => EditTim::route('/{record}/edit'),
         ];
     }
 }

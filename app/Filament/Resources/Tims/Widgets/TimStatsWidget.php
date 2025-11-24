@@ -23,9 +23,9 @@ class TimStatsWidget extends StatsOverviewWidget
                 ->chart([7, 3, 4, 5, 6, 3, 5, 3])
                 ->color('primary'),
 
-            Stat::make('Jumlah Posisi', $timByRole)
-                ->description('Unique roles dalam tim')
-                ->color('info'),
+            // Stat::make('Jumlah Posisi', $timByRole)
+            //     ->description('Unique roles dalam tim')
+            //     ->color('info'),
         ];
     }
 }
