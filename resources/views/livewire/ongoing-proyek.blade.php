@@ -90,7 +90,7 @@
                             {{ $ongoingproyek->client_name }}
                         </h3>
                         <p class="text-sm text-gray-500 mb-2">
-                            Status: <span class="font-semibold text-blue-600">{{ ucfirst($ongoingproyek->status) }}</span>
+                            Status: <span class="font-semibold text-blue-700">{{ ucfirst($ongoingproyek->status) }}</span>
                         </p>
                         <p class="text-sm text-gray-500 mb-2">
                             Progress: <span class="font-semibold">{{ $ongoingproyek->progress_percentage ?? 0 }}%</span>
@@ -100,9 +100,9 @@
                                 📍 {{ $ongoingproyek->location['formatted_address'] }}
                             </p>
                         @endif
-                        <p class="mt-2 text-base font-medium font-sans text-gray-600 line-clamp-3">
-                            {{ $ongoingproyek->description }}
-                        </p>
+                        <div class="mt-2 text-base font-medium font-sans text-gray-600 line-clamp-3">
+                            {!! $ongoingproyek->description !!}
+                        </div>
                     </div>
                 </div>
             @empty

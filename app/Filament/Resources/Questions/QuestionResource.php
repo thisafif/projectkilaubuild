@@ -44,8 +44,8 @@ class QuestionResource extends Resource
     {
         return [
             'index' => ListQuestions::route('/'),
-            'create' => CreateQuestion::route('/create'),
-            'edit' => EditQuestion::route('/{record}/edit'),
+            // 'create' => CreateQuestion::route('/create'),
+            // 'edit' => EditQuestion::route('/{record}/edit'),
         ];
     }
 }
