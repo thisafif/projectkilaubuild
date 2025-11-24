@@ -35,6 +35,8 @@ Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
 Volt::route('artikel', 'artikel')->name('artikel');
 Volt::route('portofolio/{id}', 'portofolio.detail')->name('portofolio.detail');
 
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
