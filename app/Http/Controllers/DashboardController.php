@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ongoing;
 use App\Models\Testimoni;
+use App\Models\Artikel;
 use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
@@ -11,6 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $testimonis = Testimoni::all();
+        $artikels = Artikel::latest()->take(5)->get();
 
         // Get count of projects by status
         $ongoingCount = Ongoing::whereIn('status', ['consultation', 'planning', 'in_progress'])->count();
@@ -42,6 +44,6 @@ class DashboardController extends Controller
             Log::error('Error loading ongoing projects for map: '.$e->getMessage());
         }
 
-        return view('dashboard', compact('testimonis', 'points', 'ongoingCount', 'completedCount'));
+        return view('dashboard', compact('testimonis', 'points', 'ongoingCount', 'completedCount', 'artikels'));
     }
 }

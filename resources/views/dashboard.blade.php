@@ -508,7 +508,6 @@
         <div data-aos="fade-up" data-aos-delay="100"
             class="w-full flex flex-col justify-start items-start gap-16 px-6 py-12 lg:px-40 lg:py-20">
             <div data-aos-delay="300" class="w-full flex flex-col justify-start items-center gap-14">
-                <!-- Premium Label Badge -->
                 <div>
                     <div
                         class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md group cursor-default">
@@ -516,7 +515,6 @@
                             <span class="font-bold text-slate-800 tracking-tight text-2xl">Kilau Build's</span>
                             <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                                 Journal
-                                <!-- Underline decoration -->
                                 <svg class="absolute -bottom-1 left-0 w-full h-1 text-white" viewBox="0 0 100 10"
                                     preserveAspectRatio="none">
                                     <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2"
@@ -528,51 +526,38 @@
                 </div>
                 <div
                     class="w-full flex items-center justify-center flex-col gap-4 px-6 py-8 lg:flex-row lg:gap-8 lg:px-0">
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 1" />
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
+                    @forelse($artikels as $artikel)
+                        <div
+                            class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
+                            <div class="self-stretch flex flex-col justify-start items-center gap-0">
+                                @if ($artikel->attachmentartikel)
+                                    <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
+                                        src="{{ asset('storage/' . $artikel->attachmentartikel) }}"
+                                        alt="{{ $artikel->judul }}" />
+                                @else
+                                    <div class="self-stretch h-48 lg:h-52 bg-gray-200 flex items-center justify-center">
+                                        <span class="text-gray-400">No image</span>
+                                    </div>
+                                @endif
+                                <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
+                                    <div
+                                        class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
+                                        {{ $artikel->judul }}
+                                    </div>
+                                    <div
+                                        class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
+                                        {!! Str::limit(strip_tags($artikel->isi), 100) !!}
+                                    </div>
+                                    <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}"
+                                        class="text-sky-700 font-semibold text-sm hover:underline mt-2">
+                                        Baca Selengkapnya &rarr;
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 2" />
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 3" />
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
-                            </div>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-500 italic">Belum ada artikel terbaru.</p>
+                    @endforelse
                 </div>
                 <div>
                     <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
