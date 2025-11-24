@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\Tims\Widgets;
 
 use App\Models\Tim;
 use Filament\Widgets\StatsOverviewWidget;
@@ -9,11 +9,6 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class TimStatsWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = null;
-
-    public static function isVisible(): bool
-    {
-        return false;
-    }
 
     protected function getStats(): array
     {

@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Tims\Pages;
 
-use App\Filament\Resources\Tims\TimResource;
-use App\Filament\Resources\Tims\Widgets\TimStatsWidget;
 use Filament\Actions\CreateAction;
+use App\Filament\Resources\Tims\Widgets\TimStatsWidget;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Tims\TimResource;
 
 class ListTims extends ListRecords
 {

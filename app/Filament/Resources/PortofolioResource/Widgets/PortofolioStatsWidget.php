@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\PortofolioResource\Widgets;
 
 use App\Models\Portofolio;
 use Filament\Widgets\StatsOverviewWidget;
@@ -9,11 +9,6 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class PortofolioStatsWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = null;
-
-    public static function isVisible(): bool
-    {
-        return false;
-    }
 
     protected function getStats(): array
     {
