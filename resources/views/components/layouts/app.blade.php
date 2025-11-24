@@ -32,6 +32,8 @@
             });
         });
     </script>
+
+    @stack('scripts')
 </body>
 <div x-data="{ showButton: false }" x-cloak
      @scroll.window="showButton = (window.pageYOffset > 300) ? true : false"

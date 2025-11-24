@@ -12,16 +12,22 @@ use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class TestimoniResource extends Resource
 {
     protected static ?string $model = Testimoni::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-star';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedStar;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Star;
 
     protected static ?string $navigationLabel = 'Kelola Testimoni';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Konten';
 
     public static function form(Schema $schema): Schema
     {

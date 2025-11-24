@@ -2,36 +2,31 @@
 
 namespace App\Livewire;
 
+use App\Models\Portofolio;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 
 class SearchingPorto extends Component
 {
-    public $tipeProyek = ''; 
-    public $tahun = ''; 
+    public $jenisKonsultasi = '';
 
-    public function mount()
-    {
-    
-    }
+    public $tahun = '';
 
     public function render()
     {
-        $query = DB::table('portofolios');
+        $query = Portofolio::query();
 
-        if ($this->tipeProyek) {
-            $query->where('tipe', $this->tipeProyek); 
+        if ($this->jenisKonsultasi) {
+            $query->where('tipe', $this->jenisKonsultasi);
         }
 
-        
-        if ($this->tahun) { 
-            $query->whereYear('tanggal_proyek', $this->tahun); 
+        if ($this->tahun) {
+            $query->whereYear('tanggal_proyek', $this->tahun);
         }
 
         $portofolios = $query->latest('tanggal_proyek')->get();
 
         return view('livewire.searching-porto', [
-            'portofolios' => $portofolios
+            'portofolios' => $portofolios,
         ]);
     }
 }

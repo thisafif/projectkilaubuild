@@ -26,3 +26,7 @@ yarn-error.log
 database/*sqlite
 =======
 >>>>>>> 570a3629a8c78a40452a0b38268d2050f52439d5
+
+**/caddy
+frankenphp
+frankenphp-worker.php

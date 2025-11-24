@@ -19,7 +19,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->date('tanggal');
             $table->enum('tipe_konsultasi', ['visit', 'online'])->nullable()->after('tanggal')->comment('Tipe konsultasi: visit (kunjungan lokasi) atau online');
-            $table->string('jam', 5)->nullable()->after('tanggal')->comment('Time slot in HH:MM format (WIB)');
+            $table->string('jam', 50)->nullable()->after('tanggal')->comment('Sesi konsultasi (cth: Sesi 1, Sesi 2)');
             $table->string('status', 30)->default('pending');
             $table->text('catatan_admin')->nullable();
             $table->timestamps();

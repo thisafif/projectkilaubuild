@@ -1,4 +1,5 @@
-<div class="bg-gradient-to-b from-[#EAF4FF] to-[#CDE3F9] min-h-screen px-6 py-10 font-sans">
+{{-- HAPUS bg-gradient..., biarin transparan biar bg layout kelihatan --}}
+<div class="min-h-screen px-6 py-10 font-sans">
     <div class="max-w-6xl mx-auto">
         {{-- Judul & Search --}}
         <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
@@ -17,16 +18,23 @@
         {{-- Grid Artikel --}}
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($artikels as $artikel)
-                <div
-                    class="bg-[#f5faff] rounded-xl shadow-lg p-4 hover:scale-[1.02] transition-transform duration-300">
-                    <img src="{{ $artikel['gambar'] }}" alt="{{ $artikel['judul'] }}"
-                        class="rounded-xl w-full mb-3">
-                    <h2 class="text-xl font-bold mb-2">{{ $artikel['judul'] }}</h2>
-                    <p class="text-gray-700 text-sm mb-3">{{ $artikel['deskripsi'] }}</p>
-                    <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 text-sm font-medium transition">
+                <div class="bg-[#f5faff] rounded-xl shadow-lg p-4 hover:scale-[1.02] transition-transform duration-300">
+                    @if ($artikel->attachmentartikel)
+                        <img src="{{ asset('storage/' . $artikel->attachmentartikel) }}" alt="{{ $artikel->judul }}" class="rounded-xl w-full h-48 object-cover mb-3">
+                    @else
+                        <div class="rounded-xl w-full h-48 bg-gray-200 mb-3 flex items-center justify-center">
+                            <span class="text-gray-400">No image</span>
+                        </div>
+                    @endif
+                    <h2 class="text-xl font-bold mb-2">{{ $artikel->judul }}</h2>
+                    <p class="text-gray-700 text-sm mb-2">{{ Str::limit($artikel->isi, 100) }}</p>
+                    <p class="text-gray-500 text-xs mb-3">{{ $artikel->tanggal_publikasi->format('d M Y') }}</p>
+                    
+                    {{-- Link --}}
+                    <a href="#" 
+                       class="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 text-sm font-medium transition inline-block text-center w-full">
                         See more...
-                    </button>
+                    </a>
                 </div>
             @empty
                 <p class="text-gray-500 italic">Artikel tidak ditemukan.</p>

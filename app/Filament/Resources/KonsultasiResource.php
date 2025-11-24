@@ -18,94 +18,127 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use UnitEnum;
 
 class KonsultasiResource extends Resource
 {
     protected static ?string $model = Konsultasi::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-chat-bubble-left';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftEllipsis;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::ChatBubbleLeftEllipsis;
 
     protected static ?string $navigationLabel = 'Kelola Konsultasi';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pelanggan';
+
+    protected static ?string $modelLabel = 'Konsultasi';
+
+    protected static ?string $pluralModelLabel = 'Kelola Konsultasi';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('jadwal', function ($query) {
+            $query->where('status', JadwalKonsultasi::STATUS_PENDING);
+        })->count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Konsultasi Pending';
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([
-            TextInput::make('nama')
-                ->label('Nama Lengkap')
-                ->required(),
+            Section::make('Informasi Pemohon')
+                ->description('Informasi singkat pemohon konsultasi.')
+                ->schema([
+                    TextInput::make('nama')
+                        ->label('Nama Lengkap')
+                        ->required(),
 
-            TextInput::make('no_wa')
-                ->label('Nomor WhatsApp')
-                ->required()
-                ->prefix('62')
-                ->tel(),
+                    TextInput::make('no_wa')
+                        ->label('Nomor WhatsApp')
+                        ->required()
+                        ->prefix('62')
+                        ->tel(),
+                ])
+                ->columnSpanFull(),
 
-            Select::make('provinsi')
-                ->label('Provinsi')
-                ->required()
-                ->options(
-                    fn () => DB::table('indonesia_provinces')
-                        ->pluck('name', 'name')
-                        ->toArray()
-                )
-                ->searchable()
-                ->live(),
+            Section::make('Lokasi & Jenis Konsultasi')
+                ->schema([
+                    Select::make('provinsi')
+                        ->label('Provinsi')
+                        ->required()
+                        ->options(
+                            fn () => DB::table('indonesia_provinces')
+                                ->pluck('name', 'name')
+                                ->toArray()
+                        )
+                        ->searchable()
+                        ->live(),
 
-            Select::make('kabupatenkota')
-                ->label('Kabupaten/Kota')
-                ->required()
-                ->options(function ($get) {
-                    $provinsi = $get('provinsi');
-                    if (! $provinsi) {
-                        return [];
-                    }
+                    Select::make('kabupatenkota')
+                        ->label('Kabupaten/Kota')
+                        ->required()
+                        ->options(function ($get) {
+                            $provinsi = $get('provinsi');
+                            if (! $provinsi) {
+                                return [];
+                            }
 
-                    return DB::table('indonesia_cities')
-                        ->whereIn('province_code', DB::table('indonesia_provinces')
-                            ->where('name', $provinsi)
-                            ->pluck('code'))
-                        ->pluck('name', 'name')
-                        ->toArray();
-                })
-                ->searchable()
-                ->live(),
+                            return DB::table('indonesia_cities')
+                                ->whereIn('province_code', DB::table('indonesia_provinces')
+                                    ->where('name', $provinsi)
+                                    ->pluck('code'))
+                                ->pluck('name', 'name')
+                                ->toArray();
+                        })
+                        ->searchable()
+                        ->live(),
 
-            Select::make('kecamatan')
-                ->label('Kecamatan')
-                ->required()
-                ->options(function ($get) {
-                    $kabupaten = $get('kabupatenkota');
-                    if (! $kabupaten) {
-                        return [];
-                    }
+                    Select::make('kecamatan')
+                        ->label('Kecamatan')
+                        ->required()
+                        ->options(function ($get) {
+                            $kabupaten = $get('kabupatenkota');
+                            if (! $kabupaten) {
+                                return [];
+                            }
 
-                    return DB::table('indonesia_districts')
-                        ->whereIn('city_code', DB::table('indonesia_cities')
-                            ->where('name', $kabupaten)
-                            ->pluck('code'))
-                        ->pluck('name', 'name')
-                        ->toArray();
-                })
-                ->searchable(),
+                            return DB::table('indonesia_districts')
+                                ->whereIn('city_code', DB::table('indonesia_cities')
+                                    ->where('name', $kabupaten)
+                                    ->pluck('code'))
+                                ->pluck('name', 'name')
+                                ->toArray();
+                        })
+                        ->searchable(),
 
-            Select::make('jenis_konsultasi')
-                ->label('Jenis Konsultasi')
-                ->required()
-                ->options([
-                    'bgnrumah_renovasi' => 'Bangun Rumah & Renovasi',
-                    'maintenance' => 'Maintenance Rumah',
-                    'desain_interior' => 'Desain Arsitektural & Interior',
-                    'lainnya' => 'Lainnya',
-                ]),
+                    Select::make('jenis_konsultasi')
+                        ->label('Jenis Konsultasi')
+                        ->required()
+                        ->options([
+                            'bgnrumah_renovasi' => 'Bangun Rumah & Renovasi',
+                            'maintenance' => 'Maintenance Rumah',
+                            'desain_interior' => 'Desain Arsitektural & Interior',
+                            'lainnya' => 'Lainnya',
+                        ])
+                        ->native(false),
 
-            Textarea::make('detil_konsultasi')
-                ->label('Detail Konsultasi')
-                ->required(),
+                    Textarea::make('detil_konsultasi')
+                        ->label('Detail Konsultasi')
+                        ->required()
+                        ->columnSpanFull(),
+                ])
+                ->columns(2),
 
             Section::make('Jadwal Konsultasi')
                 ->relationship('jadwal')
@@ -116,12 +149,14 @@ class KonsultasiResource extends Resource
                         ->options([
                             'visit' => 'Kunjungan Lokasi',
                             'online' => 'Konsultasi Online',
-                        ]),
+                        ])
+                        ->native(false),
 
                     DatePicker::make('tanggal')
                         ->label('Tanggal Konsultasi')
                         ->required()
-                        ->minDate(now()->addDay()),
+                        ->minDate(now()->addDay())
+                        ->native(false),
 
                     TextInput::make('jam')
                         ->label('Sesi')
@@ -138,13 +173,15 @@ class KonsultasiResource extends Resource
                             JadwalKonsultasi::STATUS_PENDING => 'Pending',
                             JadwalKonsultasi::STATUS_CONFIRMED => 'Confirmed',
                             JadwalKonsultasi::STATUS_CANCELLED => 'Cancelled',
-                        ]),
+                        ])
+                        ->native(false),
 
                     Textarea::make('catatan_admin')
                         ->label('Catatan Admin')
-                        ->rows(3),
+                        ->rows(3)
+                        ->columnSpanFull(),
                 ])
-                ->columns(1),
+                ->columns(2),
         ]);
     }
 
@@ -261,8 +298,8 @@ class KonsultasiResource extends Resource
     {
         return [
             'index' => Pages\ListKonsultasis::route('/'),
-            // 'create' => Pages\CreateKonsultasi::route('/create'),
-            // 'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
+            'create' => Pages\CreateKonsultasi::route('/create'),
+            'edit' => Pages\EditKonsultasi::route('/{record}/edit'),
         ];
     }
 
