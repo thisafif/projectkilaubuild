@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use Filament\Enums\ThemeMode;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -13,7 +13,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentView;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -33,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->authGuard('web')
             // ->defaultLocale('id')
             // ->locales(['id'])
             ->darkMode(false)
@@ -41,7 +41,6 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::hex('#0066AE'),
                 'gray' => Color::Slate,
             ])
-            ->font('Poppins')
             ->brandLogo(fn () => view('filament.admin.logo'))
             ->brandLogoHeight('3rem')
             ->profile(isSimple: false)
@@ -50,6 +49,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->pages([
                 Pages\Dashboard::class,
+            ])
+            ->navigationGroups([
+                'Manajemen Pelanggan',
+                'Manajemen Konten',
+                'Setelan',
+                'Setelan Super Admin',
             ])
             ->widgets([])
             ->middleware([
@@ -69,7 +74,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->spa();
+            ->unsavedChangesAlerts()
+            ->sidebarCollapsibleOnDesktop()
+            ->spa()
+            ->globalSearch(false);
     }
 
     public function boot(): void

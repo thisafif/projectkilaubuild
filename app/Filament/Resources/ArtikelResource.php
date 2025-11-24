@@ -2,39 +2,35 @@
 
 namespace App\Filament\Resources;
 
-use BackedEnum;
-use Dom\Text;
-use Filament\Forms;
-use Filament\Tables;
+use App\Filament\Resources\ArtikelResource\Pages;
 use App\Models\Artikel;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Date;
-use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\ArtikelResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ArtikelResource\RelationManagers;
-use App\Filament\Resources\ArtikelResource\Pages\EditArtikel;
-use App\Filament\Resources\ArtikelResource\Pages\ListArtikels;
-use App\Filament\Resources\ArtikelResource\Pages\CreateArtikel;
-
-
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use UnitEnum;
 
 class ArtikelResource extends Resource
 {
     protected static ?string $model = Artikel::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Newspaper;
+
+    protected static ?string $navigationLabel = 'Kelola Artikel';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Konten';
 
     public static function form(Schema $schema): Schema
     {
@@ -96,9 +92,9 @@ class ArtikelResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListArtikels::route('/'),
+            'index' => Pages\ListArtikels::route('/'),
             'create' => Pages\CreateArtikel::route('/create'),
-            'edit'   => Pages\EditArtikel::route('/{record}/edit'),
+            'edit' => Pages\EditArtikel::route('/{record}/edit'),
         ];
     }
 }

@@ -268,7 +268,7 @@
                         @elseif ($selectedDate && $tipeKonsultasi && count($availableSlots) === 0)
                             <div
                                 class="mt-6 rounded-xl bg-amber-50 px-4 py-3 border border-amber-200 text-sm text-amber-800">
-                                ⚠️ Kuota konsultasi pada tanggal {{ $selectedDate ? \Illuminate\Support\Carbon::parse($selectedDate)->translatedFormat('d F') : '-' }} sudah penuh. Silakan pilih tanggal/tipe konsultasi lain.
+                                ⚠️ Kuota konsultasi pada tanggal {{ $selectedDate ? \Illuminate\Support\Carbon::parse($selectedDate)->translatedFormat('d F') : '-' }} <b>tidak tersedia.</b><br> Silakan pilih tanggal/tipe konsultasi lain.
                             </div>
                         @elseif ($selectedDate && !$tipeKonsultasi)
                             <div
@@ -451,10 +451,7 @@
                             <span class="text-gray-700 font-medium">Sedang memproses...</span>
                         </div>
                         <div wire:loading.remove class="flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2 1m2-1L12 3m2 1v2.5M12 14l-2 1m2-1l-2-1m2 1v2.5" />
-                            </svg>
+                            <img src="{{ asset('icons/ic-whatsapp.svg') }}" alt="Icon WhatsApp" class="w-4 h-4" />
                             <span>Kirim ke WhatsApp</span>
                         </div>
                     </button>

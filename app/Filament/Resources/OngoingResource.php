@@ -19,18 +19,26 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class OngoingResource extends Resource
 {
     protected static ?string $model = Ongoing::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-briefcase';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTruck;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Truck;
 
     protected static ?string $modelLabel = 'Proyek';
+
     protected static ?string $pluralModelLabel = 'Kelola Proyek';
+
     protected static ?string $navigationLabel = 'Kelola Proyek';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pelanggan';
 
     public static function form(Schema $schema): Schema
     {
@@ -209,7 +217,7 @@ class OngoingResource extends Resource
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(fn($state) => match ($state) {
+                    ->formatStateUsing(fn ($state) => match ($state) {
                         'consultation' => 'Konsultasi',
                         'planning' => 'Perencanaan',
                         'in_progress' => 'Dalam Progres',

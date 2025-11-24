@@ -37,22 +37,6 @@
         </div>
 
         {{-- Tim --}}
-        <div class="flex flex-wrap justify-center items-center px-3 gap-12 py-16">
-            <div class="w-72 flex flex-col justify-start items-center gap-4 text-center">
-                <img class="w-48 h-48 rounded-full object-cover" src="https://placehold.co/200x200" alt="Foto Tim" />
-                <div class="py-2">
-                    <h3 class="text-2xl font-semibold font-sans text-gray-900">Nama Ipsum</h3>
-                    <p class="text-gray-600 text-lg">Jabatan Ipsum</p>
-                </div>
-                <div class="flex justify-center items-center gap-3">
-                    <a href="#" class="w-8 h-8 flex justify-center items-center">
-                        <img src="{{ asset('icons/ic-instagram-dark.svg') }}" alt="Logo Instagram" class="w-6 h-6">
-                    </a>
-                    <a href="#" class="w-8 h-8 flex justify-center items-center">
-                        <img src="{{ asset('icons/ic-linkedin.svg') }}" alt="Logo Linkedin" class="w-6 h-6">
-                    </a>
-                </div>
-            </div>
-        </div>
+        <livewire:tim />
     </div>
 </x-layouts.app>
