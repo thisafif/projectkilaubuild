@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ArtikelResource\Widgets;
+namespace App\Filament\Widgets;
 
 use App\Models\Artikel;
 use Filament\Widgets\StatsOverviewWidget;
@@ -10,11 +10,16 @@ class ArtikelStatsWidget extends StatsOverviewWidget
 {
     protected static ?int $sort = null;
 
+    public static function isVisible(): bool
+    {
+        return false;
+    }
+
     protected function getStats(): array
     {
         $totalArtikel = Artikel::count();
-        $recentMonth = Artikel::whereDate('tanggal_publikasi', '>=', now()->subDays(30))->count();
-        $recentYear = Artikel::whereDate('tanggal_publikasi', '>=', now()->subDays(365))->count();
+        $recentMonth = Artikel::where('tanggal_publikasi', '>=', now()->subMonth())->count();
+        $recentYear = Artikel::where('tanggal_publikasi', '>=', now()->subYear())->count();
 
         return [
             Stat::make('Total Artikel', $totalArtikel)
