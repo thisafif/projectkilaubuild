@@ -291,7 +291,7 @@
                     <button type="submit" wire:loading.attr="disabled"
                         wire:loading.class="opacity-50 cursor-not-allowed"
                         class="mt-4 w-full max-w-xs px-8 py-4 bg-[#73ABD3] hover:bg-[#1C274C]
-                            delay-75 duration-150 ease-in-out hover:-translate-y-1 transition-colors rounded-full shadow-[0px_6px_4px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-3">
+                            transition delay-150 duration-300 ease-in-out hover:-translate-y-1 rounded-full shadow-[0px_6px_4px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-3">
                         <!-- Loading Spinner -->
                         <div wire:loading class="flex items-center gap-3">
                             <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"

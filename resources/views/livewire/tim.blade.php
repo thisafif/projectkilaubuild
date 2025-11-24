@@ -1,10 +1,10 @@
 <div class="w-full flex flex-col gap-20 pb-20">
     <div class="w-full flex items-center justify-center flex-col gap-12 px-6 py-8 lg:flex-row lg:gap-25 lg:px-40">
-        <div class="flex flex-col justify-start items-start gap-6 max-w-2xl">
+        <div class="flex flex-col justify-center items-center gap-6 max-w-2xl">
             <h2 class="text-4xl lg:text-6xl font-semibold font-mono text-black">
                 Tim Profesional
             </h2>
-            <p class="text-gray-800 text-lg leading-relaxed font-sans">
+            <p class="text-gray-800 text-base lg:text-lg leading-relaxed font-sans text-center">
                 Kami memiliki tim yang berpengalaman dan berdedikasi dalam memberikan solusi terbaik untuk kebutuhan konstruksi dan desain Anda.
             </p>
         </div>

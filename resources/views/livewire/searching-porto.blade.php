@@ -35,12 +35,13 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @forelse($portofolios as $portofolio)
-            <div class="group flex flex-col bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-blue-100">
-                <div class="relative overflow-hidden aspect-4/3">
+    <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            @forelse($portofolios as $portofolio)
+                <div class="w-full bg-white rounded-[20px] shadow-lg">
                     @if ($portofolio->attachmentportofolio)
-                        <img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                        <img class="w-full h-48 object-cover rounded-t-[20px]"
                             src="{{ asset('storage/' . $portofolio->attachmentportofolio) }}"
                             alt="{{ $portofolio->judul }}" />
                     @else
@@ -68,16 +69,13 @@
                         <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-4">
                             {{ $portofolio->deskripsi_singkat }}
                         </p>
-                    </div>
-                    
-                    <div class="mt-auto pt-4 border-t border-blue-50">
-                        <a href="{{ route('portofolio.detail', $portofolio->id) }}"
-                            class="inline-flex items-center justify-center w-full px-4 py-2.5 bg-white border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white rounded-xl text-sm font-semibold transition-all duration-300 group-hover:shadow-md">
-                            Lihat Detail
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </a>
+                        <div class="mt-4">
+                            <a href="#"
+                                class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-950 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
+                                rounded-[20px] text-white text-sm font-normal font-sans">
+                                See more...
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

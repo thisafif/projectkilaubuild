@@ -1,6 +1,22 @@
-import Alpine from 'alpinejs'
+import Alpine from "alpinejs";
+window.Alpine = Alpine;
 
-window.Alpine = Alpine
+Alpine.start();
+// DETEK PEMILIK SCROLLBAR
+function detectScrollbarOwner() {
+    document.querySelectorAll('*').forEach(el => {
+        el.addEventListener('scroll', () => {
+            console.log('Scrollbar punya elemen ini:', el);
+            el.style.outline = '3px solid cyan'; // Kasih highlight biar kelihatan
+        }, { passive: true });
+    });
+}
+
+document.addEventListener('alpine:init', () => {
+    queueMicrotask(() => detectScrollbarOwner());
+});
+
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -9,8 +25,6 @@ AOS.init({
     once: true,
     duration: 800,
 });
-
-Alpine.start()
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
@@ -83,6 +97,14 @@ document.addEventListener("alpine:init", () => {
     }
 });
 
+
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("hero").classList.add("show");
+    const hero = document.getElementById("hero");
+    if (hero) {
+        hero.classList.add("show");
+        document.body.style.overflowY = 'hidden';
+        setTimeout(() => {
+            document.body.style.overflowY = 'auto';
+        }, 1800);
+    }
 });

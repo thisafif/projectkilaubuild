@@ -68,19 +68,6 @@
                 @enderror
             </div>
 
-            <div>
-                <label for="provinsi" class="block text-sm font-semibold text-blue-900">Provinsi</label>
-                <select id="provinsi_proyek" wire:model.live="provinsi"
-                    class="mt-1 w-full bg-white rounded-xl border-2 border-blue-200 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-0">
-                    <option value="">Pilih Provinsi</option>
-                    @foreach ($daftarProvinsi as $prov)
-                        <option value="{{ $prov->id }}">{{ $prov->name }}</option>
-                    @endforeach
-                </select>
-                @error('provinsi')
-                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
         </div>
     </div>
 
@@ -116,13 +103,6 @@
                         <p class="mt-2 text-base font-medium font-sans text-gray-600 line-clamp-3">
                             {{ $ongoingproyek->description }}
                         </p>
-                        <div class="mt-4">
-                            <a href="#"
-                                class="inline-block px-4 py-2 bg-cyan-600 hover:bg-cyan-900 transition delay-150 duration-300 ease-in-out hover:-translate-y-1
-                                rounded-[20px] text-white text-sm font-normal font-sans">
-                                See more...
-                            </a>
-                        </div>
                     </div>
                 </div>
             @empty

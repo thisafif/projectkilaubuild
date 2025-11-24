@@ -17,9 +17,9 @@ Route::get('/portofolio', function () {
     return view('portofolio');
 })->name('portofolio');
 
-// Route::get('/artikel', function () {
-//     return view('artikel');
-// })->name('artikel');
+Route::get('/artikel', function () {
+    return view('artikel');
+})->name('artikel');
 
 Route::get('/proyek', function () {
     return view('proyek');
@@ -31,11 +31,8 @@ Route::get('/tentang-kami', function () {
 
 Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
-Volt::route('artikel/{id}', 'artikel.detail')->name('artikel.detail');
-Volt::route('artikel', 'artikel')->name('artikel');
-Volt::route('portofolio/{id}', 'portofolio.detail')->name('portofolio.detail');
-
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
+// Volt::route('artikel', 'artikel')->name('artikel');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])

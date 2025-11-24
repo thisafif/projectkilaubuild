@@ -7,11 +7,11 @@
         </div>
 
         {{-- Card Section --}}
-        <div class="w-full flex flex-row gap-12">
+        <div class="w-full justify-center items-center flex flex-col lg:flex-row gap-12">
 
             {{-- Card 1 --}}
             <div class="w-full max-w-sm bg-white rounded-3xl shadow-lg p-4 flex flex-col gap-3 animate-breathe">
-                <img src="https://placehold.co/800x400" alt="Bangun Rumah" class="rounded-2xl object-cover h-40 w-full">
+                <img src="{{ asset('images/bangun-dari-0.png') }}" alt="Bangun Rumah" class="rounded-2xl object-cover h-40 w-full">
                 <h2 class="text-lg font-bold text-black font-sans">Bangun Rumah</h2>
                 <p class="text-gray-700 text-sm leading-relaxed line-clamp-3">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel rhoncus sapien.
@@ -22,7 +22,7 @@
 
             {{-- Card 2 --}}
             <div class="w-full max-w-sm bg-white rounded-3xl shadow-lg p-4 flex flex-col gap-3 animate-breathe">
-                <img src="https://placehold.co/800x400" alt="Bangun Rumah" class="rounded-2xl object-cover h-40 w-full">
+                <img src="{{ asset('images/renovasi.png') }}" alt="Renovasi Rumah" class="rounded-2xl object-cover h-40 w-full">
                 <h2 class="text-lg font-bold text-black font-sans">Renovasi Rumah</h2>
                 <p class="text-gray-700 text-sm leading-relaxed line-clamp-3">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel rhoncus sapien.
@@ -33,7 +33,7 @@
 
             {{-- Card 3 --}}
             <div class="w-full max-w-sm bg-white rounded-3xl shadow-lg p-4 flex flex-col gap-3 animate-breathe">
-                <img src="https://placehold.co/800x400" alt="Bangun Rumah" class="rounded-2xl object-cover h-40 w-full">
+                <img src="{{ asset('images/design.png') }}" alt="Desain Interior" class="rounded-2xl object-cover h-40 w-full">
                 <h2 class="text-lg font-bold text-black font-sans">Desain Interior</h2>
                 <p class="text-gray-700 text-sm leading-relaxed line-clamp-3">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel rhoncus sapien.

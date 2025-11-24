@@ -3,7 +3,7 @@
 
         {{-- Section 1: Hero --}}
 
-        <div
+        <div id="hero"
             class="w-full h-[583px] px-20 py-15 lg:px-40 lg:py-50 flex flex-col relative justify-start items-start gap-2.5">
             <div style="background-image: url( '{{ asset('images/house-design.png') }}')"
                 class="absolute top-0 left-0 w-full h-full object-cover bg-cover bg-center bg-scroll z-[-1]"></div>

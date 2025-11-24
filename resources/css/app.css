@@ -152,13 +152,17 @@ select:focus[data-flux-control] {
 }
 
 body {
-    overflow-y: hidden !important;
-    scroll-behavior: none !important;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 .font-serif-display {
     font-family: "Playfair Display", serif;
     font-weight: 800;
+}
+
+.hero-container {
+    min-height: 583px; 
 }
 
 /* \[:where(&)\]:size-4 {
