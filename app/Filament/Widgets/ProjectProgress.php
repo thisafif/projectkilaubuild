@@ -10,6 +10,8 @@ class ProjectProgress extends ChartWidget
     protected ?string $heading = 'Progress Proyek';
     protected static ?int $sort = 4;
 
+    protected int|string|array $columnSpan = ['sm' => 'full', 'lg' => 6];
+
     protected function getData(): array
     {
         $projectsByStatus = Ongoing::query()
