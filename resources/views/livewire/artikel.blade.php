@@ -19,12 +19,19 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($artikels as $artikel)
                 <div class="bg-[#f5faff] rounded-xl shadow-lg p-4 hover:scale-[1.02] transition-transform duration-300">
-                    <img src="{{ $artikel['gambar'] ?? '#' }}" alt="{{ $artikel['judul'] }}" class="rounded-xl w-full mb-3">
-                    <h2 class="text-xl font-bold mb-2">{{ $artikel['judul'] }}</h2>
-                    <p class="text-gray-700 text-sm mb-3">{{ $artikel['deskripsi'] ?? '' }}</p>
+                    @if ($artikel->attachmentartikel)
+                        <img src="{{ asset('storage/' . $artikel->attachmentartikel) }}" alt="{{ $artikel->judul }}" class="rounded-xl w-full h-48 object-cover mb-3">
+                    @else
+                        <div class="rounded-xl w-full h-48 bg-gray-200 mb-3 flex items-center justify-center">
+                            <span class="text-gray-400">No image</span>
+                        </div>
+                    @endif
+                    <h2 class="text-xl font-bold mb-2">{{ $artikel->judul }}</h2>
+                    <p class="text-gray-700 text-sm mb-2">{{ Str::limit($artikel->isi, 100) }}</p>
+                    <p class="text-gray-500 text-xs mb-3">{{ $artikel->tanggal_publikasi->format('d M Y') }}</p>
                     
                     {{-- Link --}}
-                    <a href="{{ route('artikel.detail', ['slug' => $artikel['slug'] ?? Str::slug($artikel['judul'])]) }}" 
+                    <a href="#" 
                        class="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 text-sm font-medium transition inline-block text-center w-full">
                         See more...
                     </a>

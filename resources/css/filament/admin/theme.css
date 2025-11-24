@@ -41,6 +41,12 @@
     ring-width: 0 !important;
 }
 
+.fi-sidebar-group-label, .fi-sidebar-group-btn {
+    /* text-transform: uppercase !important; */
+    /* font-weight: bold !important; */
+    font-size: 16px !important;
+}
+
 .fi-sidebar-item-label,
 .fi-sidebar-item-icon,
 .fi-sidebar-group-label,
@@ -63,7 +69,6 @@ li.fi-sidebar-item.fi-active > a,
 li.fi-sidebar-item.fi-active > button {
     background-color: rgba(0, 0, 0, 0.2) !important;
 }
-
 
 .fi-simple-layout {
     background-image: url('../../../../public/images/house-design.png') !important;

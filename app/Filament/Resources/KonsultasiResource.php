@@ -18,23 +18,41 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use UnitEnum;
 
 class KonsultasiResource extends Resource
 {
     protected static ?string $model = Konsultasi::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-chat-bubble-left';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftEllipsis;
+
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::ChatBubbleLeftEllipsis;
 
     protected static ?string $navigationLabel = 'Kelola Konsultasi';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Manajemen Pelanggan';
 
     protected static ?string $modelLabel = 'Konsultasi';
 
     protected static ?string $pluralModelLabel = 'Kelola Konsultasi';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('jadwal', function ($query) {
+            $query->where('status', JadwalKonsultasi::STATUS_PENDING);
+        })->count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Konsultasi Pending';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -60,7 +78,7 @@ class KonsultasiResource extends Resource
                         ->label('Provinsi')
                         ->required()
                         ->options(
-                            fn() => DB::table('indonesia_provinces')
+                            fn () => DB::table('indonesia_provinces')
                                 ->pluck('name', 'name')
                                 ->toArray()
                         )
@@ -204,12 +222,12 @@ class KonsultasiResource extends Resource
                     ->label('Tipe')
                     ->badge()
                     ->formatStateUsing(
-                        fn($state) => $state === 'visit'
+                        fn ($state) => $state === 'visit'
                             ? 'Kunjungan Lokasi'
                             : 'Konsultasi Online'
                     )
                     ->color(
-                        fn($state) => $state === 'visit' ? 'info' : 'primary'
+                        fn ($state) => $state === 'visit' ? 'info' : 'primary'
                     )
                     ->sortable(),
 
@@ -220,7 +238,7 @@ class KonsultasiResource extends Resource
                 TextColumn::make('jadwal.status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn(?string $state): string => match ($state) {
+                    ->color(fn (?string $state): string => match ($state) {
                         JadwalKonsultasi::STATUS_CONFIRMED => 'success',
                         JadwalKonsultasi::STATUS_CANCELLED => 'danger',
                         default => 'warning',
@@ -257,11 +275,11 @@ class KonsultasiResource extends Resource
                     ->color('success')
                     ->button()
                     ->url(
-                        fn(Konsultasi $record) => self::buatWhatsappUrl($record)
+                        fn (Konsultasi $record) => self::buatWhatsappUrl($record)
                     )
                     ->openUrlInNewTab()
                     ->visible(
-                        fn(Konsultasi $record) => filled($record->no_wa)
+                        fn (Konsultasi $record) => filled($record->no_wa)
                     ),
 
                 EditAction::make(),
@@ -298,16 +316,16 @@ class KonsultasiResource extends Resource
         $status = $jadwal?->status ?? JadwalKonsultasi::STATUS_PENDING;
 
         $pesan =
-            "Halo {$record->nama},\n\n" .
-            "Saya dari Kilau Build.\n" .
-            'Status konsultasi Anda: ' . ucfirst($status) . "\n" .
-            "Tanggal konsultasi: {$tanggalFormatted}\n" .
-            "Sesi: {$sesi}\n" .
-            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n" .
+            "Halo {$record->nama},\n\n".
+            "Saya dari Kilau Build.\n".
+            'Status konsultasi Anda: '.ucfirst($status)."\n".
+            "Tanggal konsultasi: {$tanggalFormatted}\n".
+            "Sesi: {$sesi}\n".
+            "Lokasi tercatat: {$record->kecamatan}, {$record->kabupatenkota}, {$record->provinsi}.\n\n".
             'Silakan balas pesan ini jika ada penyesuaian. Terima kasih.';
 
         $nomor = preg_replace('/[^0-9]/', '', $record->no_wa);
 
-        return 'https://wa.me/' . $nomor . '?text=' . urlencode($pesan);
+        return 'https://wa.me/'.$nomor.'?text='.urlencode($pesan);
     }
 }

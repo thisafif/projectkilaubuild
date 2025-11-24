@@ -26,7 +26,7 @@ class KonsultasiController extends Controller
             'provinsi' => 'required|string|max:100',
             'kabupatenkota' => 'required|string|max:100',
             'kecamatan' => 'required|string|max:100',
-            'jenis_konsultasi' => 'required|string|in:teknis,bisnis,umum,lainnya|max:100',
+            'jenis_konsultasi' => 'required|string|max:100',
             'detil_konsultasi' => 'required|string|max:1000',
         ]);
 

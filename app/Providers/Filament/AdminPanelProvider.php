@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->authGuard('web')
             // ->defaultLocale('id')
             // ->locales(['id'])
             ->darkMode(false)
@@ -40,7 +41,6 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::hex('#0066AE'),
                 'gray' => Color::Slate,
             ])
-            ->font('Poppins')
             ->brandLogo(fn () => view('filament.admin.logo'))
             ->brandLogoHeight('3rem')
             ->profile(isSimple: false)
@@ -49,6 +49,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->pages([
                 Pages\Dashboard::class,
+            ])
+            ->navigationGroups([
+                'Manajemen Pelanggan',
+                'Manajemen Konten',
+                'Setelan',
+                'Setelan Super Admin',
             ])
             ->widgets([])
             ->middleware([
@@ -70,7 +76,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->unsavedChangesAlerts()
             ->sidebarCollapsibleOnDesktop()
-            ->spa();
+            ->spa()
+            ->globalSearch(false);
     }
 
     public function boot(): void

@@ -42,9 +42,15 @@
 
             @forelse($portofolios as $portofolio)
                 <div class="w-full bg-white rounded-[20px] shadow-lg overflow-hidden">
-                    <img class="w-full h-48 object-cover"
-                        src="{{ $portofolio->url_gambar }}"
-                        alt="{{ $portofolio->judul }}" />
+                    @if ($portofolio->attachmentportofolio)
+                        <img class="w-full h-48 object-cover"
+                            src="{{ asset('storage/' . $portofolio->attachmentportofolio) }}"
+                            alt="{{ $portofolio->judul }}" />
+                    @else
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-400">No image</span>
+                        </div>
+                    @endif
                     <div class="p-6">
                         <h3 class="text-xl font-semibold font-mono text-black">
                             {{ $portofolio->judul }}

@@ -45,7 +45,7 @@ class OngoingProyek extends Component
             $query->whereYear('start_date', $this->tahun);
         }
 
-        $ongoingproyek = $query->latest('start_date')->get();
+        $ongoingproyek = $query->latest('start_date')->get(['id', 'client_name', 'status', 'progress_percentage', 'location', 'description', 'images']);
 
         $daftarProvinsi = DB::table('indonesia_provinces')
             ->orderBy('name', 'asc')

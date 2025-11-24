@@ -12,7 +12,7 @@ class IndonesiaSeeder extends Seeder
      */
     public function run(): void
     {
-        // Kode provinsi yang diizinkan (Jakarta, Banten, Jawa Barat, Jawa Tengah, DI Yogyakarta, Jawa Timur, Bali):
+        // Kode provinsi yang dicakup KilauBuild (Jakarta, Banten, Jawa Barat, Jawa Tengah, DI Yogyakarta, Jawa Timur, Bali):
         // 31 = DKI Jakarta
         // 36 = Banten
         // 32 = Jawa Barat
