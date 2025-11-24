@@ -4,9 +4,10 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\RecentConsultations;
-use App\Filament\Widgets\ProjectProgress;
+use App\Filament\Widgets\ContentStatsWidget;
 use App\Filament\Widgets\OngoingMapWidget;
-use App\Filament\Widgets\KalenderWidget;
+use App\Filament\Widgets\KalenderKonsultasiWidget;
+use App\Filament\Widgets\ProyekWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
@@ -16,9 +17,10 @@ class Dashboard extends BaseDashboard
         return [
             OngoingMapWidget::class,
             StatsOverview::class,
-            ProjectProgress::class,
+            ContentStatsWidget::class,
             RecentConsultations::class,
-            KalenderWidget::class,
+            ProyekWidget::class,
+            KalenderKonsultasiWidget::class,
         ];
     }
 }

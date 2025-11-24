@@ -15,7 +15,6 @@ class RecentConsultations extends Widget
     {
         $consultations = Konsultasi::with('jadwal')
             ->latest('created_at')
-            ->limit(4)
             ->get();
 
         return view($this->view, [
