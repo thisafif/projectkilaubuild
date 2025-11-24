@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('testimonis', function (Blueprint $table) {
             $table->id();
             $table->string('teks', 255)->nullable();
-            $table->string('rating', 5)->nullable();
+            $table->integer('rating')->nullable();
             $table->string('nama', 50)->nullable();
             $table->string('kegseharihari', 50)->nullable();
             $table->timestamps();

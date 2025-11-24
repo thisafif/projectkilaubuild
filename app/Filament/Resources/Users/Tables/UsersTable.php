@@ -18,9 +18,9 @@ class UsersTable
                     ->label('Name'),
                 TextColumn::make('email')
                     ->label('Email'),
-                TextColumn::make('email_verified_at')
-                    ->label('Email Verified At')
-                    ->dateTime(),
+                // TextColumn::make('email_verified_at')
+                //     ->label('Email Verified At')
+                //     ->dateTime(),
             ])
             ->filters([
                 //

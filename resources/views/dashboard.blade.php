@@ -3,24 +3,27 @@
 
         {{-- Section 1: Hero --}}
 
-        <div class="w-full h-[583px] px-20 py-15 lg:px-40 lg:py-50 flex flex-col relative justify-start items-start gap-2.5">
+        <div
+            class="w-full h-[583px] px-20 py-15 lg:px-40 lg:py-50 flex flex-col relative justify-start items-start gap-2.5">
             <div style="background-image: url( '{{ asset('images/house-design.png') }}')"
                 class="absolute top-0 left-0 w-full h-full object-cover bg-cover bg-center bg-scroll z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[583px] bg-black opacity-60 z-0"></div>
             <div class="w-full h-full flex flex-col text-center justify-center items-center gap-5 z-1">
-                <div class="inline-flex items-center gap-2 backdrop-blur-md px-4 py-2 rounded-full w-fit border border-white/20 animate-slide-down">
+                <div
+                    class="inline-flex items-center gap-2 backdrop-blur-md px-4 py-2 rounded-full w-fit border border-white/20 animate-slide-down">
                     <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
                     <span class="text-white/90 text-sm font-medium">Dipercaya oleh 100+ Customer</span>
                 </div>
-                <div class="justify-start text-white text-xl lg:text-6xl font-bold font-mono animate-slide-up">Bangun Dulu<br />Baru
+                <div class="justify-start text-white text-xl lg:text-6xl font-bold font-mono animate-slide-up">Bangun
+                    Dulu<br />Baru
                     Bayar</div>
-                <p class="text-base font-sans lg:text-lg text-white/80 max-w-3xl leading-relaxed animate-slide-up-delay">
-                    Wujudkan rumah impian Anda dengan konsultasi gratis. Mulai dari desain hingga konstruksi, kami siap membantu setiap langkah perjalanan Anda.
+                <p
+                    class="text-base font-sans lg:text-lg text-white/80 max-w-3xl leading-relaxed animate-slide-up-delay">
+                    Wujudkan rumah impian Anda dengan konsultasi gratis. Mulai dari desain hingga konstruksi, kami siap
+                    membantu setiap langkah perjalanan Anda.
                 </p>
-                <a 
-                    href="{{ route('konsultasi') }}" 
-                    class="group px-4 py-2 lg:px-8 lg:py-4 bg-white text-gray-900 rounded-full font-semibold text-base lg:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 animate-scale-in"
-                >
+                <a href="{{ route('konsultasi') }}"
+                    class="group px-4 py-2 lg:px-8 lg:py-4 bg-white text-gray-900 rounded-full font-semibold text-base lg:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 animate-scale-in">
                     <span>Hubungi Kami</span>
                     <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -36,15 +39,15 @@
                     </svg>
                 </div>
             </div>
-            <a href="https://wa.me/+6282295444284" class="lg:w-15 lg:h-15 w-13 h-13 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1 animate-fade-in-delay">
+            <a href="https://wa.me/+6282295444284"
+                class="lg:w-15 lg:h-15 w-13 h-13 p-2.5 flex absolute bottom-0 right-0 gap-2.5 z-1 animate-fade-in-delay">
                 <img src="{{ asset('icons/ic-whatsapp.svg') }}" alt="Icon WhatsApp" />
             </a>
         </div>
 
-        {{-- Section: Tentang Kami (Professional Premium Style) --}}
-        <section id="about" class="relative w-full py-20 lg:py-32 ">
+        {{-- Section 2: Tentang --}}
 
-            <!-- Decorative Background Elements (Subtle Grid) -->
+        <section id="about" class="relative w-full py-20 lg:py-32 ">
             <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
                 style="background-image: radial-gradient(#0f172a 1px, transparent 1px); background-size: 32px 32px;">
             </div>
@@ -52,11 +55,9 @@
             <div class="container mx-auto px-6 lg:px-16 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-                    <!-- Kolom Teks (Kiri - Span 6) -->
                     <div data-aos="fade-right"
                         class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
 
-                        <!-- Premium Label Badge -->
                         <div class="mb-8">
                             <div
                                 class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md hover:bg-sky-700/30 group cursor-default">
@@ -64,7 +65,6 @@
                                     <span class="font-bold text-slate-800 tracking-tight text-2xl">Di balik</span>
                                     <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                                         Kilau Build
-                                        <!-- Underline decoration -->
                                         <svg class="absolute -bottom-1 left-0 w-full h-1 text-white"
                                             viewBox="0 0 100 10" preserveAspectRatio="none">
                                             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2"
@@ -75,7 +75,6 @@
                             </div>
                         </div>
 
-                        <!-- Headline & Content -->
                         <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 leading-tight">
                             Investasi Hunian Jadi Aman.
                         </h2>
@@ -98,11 +97,9 @@
                             </p>
                         </div>
 
-                        <!-- Divider Line -->
                         <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent mt-8 mb-8 rounded-full">
                         </div>
 
-                        <!-- CTA Link -->
                         <div>
                             <a href="{{ route('konsultasi') }}"
                                 class="group inline-flex items-center gap-3 text-slate-900 font-semibold transition-all">
@@ -122,10 +119,8 @@
                         </div>
                     </div>
 
-                    <!-- Kolom Gambar (Kanan - Span 6) -->
                     <div data-aos="fade-left" class="lg:col-span-6 relative mt-12 lg:mt-0 group perspective-1000">
 
-                        <!-- Decorative Pattern (Dots) behind image -->
                         <div class="absolute -top-8 -right-8 w-32 h-32 opacity-20">
                             <svg width="100%" height="100%" fill="none">
                                 <pattern id="dots" x="0" y="0" width="20" height="20"
@@ -136,20 +131,15 @@
                                 <rect width="100%" height="100%" fill="url(#dots)" />
                             </svg>
                         </div>
-
-                        <!-- Main Image Container -->
                         <div
                             class="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border-[6px] border-white transform transition-transform duration-700 hover:scale-[1.02]">
                             <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop"
                                 alt="Arsitek Kilau Build Profesional"
                                 class="w-full h-[400px] lg:h-[500px] object-cover object-center" />
-                            <!-- Gradient Overlay bottom -->
                             <div
                                 class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-slate-900/50 to-transparent">
                             </div>
                         </div>
-
-                        <!-- Floating Trust Card (Bottom Left) -->
                         <div
                             class="absolute -bottom-6 -left-4 lg:-left-10 bg-white p-5 rounded-xl shadow-soft-xl border border-slate-100 max-w-[220px] transform transition-transform hover:-translate-y-2 duration-300 flex items-center gap-4">
                             <div class="bg-sky-50 p-3 rounded-lg text-sky-700">
@@ -167,7 +157,6 @@
                             </div>
                         </div>
 
-                        <!-- Floating Stats Card (Top Right - Small) -->
                         <div
                             class="hidden lg:flex absolute top-8 -right-6 bg-slate-900 text-white px-5 py-3 rounded-lg shadow-lg items-center gap-3 transform rotate-3 group-hover:rotate-0 transition-all duration-500">
                             <div class="text-left">
@@ -175,9 +164,7 @@
                                 <p class="text-[10px] text-slate-300 uppercase tracking-wider">Biaya Konsultasi</p>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </section>
@@ -288,7 +275,6 @@
             </div>
 
             <div data-aos="fade-left" class="flex flex-col justify-start items-start gap-6 max-w-lg w-full lg:w-auto">
-                <!-- Premium Label Badge -->
                 <div class="mb-2">
                     <div
                         class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md hover:bg-sky-700/40 group cursor-default">
@@ -342,12 +328,11 @@
             </div>
         </div>
 
-        {{-- Section4: Project On-going | Buat Maps:P --}}
+        {{-- Section 4: Project On-going | Buat Maps:P --}}
 
         <div class="w-full flex flex-col gap-12 px-6 py-12 lg:px-40 lg:py-20" data-aos="fade-up"
             data-aos-duration="1500">
             <div class="flex flex-col gap-8 items-start">
-                <!-- Premium Label Badge -->
                 <div>
                     <div
                         class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md hover:bg-sky-700/30 group cursor-default">
@@ -355,7 +340,6 @@
                             <span class="font-bold text-slate-800 tracking-tight text-2xl">Peta</span>
                             <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                                 Proyek
-                                <!-- Underline decoration -->
                                 <svg class="absolute -bottom-1 left-0 w-full h-1 text-white" viewBox="0 0 100 10"
                                     preserveAspectRatio="none">
                                     <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2"
@@ -372,7 +356,6 @@
                 </div>
 
                 <div class="w-full flex">
-                    <!-- Map Component -->
                     <x-public-ongoing-map :points="$points" />
                 </div>
 
@@ -382,14 +365,11 @@
             lg:flex-row lg:gap-25 lg:px-40">
                     <div class="w-full max-w-5xl mx-auto py-10">
 
-                        <!-- Container dengan Divider -->
                         <div
                             class="flex flex-col md:flex-row items-center justify-center divide-y md:divide-y-0 md:divide-x divide-slate-800">
 
-                            {{-- Stat 1: Sedang Berjalan --}}
                             <div class="w-full md:w-1/2 flex items-center justify-center gap-6 py-8 md:py-0 md:pr-12"
                                 data-aos="fade-up">
-                                <!-- Icon (Sky Blue) -->
                                 <div class="p-4 bg-white rounded-full text-sky-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                         viewBox="0 0 576 512"
@@ -399,7 +379,6 @@
                                     </svg>
                                 </div>
 
-                                <!-- Text Info -->
                                 <div class="flex flex-col">
                                     <span
                                         class="text-4xl lg:text-5xl font-bold text-blue-950 tracking-tight leading-none">
@@ -411,10 +390,8 @@
                                 </div>
                             </div>
 
-                            {{-- Stat 2: Telah Selesai --}}
                             <div class="w-full md:w-1/2 flex items-center justify-center gap-6 py-8 md:py-0 md:pl-12"
                                 data-aos="fade-up" data-aos-delay="100">
-                                <!-- Icon (Green) -->
                                 <div class="p-4 bg-white rounded-full text-sky-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
                                         class="size-6"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
@@ -423,7 +400,6 @@
                                     </svg>
                                 </div>
 
-                                <!-- Text Info -->
                                 <div class="flex flex-col">
                                     <span
                                         class="text-4xl lg:text-5xl font-bold text-blue-950 tracking-tight leading-none">
@@ -445,8 +421,10 @@
                 flex-col gap-12           
                 lg:flex-row lg:gap-16">
 
+        {{-- Section 4: Testimoni --}}
+
+
                     <div data-aos="zoom-out-up" class="flex flex-col justify-start items-start gap-6 max-w-md">
-                        <!-- Premium Label Badge -->
                         <div>
                             <div
                                 class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md hover:bg-sky-700/30 group cursor-default">
@@ -454,7 +432,6 @@
                                     <span class="font-bold text-slate-800 tracking-tight text-2xl">Ucap</span>
                                     <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                                         Mereka
-                                        <!-- Underline decoration -->
                                         <svg class="absolute -bottom-1 left-0 w-full h-1 text-white"
                                             viewBox="0 0 100 10" preserveAspectRatio="none">
                                             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2"
@@ -528,11 +505,6 @@
         </div>
 
 
-
-        {{-- Testimoni --}}
-
-
-
         {{-- Section 5: Artikel --}}
         <div data-aos="fade-up" data-aos-delay="100"
             class="w-full flex flex-col justify-start items-start gap-16 px-6 py-12 lg:px-40 lg:py-20">
@@ -604,11 +576,9 @@
                     </div>
                 </div>
                 <div>
-                    <!-- Divider Line -->
                     <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
                     </div>
 
-                    <!-- CTA Link -->
                     <div class="mt-4">
                         <a href="{{ route('artikel') }}"
                             class="group inline-flex items-center gap-3 text-slate-900 font-semibold transition-all">
@@ -635,12 +605,7 @@
         <section id="location" class="relative w-full py-16 lg:py-24 overflow-hidden">
             <div class="container mx-auto px-6 lg:px-12 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-                    <!-- Left Side: Text Info -->
                     <div class="order-2 lg:order-1" data-aos="fade-right">
-
-                        <!-- Badge -->
-                        <!-- Premium Label Badge -->
                         <div>
                             <div
                                 class="bg-sky-700/30 inline-flex items-center px-6 py-3 rounded-full shadow-sm transition-all hover:shadow-md group cursor-default">
@@ -648,7 +613,6 @@
                                     <span class="font-bold text-slate-800 tracking-tight text-2xl">Kilau Build's</span>
                                     <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                                         Location
-                                        <!-- Underline decoration -->
                                         <svg class="absolute -bottom-1 left-0 w-full h-1 text-white"
                                             viewBox="0 0 100 10" preserveAspectRatio="none">
                                             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2"
@@ -675,7 +639,6 @@
                                 rel="noopener noreferrer" class="flex items-start gap-4 group">
                                 <div
                                     class="p-3 bg-sky-50 text-sky-700 rounded-lg group-hover:bg-sky-700 group-hover:text-white transition-colors duration-300 shrink-0">
-                                    <!-- Map Pin Icon -->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round">
@@ -705,13 +668,9 @@
                             form melalui tombol di bawah ini.
                         </p>
 
-                        <!-- CTA Button -->
                         <div>
-                            <!-- Divider Line -->
                             <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
                             </div>
-
-                            <!-- CTA Link -->
                             <div class="mt-4">
                                 <a href="{{ route('artikel') }}"
                                     class="group inline-flex items-center gap-3 text-slate-900 font-semibold transition-all">
@@ -734,9 +693,7 @@
 
                     </div>
 
-                    <!-- Right Side: Map -->
                     <div class="order-1 lg:order-2 relative" data-aos="zoom-in-up">
-                        <!-- Decor Pattern -->
                         <div class="absolute -top-6 -right-6 w-24 h-24 opacity-20 -z-10">
                             <svg width="100%" height="100%" fill="none">
                                 <pattern id="dots-loc" x="0" y="0" width="20" height="20"
@@ -775,7 +732,6 @@
                         <span class="font-bold text-slate-800 tracking-tight text-2xl">Yang Biasa</span>
                         <span class="font-serif-display italic text-sky-700 ml-1 relative text-2xl">
                             Ditanyakan
-                            <!-- Underline decoration -->
                             <svg class="absolute -bottom-1 left-0 w-full h-1 text-white" viewBox="0 0 100 10"
                                 preserveAspectRatio="none">
                                 <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
