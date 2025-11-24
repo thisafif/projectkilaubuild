@@ -6,6 +6,7 @@ use App\Livewire\Ongoing;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Livewire\DetailArtikel;
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 
@@ -31,8 +32,7 @@ Route::get('/tentang-kami', function () {
 
 Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
-Volt::route('artikel/{slug}', 'artikel.detail')->name('artikel.detail');
-// Volt::route('artikel', 'artikel')->name('artikel');
+Route::get('/artikel/{id}', DetailArtikel::class)->name('artikel.detail');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])

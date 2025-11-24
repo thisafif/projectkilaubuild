@@ -34,22 +34,50 @@
                 <div class="lg:col-span-1">
                     <div class="sticky top-10">
                         <h3 class="text-xl font-bold text-black mb-6 border-l-4 border-blue-600 pl-3">
-                            Artikel lainnya
+                            <a href="/artikel" wire:navigate class="hover:underline transition-all">
+                                Artikel lainnya
+                            </a>
                         </h3>
+                        
                         <div class="space-y-6">
-                            @for($i=0; $i<3; $i++) 
-                            <a href="#" class="group flex gap-4 items-start hover:bg-white/50 p-2 rounded-lg transition">
-                                <div class="w-24 h-16 bg-[#D69E76] rounded-md flex-shrink-0 overflow-hidden">
-                                    <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=200&q=60')] bg-cover bg-center"></div>
+                            @foreach($artikelLain as $lain)
+                            
+                            <a href="{{ route('artikel.detail', ['id' => $lain->id]) }}" 
+                            wire:navigate 
+                            class="group flex gap-4 items-start p-2 rounded-lg transition"> 
+                            
+                                <div class="w-24 lg:w-32 h-16 lg:h-24 bg-[#D69E76] rounded-md flex-shrink-0 overflow-hidden relative">
+                                    
+                                    @if($lain->attachmentartikel)
+                                        <img src="{{ asset('storage/'.$lain->attachmentartikel) }}" 
+                                            alt="{{ $lain->judul }}"
+                                            class="w-full h-full object-cover">
+                                    @else
+                                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=200&q=60" 
+                                            alt="Default"
+                                            class="w-full h-full object-cover grayscale opacity-60">
+                                    @endif
+
+                                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition duration-300"></div>
                                 </div>
+
                                 <div>
-                                    <h4 class="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-700 transition mb-1">
-                                        Lorem ipsum dolor sit amet
+                                    <h4 class="font-bold text-gray-900 text-sm lg:text-lg leading-tight group-hover:underline transition mb-1 line-clamp-2">
+                                        {{ $lain->judul }}
                                     </h4>
-                                    <p class="text-xs text-gray-500">31 Oktober 2025</p>
+                                    
+                                    <p class="text-xs lg:text-sm text-gray-500">
+                                        {{ $lain->created_at->format('d F Y') }}
+                                    </p>
                                 </div>
                             </a>
-                            @endfor
+                            @endforeach
+
+                            @if($artikelLain->isEmpty())
+                                <div class="p-4 text-gray-400 text-sm italic border border-dashed rounded text-center">
+                                    Belum ada artikel lainnya.
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

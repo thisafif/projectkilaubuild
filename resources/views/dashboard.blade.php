@@ -295,12 +295,11 @@
                 <h3 class="text-3xl font-bold text-blue-950 leading-tight">Bukti Nyata.</h3>
                 <div class="space-y-6 text-slate-600 text-lg leading-relaxed text-justify">
                     <p class="text-blue-950 text-base lg:text-lg font-medium font-sans leading-relaxed">
-                        Portofolio ini adalah <strong class="text-slate-900"> bukti nyata </strong> bagaimana kami
-                        mengubah
-                        desain menjadi <strong class="text-slate-900">aset masa depan yang berkualitas.</strong>
+                        Portofolio ini adalah <strong class="text-slate-900"> bukti nyata </strong> 
+                        bagaimana kami mengubah desain menjadi <strong class="text-slate-900">aset masa depan yang berkualitas.</strong>
                         Setiap karya di sini menjadi jaminan transparansi bahwa investasi hunian Anda <span
-                            class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full"> aman dan
-                            berkualitas</span>yang dibangun terstandar.
+                            class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full">aman dan
+                            berkualitas</span> yang dibangun terstandar.
                     </p>
                 </div>
                 <!-- Divider Line -->
