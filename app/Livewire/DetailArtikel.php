@@ -3,29 +3,40 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Artikel;
 
 class DetailArtikel extends Component
 {
     public Artikel $artikel;
+    public $artikelLain;
 
-    public function mount($slug)
+    public function mount($id)
     {
-        $dataAsli = Artikel::where('slug', $slug)->first();
+        $dataAsli = Artikel::find($id);
+
         if ($dataAsli) {
             $this->artikel = $dataAsli;
         } else {
             $dummy = new Artikel();
-            $dummy->judul = "Contoh Judul: " . str_replace('-', ' ', $slug);
-            $dummy->isi = "<p>Ini adalah contoh isi artikel karena data asli tidak ditemukan di database. Yang penting tampilannya bener dulu kan?</p><p>Lorem ipsum dolor sit amet.</p>";
+            $dummy->id = 0;
+            $dummy->judul = "Contoh Judul (ID $id tidak ditemukan)";
+            $dummy->isi = "<p>Ini adalah contoh isi artikel karena data asli tidak ditemukan.</p>";
             $dummy->penulis = "Admin";
-            $dummy->tanggal_publikasi = now(); 
-            $dummy->attachmentartikel = null; 
-            
+            $dummy->created_at = now();
+            $dummy->attachmentartikel = null;
+
             $this->artikel = $dummy;
         }
+
+        $this->artikelLain = Artikel::where('id', '!=', $id)
+            ->latest()
+            ->take(5)
+            ->get();
     }
+
     public function render()
     {
-        return view('livewire.detail-artikel');
+        return view('livewire.detail-artikel')
+            ->title($this->artikel->judul);
     }
 }

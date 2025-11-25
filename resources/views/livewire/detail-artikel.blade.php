@@ -37,19 +37,27 @@
                             Artikel lainnya
                         </h3>
                         <div class="space-y-6">
-                            @for($i=0; $i<3; $i++) 
-                            <a href="#" class="group flex gap-4 items-start hover:bg-white/50 p-2 rounded-lg transition">
-                                <div class="w-24 h-16 bg-[#D69E76] rounded-md flex-shrink-0 overflow-hidden">
-                                    <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=200&q=60')] bg-cover bg-center"></div>
+                            @forelse($artikelLain as $item) 
+                            <a href="{{ route('artikel.detail', $item->id) }}" wire:navigate class="group flex gap-4 items-start hover:bg-white/50 p-2 rounded-lg transition">
+                                <div class="w-24 h-16 bg-gray-200 rounded-md shrink-0 overflow-hidden">
+                                    @if($item->attachmentartikel)
+                                        <img src="{{ asset('storage/'.$item->attachmentartikel) }}" class="w-full h-full object-cover" alt="{{ $item->judul }}">
+                                    @else
+                                        <div class="w-full h-full bg-blue-50 flex items-center justify-center text-blue-300 text-xs">No Image</div>
+                                    @endif
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-700 transition mb-1">
-                                        Lorem ipsum dolor sit amet
+                                    <h4 class="font-bold text-gray-900 text-sm leading-tight group-hover:text-blue-700 transition mb-1 line-clamp-2">
+                                        {{ $item->judul }}
                                     </h4>
-                                    <p class="text-xs text-gray-500">31 Oktober 2025</p>
+                                    <p class="text-xs text-gray-500">
+                                        {{ $item->tanggal_publikasi ? $item->tanggal_publikasi->format('d M Y') : '-' }}
+                                    </p>
                                 </div>
                             </a>
-                            @endfor
+                            @empty
+                                <p class="text-gray-500 text-sm">Belum ada artikel lain.</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
