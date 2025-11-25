@@ -34,32 +34,44 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow'; 
 
-const swiper1 = new Swiper('.card-portofolio', {
-    modules: [Navigation, Pagination, EffectCoverflow],
-    effect: 'coverflow',
-    grabCursor: true,
-    centeredSlides: true,
-    loop: true,
-    slidesPerView: 'auto',
-    
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
+const portofolioSliderEl = document.querySelector('.card-portofolio');
 
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-});
+if (portofolioSliderEl) {
+        const slideCount = Number(portofolioSliderEl.dataset.slideCount ?? 0);
+        const hasMultipleSlides = slideCount > 1;
+        const enableLoop = slideCount > 2;
+
+        new Swiper(portofolioSliderEl, {
+                modules: [Navigation, Pagination, EffectCoverflow],
+                effect: enableLoop ? 'coverflow' : 'slide',
+                grabCursor: hasMultipleSlides,
+                centeredSlides: hasMultipleSlides,
+                loop: enableLoop,
+                slidesPerView: enableLoop ? 'auto' : 1,
+                observer: true,
+                observeParents: true,
+                loopAdditionalSlides: enableLoop ? Math.min(slideCount, 5) : 0,
+                allowTouchMove: hasMultipleSlides,
+
+                coverflowEffect: {
+                        rotate: enableLoop ? 30 : 0,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: enableLoop,
+                },
+
+                pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                },
+
+                navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                },
+        });
+}
 
 import { EffectCards } from 'swiper/modules'; 
 

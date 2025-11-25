@@ -97,7 +97,7 @@
                             </p>
                         </div>
 
-                        <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent mt-8 mb-8 rounded-full">
+                        <div class="w-24 h-1 bg-linear-to-r from-sky-700/30 to-transparent mt-8 mb-8 rounded-full">
                         </div>
 
                         <div>
@@ -171,6 +171,8 @@
 
         {{-- Section 3: Portofolio --}}
 
+        @php($portfolioCount = $portofolios->count())
+
         <div
             class="w-full flex items-center justify-center
             flex-col gap-16 px-6 py-12
@@ -235,23 +237,26 @@
                 }
             </style>
 
-            <div class="swiper card-portofolio w-full lg:w-auto" data-aos="flip-down">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="https://placehold.co/300x300/334155/white?text=Slide+1" alt="Property 1">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://placehold.co/300x300/1e40af/white?text=Slide+2" alt="Property 2">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://placehold.co/300x300/15803d/white?text=Slide+3" alt="Property 3">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://placehold.co/300x300/9a3412/white?text=Slide+4" alt="Property 4">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://placehold.co/300x300/7c2d12/white?text=Slide+5" alt="Property 5">
-                    </div>
+            <div class="w-full lg:w-auto" data-aos="flip-down">
+                <div class="swiper card-portofolio" data-slide-count="{{ $portfolioCount }}">
+                    <div class="swiper-wrapper">
+                        @forelse($portofolios as $porto)
+                        <div class="swiper-slide">
+                            @if($porto->attachmentportofolio)
+                                <img src="{{ asset('storage/' . $porto->attachmentportofolio) }}">
+                            @else
+                                <div class="w-full h-full bg-slate-200 flex items-center justify-center rounded-xl">
+                                    <span class="text-slate-400">No Image</span>
+                                </div>
+                            @endif
+                        </div>
+                    @empty
+                         <div class="swiper-slide">
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center rounded-xl">
+                                <span class="text-slate-400">Belum ada portofolio</span>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
                 <div class="swiper-button-prev">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -266,12 +271,10 @@
                             d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
                             clip-rule="evenodd" />
                     </svg>
-
-                    </svg>
-
                 </div>
 
                 <div class="swiper-pagination"></div>
+                </div>
             </div>
 
             <div data-aos="fade-left" class="flex flex-col justify-start items-start gap-6 max-w-lg w-full lg:w-auto">
@@ -304,7 +307,7 @@
                     </p>
                 </div>
                 <!-- Divider Line -->
-                <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
+                <div class="w-24 h-1 bg-linear-to-r from-sky-700/30 to-transparent rounded-full">
                 </div>
 
                 <!-- CTA Link -->
@@ -465,8 +468,9 @@
                             justify-content: center;
                         }
                     </style>
-                    <div class="swiper card-testimoni" data-aos="flip-right">
-                        <div class="swiper-wrapper">
+                    <div data-aos="flip-right">
+                        <div class="swiper card-testimoni">
+                            <div class="swiper-wrapper">
                             @if (isset($testimonis) && $testimonis->isNotEmpty())
                                 @foreach ($testimonis as $t)
                                     <div class="swiper-slide">
@@ -500,6 +504,7 @@
                             @endif
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -529,54 +534,34 @@
                 </div>
                 <div
                     class="w-full flex items-center justify-center flex-col gap-4 px-6 py-8 lg:flex-row lg:gap-8 lg:px-0">
+                    @forelse($artikels as $artikel)
                     <div
                         class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
                         <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 1" />
+                            @if($artikel->attachmentartikel)
+                                <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
+                                    src="{{ asset('storage/' . $artikel->attachmentartikel) }}" alt="{{ $artikel->judul }}" />
+                            @else
+                                <div class="self-stretch h-48 lg:h-52 rounded-2xl bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-400">No Image</span>
+                                </div>
+                            @endif
                             <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
                                 <div
                                     class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
+                                    {{ $artikel->judul }}</div>
                                 <div
                                     class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
+                                    {{ Str::limit(strip_tags($artikel->isi), 100) }}</div>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 2" />
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                src="https://placehold.co/435x250" alt="Artikel 3" />
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    Judul Artikel</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    Lorem ipsum dolor sit amet, consect...</div>
-                            </div>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-500">Belum ada artikel terbaru.</p>
+                    @endforelse
                 </div>
                 <div>
-                    <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
+                    <div class="w-24 h-1 bg-linear-to-r from-sky-700/30 to-transparent rounded-full">
                     </div>
 
                     <div class="mt-4">
@@ -669,7 +654,7 @@
                         </p>
 
                         <div>
-                            <div class="w-24 h-1 bg-gradient-to-r from-sky-700/30 to-transparent rounded-full">
+                            <div class="w-24 h-1 bg-linear-to-r from-sky-700/30 to-transparent rounded-full">
                             </div>
                             <div class="mt-4">
                                 <a href="{{ route('artikel') }}"
