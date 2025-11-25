@@ -11,6 +11,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -36,7 +37,13 @@ class ArtikelResource extends Resource
     {
         return $schema->schema([
             TextInput::make('judul')->required(),
-            TextInput::make('isi')->required(),
+            RichEditor::make('isi')->required()
+                ->toolbarButtons([
+                    ['bold', 'italic', 'underline', 'strike', 'link'],
+                    ['h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd'],
+                    ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                    ['undo', 'redo'],
+                ]),
             TextInput::make('penulis')->required(),
             DatePicker::make('tanggal_publikasi')
                 ->required()
