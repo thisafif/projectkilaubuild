@@ -86,8 +86,7 @@
                                 bukan sekadar menyusun bata, melainkan menciptakan aset masa depan yang harus presisi
                                 dan bernilai.
                             </p>
-                            <p>
-                                Kami menghadirkan rasa aman dan nyaman bagi Anda melalui sistem <strong
+                            <p>Kami menghadirkan rasa aman dan nyaman bagi Anda melalui sistem <strong
                                     class="text-slate-900">"Bangun Dulu, Baru Bayar."</strong> dan menyediakan <strong
                                     class="text-slate-900">
                                     Konsultasi Gratis </strong> ke lokasi melalui
@@ -241,39 +240,42 @@
                 <div class="swiper card-portofolio" data-slide-count="{{ $portfolioCount }}">
                     <div class="swiper-wrapper">
                         @forelse($portofolios as $porto)
-                        <div class="swiper-slide">
-                            @if($porto->attachmentportofolio)
-                                <img src="{{ asset('storage/' . $porto->attachmentportofolio) }}">
-                            @else
-                                <div class="w-full h-full bg-slate-200 flex items-center justify-center rounded-xl">
-                                    <span class="text-slate-400">No Image</span>
-                                </div>
-                            @endif
-                        </div>
-                    @empty
-                         <div class="swiper-slide">
-                            <div class="w-full h-full bg-slate-100 flex items-center justify-center rounded-xl">
-                                <span class="text-slate-400">Belum ada portofolio</span>
+                            <div class="swiper-slide">
+                                @if ($porto->attachmentportofolio)
+                                    <img src="{{ asset('storage/' . $porto->attachmentportofolio) }}">
+                                @else
+                                    <div
+                                        class="w-full h-full bg-slate-200 flex items-center justify-center rounded-xl">
+                                        <span class="text-slate-400">No Image</span>
+                                    </div>
+                                @endif
                             </div>
-                        </div>
-                    @endforelse
-                </div>
-                <div class="swiper-button-prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="swiper-button-next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                        <path fill-rule="evenodd"
-                            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </div>
+                        @empty
+                            <div class="swiper-slide">
+                                <div class="w-full h-full bg-slate-100 flex items-center justify-center rounded-xl">
+                                    <span class="text-slate-400">Belum ada portofolio</span>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="swiper-button-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-6">
+                            <path fill-rule="evenodd"
+                                d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="swiper-button-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-6">
+                            <path fill-rule="evenodd"
+                                d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
 
-                <div class="swiper-pagination"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
 
@@ -302,8 +304,8 @@
                         mengubah
                         desain menjadi <strong class="text-slate-900">aset masa depan yang berkualitas.</strong>
                         Setiap karya di sini menjadi jaminan transparansi bahwa investasi hunian Anda <span
-                            class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full"> aman dan
-                            berkualitas</span>yang dibangun terstandar.
+                            class="text-sky-700 font-semibold bg-sky-50 px-2 py-1 rounded-full">aman dan
+                            berkualitas</span> yang dibangun terstandar.
                     </p>
                 </div>
                 <!-- Divider Line -->
@@ -424,7 +426,7 @@
                 flex-col gap-12
                 lg:flex-row lg:gap-16">
 
-        {{-- Section 4: Testimoni --}}
+                    {{-- Section 4: Testimoni --}}
 
 
                     <div data-aos="zoom-out-up" class="flex flex-col justify-start items-start gap-6 max-w-md">
@@ -471,39 +473,40 @@
                     <div data-aos="flip-right">
                         <div class="swiper card-testimoni">
                             <div class="swiper-wrapper">
-                            @if (isset($testimonis) && $testimonis->isNotEmpty())
-                                @foreach ($testimonis as $t)
+                                @if (isset($testimonis) && $testimonis->isNotEmpty())
+                                    @foreach ($testimonis as $t)
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
+                                                <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
+                                                <p class="text-gray-700 text-base italic leading-relaxed">
+                                                    {{ $t->teks }}
+                                                </p>
+                                                <div>
+                                                    <div class="font-bold text-blue-950 text-xl">{{ $t->nama }}
+                                                    </div>
+                                                    <div class="text-sm text-gray-500">{{ $t->kegseharihari }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
                                     <div class="swiper-slide">
                                         <div
                                             class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
                                             <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
                                             <p class="text-gray-700 text-base italic leading-relaxed">
-                                                {{ $t->teks }}
+                                                Belum ada testimoni tersedia saat ini.
                                             </p>
                                             <div>
-                                                <div class="font-bold text-blue-950 text-xl">{{ $t->nama }}</div>
-                                                <div class="text-sm text-gray-500">{{ $t->kegseharihari }}</div>
+                                                <div class="font-bold text-blue-950 text-xl">Admin</div>
+                                                <div class="text-sm text-gray-500">Kilau Build</div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            @else
-                                <div class="swiper-slide">
-                                    <div
-                                        class="w-full h-full p-6 bg-white rounded-3xl shadow-xl flex flex-col justify-between">
-                                        <div class="text-gray-500 text-6xl font-bold leading-none">"</div>
-                                        <p class="text-gray-700 text-base italic leading-relaxed">
-                                            Belum ada testimoni tersedia saat ini.
-                                        </p>
-                                        <div>
-                                            <div class="font-bold text-blue-950 text-xl">Admin</div>
-                                            <div class="text-sm text-gray-500">Kilau Build</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+                                @endif
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -535,27 +538,29 @@
                 <div
                     class="w-full flex items-center justify-center flex-col gap-4 px-6 py-8 lg:flex-row lg:gap-8 lg:px-0">
                     @forelse($artikels as $artikel)
-                    <div
-                        class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
-                        <div class="self-stretch flex flex-col justify-start items-center gap-0">
-                            @if($artikel->attachmentartikel)
-                                <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
-                                    src="{{ asset('storage/' . $artikel->attachmentartikel) }}" alt="{{ $artikel->judul }}" />
-                            @else
-                                <div class="self-stretch h-48 lg:h-52 rounded-2xl bg-gray-200 flex items-center justify-center">
-                                    <span class="text-gray-400">No Image</span>
+                        <div
+                            class="w-full lg:w-72 h-auto bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 inline-flex flex-col justify-start items-start gap-0 overflow-hidden">
+                            <div class="self-stretch flex flex-col justify-start items-center gap-0">
+                                @if ($artikel->attachmentartikel)
+                                    <img class="self-stretch h-48 lg:h-52 rounded-2xl object-cover"
+                                        src="{{ asset('storage/' . $artikel->attachmentartikel) }}"
+                                        alt="{{ $artikel->judul }}" />
+                                @else
+                                    <div
+                                        class="self-stretch h-48 lg:h-52 rounded-2xl bg-gray-200 flex items-center justify-center">
+                                        <span class="text-gray-400">No Image</span>
+                                    </div>
+                                @endif
+                                <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
+                                    <div
+                                        class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
+                                        {{ $artikel->judul }}</div>
+                                    <div
+                                        class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
+                                        {{ Str::limit(strip_tags($artikel->isi), 100) }}</div>
                                 </div>
-                            @endif
-                            <div class="self-stretch p-5 flex flex-col justify-start items-start gap-2">
-                                <div
-                                    class="self-stretch justify-start text-gray-900 text-lg lg:text-xl font-bold font-mono line-clamp-2">
-                                    {{ $artikel->judul }}</div>
-                                <div
-                                    class="self-stretch justify-start text-gray-600 text-sm lg:text-base font-medium font-sans line-clamp-2">
-                                    {{ Str::limit(strip_tags($artikel->isi), 100) }}</div>
                             </div>
                         </div>
-                    </div>
                     @empty
                         <p class="text-gray-500">Belum ada artikel terbaru.</p>
                     @endforelse
@@ -727,26 +732,27 @@
             </div>
             <div class="w-full -my-4 flex flex-col divide-y divide-black">
                 @foreach ($faqs as $faq)
-                <div x-data="{ open: false }" class="py-4">
-                    <summary x-on:click="open = !open"
-                        class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                        <h2 class="text-lg font-semibold font-sans">{{ $faq->pertanyaan }}</h2>
-                        <div x-bind:class="{ '-rotate-180': open }"
-                            class="size-5 shrink-0 transition-transform duration-300">
-                            <flux:icon name="chevron-down" />
+                    <div x-data="{ open: false }" class="py-4">
+                        <summary x-on:click="open = !open"
+                            class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                            <h2 class="text-lg font-semibold font-sans">{{ $faq->pertanyaan }}</h2>
+                            <div x-bind:class="{ '-rotate-180': open }"
+                                class="size-5 shrink-0 transition-transform duration-300">
+                                <flux:icon name="chevron-down" />
+                            </div>
+                        </summary>
+                        <div x-show="open" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 max-h-0"
+                            x-transition:enter-end="opacity-100 max-h-screen"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 max-h-screen"
+                            x-transition:leave-end="opacity-0 max-h-0" class="overflow-hidden">
+                            <p class="pt-4 text-gray-900 font-sans">
+                                {{ $faq->jawaban }}
+                            </p>
                         </div>
-                    </summary>
-                    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-screen"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0"
-                        class="overflow-hidden">
-                        <p class="pt-4 text-gray-900 font-sans">
-                            {{ $faq->jawaban }}
-                        </p>
                     </div>
-                </div>
-        @endforeach
+                @endforeach
             </div>
         </div>
 
