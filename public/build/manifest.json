@@ -4,7 +4,7 @@
     "src": "public/images/house-design.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-sEw-F7In.css",
+    "file": "assets/app-uLUiDBwM.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -13,7 +13,7 @@
     ]
   },
   "resources/css/filament/admin/theme.css": {
-    "file": "assets/theme-DVbdMHtU.css",
+    "file": "assets/theme-DlYLy93i.css",
     "src": "resources/css/filament/admin/theme.css",
     "isEntry": true,
     "name": "theme",
