@@ -1,0 +1,33 @@
+{
+  "public/images/house-design.png": {
+    "file": "assets/house-design-BYDnsGmp.png",
+    "src": "public/images/house-design.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-sEw-F7In.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/filament/admin/theme.css": {
+    "file": "assets/theme-DVbdMHtU.css",
+    "src": "resources/css/filament/admin/theme.css",
+    "isEntry": true,
+    "name": "theme",
+    "names": [
+      "theme.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-D7-qrawE.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-CbUC_Vzu.css"
+    ]
+  }
+}
