@@ -71,6 +71,5 @@ class User extends Authenticatable
         );
     }
 
-    use HasRoles;
     protected $guard_name = 'web';
 }
