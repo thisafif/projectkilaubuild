@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,15 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        config(['app.locale' => 'id']);
-        Carbon::setLocale('id');
-
-        //     if (config('app.env') === 'production') {
-        //         URL::forceScheme('https');
-        // }
-
-        if (! app()->runningInConsole()) {
+        // Paksa HTTPS cuma di production
+        if (app()->environment('production')) {
             URL::forceScheme('https');
         }
+
+        // Bypass semua Gate / Shield buat super_admin
+        Gate::before(function ($user, string $ability) {
+            if ($user && method_exists($user, 'hasRole')) {
+                if ($user->hasRole(config('filament-shield.super_admin.name'))) {
+                    return true;
+                }
+            }
+
+            return null; // user lain jalan normal
+        });
     }
 }
