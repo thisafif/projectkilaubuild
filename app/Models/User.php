@@ -60,14 +60,16 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 
     public function avatarName(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->name,
+            get: fn() => $this->name,
         );
     }
+
+    protected $guard_name = 'web';
 }
