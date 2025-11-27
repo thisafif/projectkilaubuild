@@ -8,6 +8,7 @@ use Filament\PanelProvider;
 use Filament\Enums\ThemeMode;
 use Filament\Support\Colors\Color;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Session\Middleware\StartSession;
@@ -33,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->authGuard('web')
+            ->authGuard(guard: 'web')
             // ->defaultLocale('id')
             // ->locales(['id'])
             ->darkMode(false)
@@ -42,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::hex('#0066AE'),
                 'gray' => Color::Slate,
             ])
-            ->brandLogo(fn () => view('filament.admin.logo'))
+            ->brandLogo(fn() => view('filament.admin.logo'))
             ->brandLogoHeight('3rem')
             ->profile(isSimple: false)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -80,12 +81,20 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->globalSearch(false);
     }
-
     public function boot(): void
     {
+        Gate::before(function ($user, string $ability) {
+            // kalau user punya role super_admin → auto lolos semua
+            if ($user && method_exists($user, 'hasRole')) {
+                if ($user->hasRole(config('filament-shield.super_admin.name'))) {
+                    return true;
+                }
+            }
+        });
+
         FilamentView::registerRenderHook(
             'panels::body.end',
-            fn (): string => Blade::render(<<<'BLADE'
+            fn(): string => Blade::render(<<<'BLADE'
                 @once
                 <script>
                     (function() {
