@@ -85,9 +85,9 @@ class User extends Authenticatable implements FilamentUser
         }
 
         // OPSI B: Izinkan jika email domain tertentu (opsional)
-        // return str_ends_with($this->email, '@koyeb-app.com');
+        return str_ends_with($this->email, '@kilaubuild.com');
 
         // Default: Tolak akses
-        return false;
+        // return false;
     }
 }
