@@ -9,9 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
@@ -73,4 +75,19 @@ class User extends Authenticatable
 
     use HasRoles;
     protected $guard_name = 'web';
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // OPSI A: Jika user punya role super_admin, izinkan.
+        // Pastikan nama role sesuai dengan config shield ('super_admin')
+        if ($this->hasRole('super_admin')) {
+            return true;
+        }
+
+        // OPSI B: Izinkan jika email domain tertentu (opsional)
+        // return str_ends_with($this->email, '@koyeb-app.com');
+
+        // Default: Tolak akses
+        return false;
+    }
 }
