@@ -1,4 +1,4 @@
-<div class="w-full lg:px-40 px-6 py-8 animate-fade-in-delay">
+<div class="w-full h-min-screen lg:px-40 px-6 py-8 animate-fade-in-delay">
 
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4">
         <div>
