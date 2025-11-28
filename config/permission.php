@@ -198,5 +198,16 @@ return [
          */
 
         'store' => 'default',
+
+
+        /*
+            * If you are using multiple authentication guards in your application you may
+            * set this option to true. This will create a separate cache for each guard
+            * otherwise the permissions will be cached as a single set.
+         */
+
+        'defaults' => [
+            'guard' => 'web',
+        ],
     ],
 ];

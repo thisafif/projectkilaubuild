@@ -61,13 +61,14 @@ return [
     | or as a traditional role with all permissions explicitly assigned.
     |
     */
-
+    'auth_guard' => 'web',
     'super_admin' => [
         'enabled' => true,
         'name' => 'super_admin',
         'define_via_gate' => false,
         'intercept_gate' => 'before',
     ],
+    'enabled' => env('FILAMENT_SHIELD_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,8 +121,17 @@ return [
         'merge' => true,
         'generate' => true,
         'methods' => [
-            'viewAny', 'view', 'create', 'update', 'delete', 'restore',
-            'forceDelete', 'forceDeleteAny', 'restoreAny', 'replicate', 'reorder',
+            'viewAny',
+            'view',
+            'create',
+            'update',
+            'delete',
+            'restore',
+            'forceDelete',
+            'forceDeleteAny',
+            'restoreAny',
+            'replicate',
+            'reorder',
         ],
         'single_parameter_methods' => [
             'viewAny',
