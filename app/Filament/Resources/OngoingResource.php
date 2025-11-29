@@ -100,7 +100,9 @@ class OngoingResource extends Resource
                             ->directory('ongoing-projects')
                             ->helperText('Upload beberapa gambar yang mewakili kondisi atau progres proyek.')
                             ->columnSpanFull()
-                            ->maxSize(50000),
+                            ->maxSize(50000)
+                            ->visibility('public'),
+                            
                     ])
                     ->columns(3)
                     ->columnSpanFull()

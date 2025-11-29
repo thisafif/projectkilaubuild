@@ -91,7 +91,8 @@ class PortofolioResource extends Resource
                                     null,
                                 ])
                                 ->image()
-                                ->columnSpanFull(),
+                                ->columnSpanFull()
+                                ->visibility('public'),
                         ]),
                 ])
         ]);

@@ -16,10 +16,7 @@ class DashboardController extends Controller
         $testimonis = Testimoni::all();
         $portofolios = Portofolio::latest()->take(5)->get();
         $artikels = Artikel::latest()->take(3)->get();
-
         $faqs = Question::all();
-
-
         $ongoingCount = Ongoing::whereIn('status', ['consultation', 'planning', 'in_progress'])->count();
         $completedCount = Ongoing::where('status', 'done')->count();
 

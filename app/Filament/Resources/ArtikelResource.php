@@ -59,7 +59,8 @@ class ArtikelResource extends Resource
                     '9:16',
                     null,
                 ])
-                ->image(),
+                ->image()
+                ->visibility('public'),
         ]);
     }
 

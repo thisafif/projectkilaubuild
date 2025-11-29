@@ -42,6 +42,7 @@ class TimForm
                     null,
                 ])
                 ->image()
+                ->visibility('public')
                 ->required(),
         ]);
     }
