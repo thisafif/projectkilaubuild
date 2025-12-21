@@ -25,6 +25,7 @@ class CreateCitiesTable extends Migration
                 ->references('code')
                 ->on(config('laravolt.indonesia.table_prefix').'provinces')
                 ->onUpdate('cascade')->onDelete('restrict');
+                # Komposisi
         });
     }
 

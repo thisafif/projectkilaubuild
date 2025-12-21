@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ongoing extends Model
 {
@@ -21,6 +22,7 @@ class Ongoing extends Model
         'vendors',
         'project_address',
         'location',
+        'user_id'
     ];
 
     protected function casts(): array
@@ -31,5 +33,10 @@ class Ongoing extends Model
             'start_date' => 'date',
             'expected_end_date' => 'date',
         ];
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

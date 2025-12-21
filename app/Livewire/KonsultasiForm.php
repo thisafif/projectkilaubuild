@@ -250,7 +250,7 @@ class KonsultasiForm extends Component
         $pesan .= "Detail: {$data['detailKonsultasi']}\n\n";
         $pesan .= 'Terima kasih, mohon segera dikonfirmasi.';
 
-        $nomorWhatsapp = '6285171062602'; // NO WHATSAPP PM MU, BUKAN KILAUBUILD. JGN LUPA UBAH KE NO WA KILAUBUILD SEBELUM PRODUCTION
+        $nomorWhatsapp = '6282295444284'; // NOMOR WA KILAUBUILD
 
         session()->flash('sukses', 'Konsultasi berhasil dikirim. Anda akan dialihkan ke WhatsApp.');
 
@@ -291,6 +291,7 @@ class KonsultasiForm extends Component
         };
     }
 
+    
     public function render()
     {
         return view('livewire.konsultasi-form', [

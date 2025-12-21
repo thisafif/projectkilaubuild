@@ -12,6 +12,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Admin;   
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -76,18 +77,27 @@ class User extends Authenticatable implements FilamentUser
     use HasRoles;
     protected $guard_name = 'web';
 
+    #Agregasi ke model Admin
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
+    #Agregasi ke model Owner
+    public function owner()
+    {
+        return $this->belongsTo(Owner::class);
+    }
     public function canAccessPanel(Panel $panel): bool
     {
-        // OPSI A: Jika user punya role super_admin, izinkan.
-        // Pastikan nama role sesuai dengan config shield ('super_admin')
+
         if ($this->hasRole('super_admin')) {
             return true;
         }
 
-        // OPSI B: Izinkan jika email domain tertentu (opsional)
         return str_ends_with($this->email, '@kilaubuild.com');
 
-        // Default: Tolak akses
+        // TOLAK AKSES
         // return false;
     }
 }

@@ -11,7 +11,7 @@ class Tim extends Component
     {
         $tim = TimModel::orderBy('indeks')->get();
 
-        return view('livewire.tim', [
+        return view('livewire.tim', [                   # Asosiasi dengan view tim
             'tim' => $tim,
         ]);
     }
